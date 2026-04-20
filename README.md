@@ -1,18 +1,23 @@
 # demo-vibe-open
 
-Demo de evaluación `CSA LATAM AICM / AI-CAIQ` construida para el módulo de Vibe Coding y Prototipado con IA.
+Demo interactiva para evaluación de controles `CSA AICM / AI-CAIQ`, orientada al Chapter LATAM de Cloud Security Alliance.
 
-## Qué incluye
+La aplicación permite recorrer dominios de seguridad, responder preguntas de assessment y usar un agente IA contextual para explicar controles, evidencia esperada, brechas comunes y siguientes pasos de implementación.
 
-- `csa_latam_aicm_agent.html`: versión base del assessment.
-- `csa_latam_aicm_agent_openai.html`: versión cliente con conexión directa a OpenAI API.
-- `csa_latam_aicm_agent_backend.html`: versión recomendada para demo, usando backend local.
-- `Code/aicm_agent_server.js`: proxy backend mínimo para OpenAI.
-- `Code/README_aicm_agent_backend.md`: guía rápida para correr la versión segura.
+## Versiones incluidas
 
-## Cómo correr la versión con backend
+- `csa_latam_aicm_agent.html`
+  Versión base del assessment.
+- `csa_latam_aicm_agent_openai.html`
+  Versión cliente con conexión directa a OpenAI API desde el navegador.
+- `csa_latam_aicm_agent_backend.html`
+  Versión recomendada para publicar demos, porque usa un backend local y no expone la API key.
+- `Code/aicm_agent_server.js`
+  Proxy backend mínimo hacia OpenAI Responses API.
 
-1. Define tus variables de entorno:
+## Inicio rápido
+
+1. Configura variables de entorno:
 
 ```bash
 export OPENAI_API_KEY="sk-..."
@@ -20,18 +25,31 @@ export OPENAI_MODEL="gpt-4.1-mini"
 export PORT=3000
 ```
 
-2. Inicia el servidor:
+2. Levanta el servidor:
 
 ```bash
 node Code/aicm_agent_server.js
 ```
 
-3. Abre en el navegador:
+3. Abre la app:
 
 ```text
 http://localhost:3000
 ```
 
-## Nota
+## Estructura del repo
 
-La versión con backend es la más segura para publicar o demoear, porque no expone la API key en el navegador.
+```text
+.
+├── csa_latam_aicm_agent.html
+├── csa_latam_aicm_agent_openai.html
+├── csa_latam_aicm_agent_backend.html
+└── Code/
+    ├── aicm_agent_server.js
+    ├── .env.example
+    └── README_aicm_agent_backend.md
+```
+
+## Recomendación
+
+Para demos públicas o compartidas, usa `csa_latam_aicm_agent_backend.html`. Esa versión mantiene la API key fuera del navegador y deja el agente más listo para un entorno real.

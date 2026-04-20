@@ -3,6 +3,7 @@ node_modules/
 .env
 Code/.env
 *.log
+Code/documento_ejecutivo_borrador.md
 
 # Large local source materials not needed for the demo repo
 *.pdf
