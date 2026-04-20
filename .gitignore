@@ -1,0 +1,14 @@
+.DS_Store
+node_modules/
+.env
+Code/.env
+*.log
+
+# Large local source materials not needed for the demo repo
+*.pdf
+*.pptx
+~$*
+
+# macOS / editor noise
+.vscode/
+.idea/
