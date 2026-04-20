@@ -324,7 +324,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
       <div id="intro" style="padding:32px;max-width:660px;margin:0 auto;width:100%">
         <div class="ibadge">&#9733; CSA LATAM Chapter &middot; Herramienta Gratuita</div>
         <h1 class="ih1">AI Controls Matrix<br>Self-Assessment Tool</h1>
-        <p class="isub">Evalúa la postura de seguridad de tu organización frente a los controles del AI-CAIQ v1.0.2. Incluye un <strong style="color:var(--pu)">Agente de validación de evidencia</strong> que cruza respuestas del auditor, señales del tenant cloud y artefactos documentales para orientar implementación, conclusión y remediación.</p>
+        <p class="isub">Evalúa la postura de seguridad de tu organización frente a los controles del AI-CAIQ v1.0.2. Incluye un <strong style="color:var(--pu)">Agente de validación de evidencia</strong> que cruza respuestas del auditor, señales del tenant cloud, capacidades de <strong style="color:var(--cy)">posture management</strong> y artefactos documentales para orientar implementación, conclusión y remediación.</p>
         <div class="igrid">
           <div class="icard"><div class="inum" id="hero-total-controls">311</div><div class="ilabel">Preguntas AI-CAIQ v1.0.2</div></div>
           <div class="icard"><div class="inum">18</div><div class="ilabel">Dominios de seguridad</div></div>
@@ -334,7 +334,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
           <div class="story-card">
             <div class="story-kicker">Infraestructura</div>
             <div class="story-title">Consulta el tenant cloud</div>
-            <div class="story-copy">El agente puede conectarse a Azure, AWS o GCP para contrastar configuraciones, findings, políticas, inventarios, logging y señales de postura técnica.</div>
+            <div class="story-copy">El agente puede conectarse a Azure, AWS o GCP para contrastar configuraciones, findings, políticas, inventarios, logging y señales de postura técnica provenientes de capacidades de posture management.</div>
           </div>
           <div class="story-card">
             <div class="story-kicker">Auditoría</div>
@@ -351,7 +351,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
           <div class="flow-head">
             <div>
               <div class="flow-title">Cómo trabaja el agente</div>
-              <div class="flow-sub">La evaluación deja de ser solo un cuestionario y pasa a ser una validación híbrida entre auditor, nube y evidencia documental.</div>
+              <div class="flow-sub">La evaluación deja de ser solo un cuestionario y pasa a ser una validación híbrida entre auditor, nube, posture management y evidencia documental.</div>
             </div>
             <div class="tenant-pill">Assessment + Evidence</div>
           </div>
@@ -364,7 +364,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
             <div class="flow-step">
               <div class="flow-num">02</div>
               <strong>Conexión al tenant</strong>
-              <span>Se consulta la infraestructura cloud para obtener señales técnicas y postura de seguridad real.</span>
+              <span>Se consulta la infraestructura cloud para obtener señales técnicas, hallazgos de posture management y postura de seguridad real.</span>
             </div>
             <div class="flow-step">
               <div class="flow-num">03</div>
@@ -388,8 +388,8 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
         <div id="tenant-connection" class="tenant-card">
           <div class="tenant-head">
             <div>
-              <div class="tenant-title">Conexión al Tenant Cloud</div>
-              <div class="tenant-sub">Esta capa simula cómo la solución validaría evidencia técnica desde el tenant o la suscripción del cliente. En una versión productiva, aquí conectaríamos OAuth, roles cross-account o service accounts de solo lectura.</div>
+              <div class="tenant-title">Conexión al Tenant Cloud y Posture Management</div>
+              <div class="tenant-sub">Esta capa simula cómo la solución validaría evidencia técnica desde el tenant o la suscripción del cliente. En una versión productiva, aquí conectaríamos OAuth, roles cross-account o service accounts de solo lectura, además de señales desde plataformas CSPM, CNAPP o AI-SPM.</div>
             </div>
             <div id="tenant-status" class="tenant-pill">Demo mode</div>
           </div>
@@ -414,7 +414,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
             <div style="font-size:16px;line-height:1">&#128274;</div>
             <div>
               <strong>Evidencia técnica simulada</strong>
-              <span>La demo mostrará evidencia por control, brecha entre lo declarado y lo evidenciado y recomendaciones asociadas al proveedor cloud seleccionado.</span>
+              <span>La demo mostrará evidencia por control, brecha entre lo declarado y lo evidenciado y recomendaciones asociadas al proveedor cloud seleccionado y a sus señales de posture management.</span>
             </div>
           </div>
         </div>
@@ -1374,9 +1374,9 @@ function selTenant(el, provider){
 }
 
 function providerEvidenceSource(provider){
-  if(provider === 'AWS') return 'Security Hub / IAM / Config';
-  if(provider === 'GCP') return 'Security Command Center / IAM / Logging';
-  return 'Defender for Cloud / Entra ID / Azure Policy';
+  if(provider === 'AWS') return 'Security Hub / Config / CSPM';
+  if(provider === 'GCP') return 'Security Command Center / IAM / Posture Dashboard';
+  return 'Defender for Cloud / Azure Policy / CSPM';
 }
 
 function buildEvidenceItems(findings){
@@ -1388,10 +1388,10 @@ function buildEvidenceItems(findings){
     const statusClass = evidenceStatus === 'Implementado' ? 'good' : evidenceStatus === 'Parcial' ? 'warn' : 'bad';
     const source = providerEvidenceSource(tenantProvider);
     const evidenceText = tenantProvider === 'Azure'
-      ? `Se consultarían configuraciones y señales desde ${source} para validar este control en recursos y servicios asociados.`
+      ? `Se consultarían configuraciones, findings y señales de posture management desde ${source} para validar este control en recursos y servicios asociados.`
       : tenantProvider === 'AWS'
-        ? `Se contrastaría este control con hallazgos, configuración y trazabilidad obtenidos desde ${source}.`
-        : `Se revisaría cumplimiento técnico y postura de seguridad a partir de ${source}.`;
+        ? `Se contrastaría este control con hallazgos, configuración, trazabilidad y posture findings obtenidos desde ${source}.`
+        : `Se revisaría cumplimiento técnico, posture management y postura de seguridad a partir de ${source}.`;
     const documentary = index % 2 === 0
       ? 'Disponible'
       : 'Parcial';
@@ -1482,8 +1482,8 @@ function renderEvidencePanel(findings){
     <div class="evidence-wrap">
       <div class="evidence-head">
         <div>
-          <div class="evidence-title">Evidencia Técnica del Tenant</div>
-          <div class="evidence-sub">Vista conceptual de cómo se cruzaría la evaluación humana con evidencia automática proveniente de <strong style="color:var(--t0)">${tenantProvider}</strong>. Esto permite distinguir controles declarados, evidenciados y brechas que requieren validación real.</div>
+          <div class="evidence-title">Evidencia Técnica del Tenant y Posture Management</div>
+          <div class="evidence-sub">Vista conceptual de cómo se cruzaría la evaluación humana con evidencia automática proveniente de <strong style="color:var(--t0)">${tenantProvider}</strong> y de capacidades de posture management. Esto permite distinguir controles declarados, evidenciados y brechas que requieren validación real.</div>
         </div>
         <div class="evidence-chip">${tenantProvider} conectado en modo demo</div>
       </div>
