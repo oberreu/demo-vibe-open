@@ -117,6 +117,20 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 .ap-status{margin-left:auto;font-size:9px;font-family:var(--mo);padding:4px 8px;border-radius:999px;border:1px solid var(--bd);color:var(--t2)}
 .ap-status.ok{color:var(--gr);border-color:#22C55E40;background:#22C55E12}
 .ap-status.warn{color:var(--am);border-color:#F5A62340;background:#F5A62312}
+.tenant-card{background:linear-gradient(180deg,#101C34 0%,#0B1324 100%);border:1px solid var(--bdl);border-radius:12px;padding:18px;margin-bottom:16px}
+.tenant-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
+.tenant-title{font-size:12px;font-weight:700;color:var(--t0)}
+.tenant-sub{font-size:11px;color:var(--t1);line-height:1.6;max-width:68ch}
+.tenant-pill{font-size:10px;font-family:var(--mo);padding:5px 9px;border-radius:999px;background:rgba(45,107,244,.12);border:1px solid rgba(45,107,244,.25);color:var(--bl);white-space:nowrap}
+.tenant-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+.tenant-btn{padding:10px 12px;background:rgba(19,32,56,.78);border:1px solid var(--bd);border-radius:10px;cursor:pointer;text-align:left;color:var(--t0);transition:all .15s}
+.tenant-btn.sel{background:rgba(45,107,244,.16);border-color:#2D6BF460;box-shadow:inset 0 0 0 1px rgba(45,107,244,.15)}
+.tenant-code{font-size:10px;font-weight:700;color:var(--bl);font-family:var(--mo);margin-bottom:4px}
+.tenant-name{font-size:12px;font-weight:600;color:var(--t0);margin-bottom:2px}
+.tenant-desc{font-size:10px;color:var(--t2);line-height:1.45}
+.tenant-note{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;border-radius:10px;background:rgba(0,196,168,.08);border:1px solid rgba(0,196,168,.2)}
+.tenant-note strong{display:block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--cy);margin-bottom:3px}
+.tenant-note span{display:block;font-size:11px;color:var(--t1);line-height:1.55}
 /* ASSESSMENT */
 #assessment{flex:1;padding:18px 22px;display:none;flex-direction:column;overflow-y:auto}
 .dom-hdr{padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--bd)}
@@ -205,6 +219,31 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 .agent-next{margin-top:12px;padding:10px 12px;border-radius:10px;background:rgba(0,196,168,.08);border:1px solid rgba(0,196,168,.2)}
 .agent-next-title{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--cy);margin-bottom:4px}
 .agent-next-body{font-size:12px;color:var(--t0);line-height:1.6}
+.evidence-wrap{grid-column:1/-1;background:linear-gradient(180deg,#101A30 0%,#0B1221 100%);border:1px solid var(--bdl);border-radius:14px;padding:18px}
+.evidence-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:14px}
+.evidence-title{font-size:14px;font-weight:700;color:var(--t0);margin-bottom:4px}
+.evidence-sub{font-size:11px;color:var(--t1);line-height:1.6;max-width:72ch}
+.evidence-chip{padding:6px 10px;border-radius:999px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);color:var(--gr);font-size:10px;font-weight:700;font-family:var(--mo);white-space:nowrap}
+.evidence-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.evidence-metric{padding:12px;border-radius:12px;background:rgba(19,32,56,.72);border:1px solid rgba(109,146,209,.18)}
+.evidence-metric-label{font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.evidence-metric-value{font-size:20px;font-weight:700;font-family:var(--mo);color:var(--t0)}
+.evidence-metric-hint{font-size:10px;color:var(--t1);margin-top:4px;line-height:1.5}
+.evidence-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.evidence-card{padding:16px;border-radius:14px;background:linear-gradient(180deg,rgba(19,32,56,.94) 0%,rgba(12,21,37,.96) 100%);border:1px solid var(--bd);position:relative;overflow:hidden}
+.evidence-card::after{content:"";position:absolute;inset:auto auto -34px -24px;width:120px;height:120px;background:radial-gradient(circle,rgba(0,196,168,.1),transparent 68%);pointer-events:none}
+.evidence-card-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.evidence-control{font-size:11px;font-weight:700;color:var(--t0);font-family:var(--mo)}
+.evidence-status{padding:4px 8px;border-radius:999px;font-size:10px;font-weight:700;font-family:var(--mo);border:1px solid transparent}
+.evidence-status.good{color:var(--gr);border-color:rgba(34,197,94,.25);background:rgba(34,197,94,.1)}
+.evidence-status.warn{color:var(--am);border-color:rgba(245,166,35,.25);background:rgba(245,166,35,.1)}
+.evidence-status.bad{color:var(--rd);border-color:rgba(229,62,62,.25);background:rgba(229,62,62,.1)}
+.evidence-question{font-size:12px;color:var(--t0);line-height:1.6;margin-bottom:10px}
+.evidence-row{margin-bottom:8px}
+.evidence-label{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--cy);margin-bottom:4px}
+.evidence-text{font-size:11px;color:var(--t1);line-height:1.6}
+.evidence-gap{margin-top:10px;padding-top:10px;border-top:1px solid rgba(109,146,209,.16)}
+.evidence-gap .evidence-label{color:var(--am)}
 .ebar{padding:14px 16px;background:var(--bg1);border:1px solid var(--bd);border-radius:10px;display:flex;align-items:center;gap:12px}
 #btn-exp{padding:8px 18px;background:var(--bl);color:#fff;border:none;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--fn)}
 #btn-rst{padding:8px 18px;background:transparent;color:var(--t1);border:1px solid var(--bd);border-radius:7px;font-size:11px;cursor:pointer;font-family:var(--fn)}
@@ -259,6 +298,39 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
             <div id="cfg-status" class="cfg-status ok">Activo</div>
           </div>
           <div class="cfg-help">Esta versión usa recomendaciones locales por control y por dominio. Así el demo funciona sin API externa y mantiene una experiencia estable para presentar el caso de CSA LATAM Chapter.</div>
+        </div>
+        <div class="tenant-card">
+          <div class="tenant-head">
+            <div>
+              <div class="tenant-title">Conexión al Tenant Cloud</div>
+              <div class="tenant-sub">Esta capa simula cómo la solución validaría evidencia técnica desde el tenant o la suscripción del cliente. En una versión productiva, aquí conectaríamos OAuth, roles cross-account o service accounts de solo lectura.</div>
+            </div>
+            <div id="tenant-status" class="tenant-pill">Demo mode</div>
+          </div>
+          <div class="tenant-grid">
+            <button class="tenant-btn sel" onclick="selTenant(this,'Azure')">
+              <div class="tenant-code">AZ</div>
+              <div class="tenant-name">Microsoft Azure</div>
+              <div class="tenant-desc">Entra ID, Resource Graph, Defender for Cloud, Policy</div>
+            </button>
+            <button class="tenant-btn" onclick="selTenant(this,'AWS')">
+              <div class="tenant-code">AWS</div>
+              <div class="tenant-name">Amazon Web Services</div>
+              <div class="tenant-desc">IAM, Config, Security Hub, GuardDuty, CloudTrail</div>
+            </button>
+            <button class="tenant-btn" onclick="selTenant(this,'GCP')">
+              <div class="tenant-code">GCP</div>
+              <div class="tenant-name">Google Cloud</div>
+              <div class="tenant-desc">IAM, Cloud Asset Inventory, SCC, Logging, KMS</div>
+            </button>
+          </div>
+          <div class="tenant-note">
+            <div style="font-size:16px;line-height:1">&#128274;</div>
+            <div>
+              <strong>Evidencia técnica simulada</strong>
+              <span>La demo mostrará evidencia por control, brecha entre lo declarado y lo evidenciado y recomendaciones asociadas al proveedor cloud seleccionado.</span>
+            </div>
+          </div>
         </div>
         <div class="oform">
           <div class="sb-label" style="margin-bottom:12px">Tu organización</div>
@@ -662,6 +734,7 @@ const QUESTION_REPLACEMENTS = [
 
 const DOMAINS=Object.keys(AICM);
 let answers={},selRole_val='',curDom=0,orgN='',orgS='';
+let tenantProvider='Azure';
 let agentCtx=null; // {qid, ctitle, question, history}
 const agentCache={};
 const TOTAL_QUESTIONS=DOMAINS.reduce((sum,domain)=>sum + AICM[domain].length,0);
@@ -1174,6 +1247,117 @@ function renderAgenticInsights(findings){
     </div>`;
 }
 
+function selTenant(el, provider){
+  tenantProvider = provider;
+  document.querySelectorAll('.tenant-btn').forEach(btn => btn.classList.remove('sel'));
+  el.classList.add('sel');
+  const status = document.getElementById('tenant-status');
+  if(status){
+    status.textContent = `${provider} · Demo mode`;
+  }
+}
+
+function providerEvidenceSource(provider){
+  if(provider === 'AWS') return 'Security Hub / IAM / Config';
+  if(provider === 'GCP') return 'Security Command Center / IAM / Logging';
+  return 'Defender for Cloud / Entra ID / Azure Policy';
+}
+
+function buildEvidenceItems(findings){
+  const top = findings.slice(0, 4);
+  return top.map((item, index) => {
+    const declared = item.answer === 'NO' ? 'No implementado' : item.answer === 'YES' ? 'Implementado' : 'No aplica';
+    const evidenceStatus = index % 3 === 0 ? 'No validado' : index % 3 === 1 ? 'Parcial' : 'Implementado';
+    const statusClass = evidenceStatus === 'Implementado' ? 'good' : evidenceStatus === 'Parcial' ? 'warn' : 'bad';
+    const source = providerEvidenceSource(tenantProvider);
+    const evidenceText = tenantProvider === 'Azure'
+      ? `Se consultarían configuraciones y señales desde ${source} para validar este control en recursos y servicios asociados.`
+      : tenantProvider === 'AWS'
+        ? `Se contrastaría este control con hallazgos, configuración y trazabilidad obtenidos desde ${source}.`
+        : `Se revisaría cumplimiento técnico y postura de seguridad a partir de ${source}.`;
+    const gap = evidenceStatus === 'Implementado'
+      ? 'La evidencia técnica esperada respalda la declaración y sugiere validar periodicidad y coverage.'
+      : evidenceStatus === 'Parcial'
+        ? 'La evidencia técnica sería insuficiente para sostener completamente la respuesta declarada; conviene revisar alcance, exceptions y coverage.'
+        : 'La evidencia técnica simulada contradice o no respalda la respuesta declarada; este control debería priorizarse para validación real.';
+    return {
+      cid: item.cid,
+      questionEs: item.questionEs,
+      declared,
+      evidenceStatus,
+      statusClass,
+      source,
+      evidenceText,
+      gap
+    };
+  });
+}
+
+function renderEvidencePanel(findings){
+  const items = buildEvidenceItems(findings);
+  const validated = items.filter(item => item.evidenceStatus === 'Implementado').length;
+  const partial = items.filter(item => item.evidenceStatus === 'Parcial').length;
+  const gaps = items.filter(item => item.evidenceStatus === 'No validado').length;
+  const cards = items.length ? items.map(item => `
+    <div class="evidence-card">
+      <div class="evidence-card-top">
+        <div class="evidence-control">${item.cid}</div>
+        <div class="evidence-status ${item.statusClass}">${item.evidenceStatus}</div>
+      </div>
+      <div class="evidence-question">${item.questionEs}</div>
+      <div class="evidence-row">
+        <div class="evidence-label">Estado declarado</div>
+        <div class="evidence-text">${item.declared}</div>
+      </div>
+      <div class="evidence-row">
+        <div class="evidence-label">Evidencia técnica esperada</div>
+        <div class="evidence-text">${item.evidenceText}</div>
+      </div>
+      <div class="evidence-row">
+        <div class="evidence-label">Fuente simulada</div>
+        <div class="evidence-text">${item.source}</div>
+      </div>
+      <div class="evidence-gap">
+        <div class="evidence-label">Brecha detectada</div>
+        <div class="evidence-text">${item.gap}</div>
+      </div>
+    </div>`).join('') : `<div class="rec-empty">No hay hallazgos priorizados para mostrar evidencia simulada en esta evaluación.</div>`;
+
+  return `
+    <div class="evidence-wrap">
+      <div class="evidence-head">
+        <div>
+          <div class="evidence-title">Evidencia Técnica del Tenant</div>
+          <div class="evidence-sub">Vista conceptual de cómo se cruzaría la evaluación humana con evidencia automática proveniente de <strong style="color:var(--t0)">${tenantProvider}</strong>. Esto permite distinguir controles declarados, evidenciados y brechas que requieren validación real.</div>
+        </div>
+        <div class="evidence-chip">${tenantProvider} conectado en modo demo</div>
+      </div>
+      <div class="evidence-summary">
+        <div class="evidence-metric">
+          <div class="evidence-metric-label">Proveedor</div>
+          <div class="evidence-metric-value">${tenantProvider}</div>
+          <div class="evidence-metric-hint">Tenant seleccionado para la simulación</div>
+        </div>
+        <div class="evidence-metric">
+          <div class="evidence-metric-label">Validados</div>
+          <div class="evidence-metric-value">${validated}</div>
+          <div class="evidence-metric-hint">Controles respaldados por evidencia técnica</div>
+        </div>
+        <div class="evidence-metric">
+          <div class="evidence-metric-label">Parciales</div>
+          <div class="evidence-metric-value">${partial}</div>
+          <div class="evidence-metric-hint">Controles con coverage o trazabilidad insuficiente</div>
+        </div>
+        <div class="evidence-metric">
+          <div class="evidence-metric-label">Brechas</div>
+          <div class="evidence-metric-value">${gaps}</div>
+          <div class="evidence-metric-hint">Hallazgos que deberían verificarse primero</div>
+        </div>
+      </div>
+      <div class="evidence-grid">${cards}</div>
+    </div>`;
+}
+
 function selRole(el,r){document.querySelectorAll('.rbtn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');selRole_val=r;}
 
 function startA(){
@@ -1364,6 +1548,7 @@ function showResults(){
   const scl=sc>=80?'Maduro':sc>=60?'En desarrollo':sc>=40?'Inicial':'Básico';
   const C=2*Math.PI*45;const off=C-(sc/100)*C;
   const findings = buildFindings();
+  const evidenceHtml = renderEvidencePanel(findings);
   const recommendationsHtml = renderRecommendations(findings);
   const agenticInsightsHtml = renderAgenticInsights(findings);
   let dr='';
@@ -1396,6 +1581,7 @@ function showResults(){
     </div>
   </div>
   ${agenticInsightsHtml}
+  ${evidenceHtml}
   <div><div style="font-size:13px;font-weight:600;margin-bottom:10px">Score por dominio (18 dominios AICM)</div><div class="drgrid">${dr}</div></div>
   ${recommendationsHtml}
   <div class="ebar">
@@ -1411,7 +1597,7 @@ function expRes(){
   const n=Object.values(answers).filter(v=>v==='NO').length;
   const na=Object.values(answers).filter(v=>v==='NA').length;
   const answered=y+n+na;
-  const data={meta:{tool:'CSA LATAM AI-CAIQ v1.0.2 + Control Guidance Agent',date:new Date().toISOString(),org:orgN,sector:orgS,role:selRole_val},answers,summary:{total:tot,yes:y,no:n,na,score:answered>0?Math.round((y+na*0.5)/answered*100):0}};
+  const data={meta:{tool:'CSA LATAM AI-CAIQ v1.0.2 + Control Guidance Agent',date:new Date().toISOString(),org:orgN,sector:orgS,role:selRole_val,tenantProvider},answers,summary:{total:tot,yes:y,no:n,na,score:answered>0?Math.round((y+na*0.5)/answered*100):0}};
   const b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='aicm-'+orgN.replace(/\s+/g,'-')+'.json';a.click();
 }
