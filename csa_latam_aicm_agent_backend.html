@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CSA LATAM — AI-CAIQ v1.0.2 Self-Assessment Tool + Backend Agent</title>
+<title>CSA LATAM — AI-CAIQ v1.0.2 Self-Assessment Tool + Control Guidance Agent</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -202,8 +202,8 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
     </div>
     <div class="sb-sect" style="margin-top:auto;border-top:1px solid var(--bd)">
       <div style="font-size:10px;color:var(--t2);margin-bottom:4px">Contribución de</div>
-      <div style="font-size:12px;font-weight:600">Anepsis Consulting</div>
-      <div style="font-size:9px;color:var(--t2);font-family:var(--mo)">CSA LATAM Chapter Member</div>
+      <div style="font-size:12px;font-weight:600">CSA LATAM Chapter</div>
+      <div style="font-size:9px;color:var(--t2);font-family:var(--mo)">Assessment Prototype</div>
     </div>
   </div>
   <div id="main">
@@ -212,18 +212,18 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
       <div id="intro" style="padding:32px;max-width:660px;margin:0 auto;width:100%">
         <div class="ibadge">&#9733; CSA LATAM Chapter &middot; Herramienta Gratuita</div>
         <h1 class="ih1">AI Controls Matrix<br>Self-Assessment Tool</h1>
-        <p class="isub">Evalúa la postura de seguridad de tu organización frente a los controles del AI-CAIQ v1.0.2. Incluye un <strong style="color:var(--pu)">Agente IA funcional</strong> conectado a un backend seguro para explicar cada control, proponer evidencia y orientar la implementación.</p>
+        <p class="isub">Evalúa la postura de seguridad de tu organización frente a los controles del AI-CAIQ v1.0.2. Incluye un <strong style="color:var(--pu)">Agente contextual</strong> con recomendaciones específicas por control para orientar implementación, evidencia y prioridades de remediación.</p>
         <div class="igrid">
           <div class="icard"><div class="inum" id="hero-total-controls">311</div><div class="ilabel">Preguntas AI-CAIQ v1.0.2</div></div>
           <div class="icard"><div class="inum">18</div><div class="ilabel">Dominios de seguridad</div></div>
-          <div class="icard ai-card"><div class="inum">&#10022;</div><div class="ilabel">Agente OpenAI contextual</div></div>
+          <div class="icard ai-card"><div class="inum">&#10022;</div><div class="ilabel">Guía local por control</div></div>
         </div>
         <div class="cfg-card">
           <div class="cfg-head">
-            <div class="cfg-title">Conexión del Agente</div>
-            <div id="cfg-status" class="cfg-status warn">Sin configurar</div>
+            <div class="cfg-title">Modo del Agente</div>
+            <div id="cfg-status" class="cfg-status ok">Activo</div>
           </div>
-          <div class="cfg-help">Esta versión no expone la API key en el navegador. El frontend se conecta a un backend local que firma la llamada a OpenAI desde variables de entorno del servidor.</div>
+          <div class="cfg-help">Esta versión usa recomendaciones locales por control y por dominio. Así el demo funciona sin API externa y mantiene una experiencia estable para presentar el caso de CSA LATAM Chapter.</div>
         </div>
         <div class="oform">
           <div class="sb-label" style="margin-bottom:12px">Tu organización</div>
@@ -256,7 +256,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
           <div class="ap-title">Agente AICM</div>
           <div class="ap-sub">Explicación técnica del control</div>
         </div>
-        <div id="ap-status" class="ap-status warn">Backend no disponible</div>
+        <div id="ap-status" class="ap-status ok">Guía local activa</div>
         <button class="ap-close" onclick="closeAgent()">Cerrar &#10005;</button>
       </div>
       <div id="ap-ctrl-box" class="ap-ctrl-box"></div>
@@ -297,18 +297,180 @@ let answers={},selRole_val='',curDom=0,orgN='',orgS='';
 let agentCtx=null; // {qid, ctitle, question, history}
 const agentCache={};
 const TOTAL_QUESTIONS=DOMAINS.reduce((sum,domain)=>sum + AICM[domain].length,0);
-let agentBackendReady=false;
+let agentBackendReady=true;
+
+const CONTROL_GUIDANCE = {
+  "A&A-01": {
+    summary: "Busca asegurar que las políticas y procedimientos de auditoría y assurance estén formalizados, aprobados y mantenidos como parte del gobierno operativo.",
+    implementation: [
+      "Definir una política formal para auditoría de controles cloud y AI con alcance, frecuencia, responsables y criterios de actualización.",
+      "Mantener control de versiones, workflow de aprobación y calendario anual de revisión en una herramienta documentada.",
+      "Vincular la política con planes de auditoría, matrices de riesgo y seguimiento de hallazgos."
+    ],
+    evidence: [
+      "Política aprobada y vigente.",
+      "Historial de revisiones y aprobaciones.",
+      "Matriz de roles y calendario anual de revisión."
+    ],
+    gaps: [
+      "Políticas desactualizadas o no aprobadas formalmente.",
+      "No existe ownership claro entre seguridad, auditoría y riesgo.",
+      "La revisión ocurre solo después de incidentes o hallazgos."
+    ],
+    nextStep: "Formalizar la política y asociarla a un ciclo mínimo anual de revisión y reporting."
+  },
+  "AIS-10": {
+    summary: "Busca proteger APIs y puntos de integración frente a fallas de autorización, exposición de secretos, abuso y cambios no controlados.",
+    implementation: [
+      "Aplicar autenticación fuerte, autorización por scopes o roles y validación de entrada y salida.",
+      "Centralizar gestión de `API keys`, rotación de secretos y rate limiting mediante API gateway o WAF.",
+      "Incluir pruebas de seguridad de APIs en CI/CD y revisiones posteriores a cambios significativos."
+    ],
+    evidence: [
+      "Configuración de API gateway y políticas de acceso.",
+      "Inventario de APIs expuestas y clasificación de criticidad.",
+      "Resultados de testing de seguridad y rotación de secretos."
+    ],
+    gaps: [
+      "Endpoints expuestos sin autorización granular.",
+      "Uso de claves estáticas compartidas entre equipos.",
+      "Falta de inventario actualizado de APIs."
+    ],
+    nextStep: "Inventariar las APIs críticas y endurecer primero autenticación, autorización y gestión de secretos."
+  },
+  "IAM-01": {
+    summary: "Busca que el modelo de identidad y acceso esté gobernado por políticas formales y controles consistentes para cloud y AI.",
+    implementation: [
+      "Definir política IAM con principios de least privilege, segregación de funciones y revisión periódica.",
+      "Usar SSO, MFA y grupos administrados para acceso a workloads, datasets y plataformas de AI.",
+      "Integrar revisiones periódicas de privilegios con altas, bajas y cambios de rol."
+    ],
+    evidence: [
+      "Política IAM vigente.",
+      "Configuraciones de SSO y MFA.",
+      "Registros de recertificación de accesos."
+    ],
+    gaps: [
+      "Accesos directos sin federación.",
+      "Usuarios con privilegios excesivos.",
+      "No se revisan privilegios sobre servicios de AI."
+    ],
+    nextStep: "Priorizar recertificación de accesos privilegiados y MFA obligatorio para cuentas críticas."
+  },
+  "MDS-03": {
+    summary: "Busca que la documentación del modelo sea suficiente para entender origen, uso previsto, riesgos, limitaciones y controles de operación.",
+    implementation: [
+      "Mantener fichas de modelo o model cards con versión, propósito, datasets relevantes, riesgos y restricciones de uso.",
+      "Alinear documentación con cambios del ciclo de vida del modelo y con revisiones de riesgo y compliance.",
+      "Vincular el modelo con responsables, evidencia de validación y controles compensatorios cuando existan limitaciones conocidas."
+    ],
+    evidence: [
+      "Model cards o documentación equivalente.",
+      "Historial de cambios por versión.",
+      "Registros de validación y aprobaciones."
+    ],
+    gaps: [
+      "Modelos en uso sin documentación formal.",
+      "La documentación no refleja limitaciones reales o casos de no uso.",
+      "No existe ownership claro sobre la actualización documental."
+    ],
+    nextStep: "Crear una plantilla de model documentation mínima y exigirla antes de poner un modelo en operación."
+  },
+  "STA-16": {
+    summary: "Busca visibilidad integral del service bill of materials para entender dependencias de modelos, servicios orquestados y aplicaciones de AI.",
+    implementation: [
+      "Documentar modelos, proveedores, componentes open source, servicios de inferencia y conectores usados por la solución.",
+      "Mantener inventario actualizado de dependencias críticas, licencias, procedencia y responsables.",
+      "Usar el inventario como base para evaluaciones de supply chain, riesgo y cambios."
+    ],
+    evidence: [
+      "Inventario o BOM del servicio de AI.",
+      "Registro de proveedores y componentes críticos.",
+      "Trazabilidad entre componentes, propietarios y riesgos."
+    ],
+    gaps: [
+      "Uso de componentes de AI sin trazabilidad completa.",
+      "Dependencias críticas no registradas.",
+      "Cambios de proveedor o modelo sin revisión de riesgo."
+    ],
+    nextStep: "Construir un BOM mínimo para los servicios de AI más críticos y enlazarlo al proceso de cambio."
+  },
+  "TVM-11": {
+    summary: "Busca que los guardrails de la solución AI estén definidos, implementados y ajustados frente a riesgo, abuso y cambios regulatorios.",
+    implementation: [
+      "Aplicar filtros de entrada y salida, políticas de contenido, controles de prompt injection y restricciones de uso por contexto.",
+      "Definir umbrales y reglas de seguridad revisables junto con seguridad, legal y negocio.",
+      "Medir efectividad de los guardrails con testing periódico y casos de abuso representativos."
+    ],
+    evidence: [
+      "Configuración de guardrails y políticas asociadas.",
+      "Casos de prueba de abuso o red teaming.",
+      "Registros de ajustes y revisiones periódicas."
+    ],
+    gaps: [
+      "Guardrails definidos solo a nivel conceptual.",
+      "No se prueban escenarios adversariales.",
+      "No existe trazabilidad entre riesgo y configuración de protección."
+    ],
+    nextStep: "Definir un set mínimo de pruebas adversariales y revisar la cobertura real de los guardrails actuales."
+  }
+};
+
+const DOMAIN_GUIDANCE = {
+  "A&A": {
+    summary: "El foco del dominio es asegurar que la organización tenga capacidad de auditoría y assurance sobre controles cloud y AI de manera repetible y trazable.",
+    implementation: ["Definir políticas, frecuencia de revisión, planes de auditoría y seguimiento formal de hallazgos.", "Vincular auditoría con riesgo, cumplimiento y remediación."],
+    evidence: ["Políticas, planes de auditoría, reportes y seguimiento de hallazgos."],
+    gaps: ["Auditoría reactiva, documentación desactualizada y falta de ownership."],
+    nextStep: "Formalizar calendario y reporting de assurance."
+  },
+  "AIS": {
+    summary: "El dominio cubre seguridad de aplicaciones, interfaces, APIs, agentes y componentes expuestos al usuario o integrados con otros sistemas.",
+    implementation: ["Aplicar SDLC seguro, seguridad de APIs, validación de entrada y salida y pruebas continuas.", "Revisar hardening de agentes, plugins y orquestación."],
+    evidence: ["Pipelines, pruebas de seguridad, configuraciones de API gateway y repositorios con control de cambios."],
+    gaps: ["APIs sin inventario, validación insuficiente y automatización parcial."],
+    nextStep: "Priorizar el inventario y endurecimiento de interfaces expuestas."
+  },
+  "MDS": {
+    summary: "El dominio de Model Security se centra en proteger el ciclo de vida del modelo, su documentación, robustez, integridad y monitoreo continuo.",
+    implementation: ["Documentar modelos, evaluar amenazas adversariales y monitorear cambios y degradación.", "Aplicar integridad, hardening y control de artefactos."],
+    evidence: ["Model cards, registros de validación, controles de integridad y monitoreo."],
+    gaps: ["Modelos en operación sin documentación ni monitoreo suficiente."],
+    nextStep: "Identificar el modelo más crítico y formalizar su gobernanza mínima."
+  },
+  "STA": {
+    summary: "El dominio de supply chain busca visibilidad y control sobre proveedores, servicios, modelos y responsabilidades compartidas.",
+    implementation: ["Mantener inventario de relaciones, BOM del servicio y revisión de acuerdos y ownership.", "Asociar evaluación de terceros a seguridad y cambios."],
+    evidence: ["Inventarios, acuerdos, matrices SSRM y evaluaciones de terceros."],
+    gaps: ["Dependencias opacas y ownership no documentado."],
+    nextStep: "Mapear primero los componentes críticos del servicio de AI."
+  },
+  "TVM": {
+    summary: "El dominio cubre identificación, priorización y respuesta frente a amenazas, vulnerabilidades y escenarios adversariales en cloud y AI.",
+    implementation: ["Usar threat modeling, pruebas, priorización basada en riesgo y controles como guardrails.", "Integrar resultados a remediación y métricas."],
+    evidence: ["Threat models, findings, métricas y planes de remediación."],
+    gaps: ["Falta de priorización real y poca cobertura de escenarios AI."],
+    nextStep: "Definir un backlog priorizado de riesgos y pruebas críticas."
+  },
+  "DEFAULT": {
+    summary: "El control busca establecer una práctica de seguridad verificable y operativa, alineada con gobierno, evidencia y mejora continua.",
+    implementation: ["Definir proceso, responsables, herramientas y frecuencia de revisión.", "Asegurar que el control esté vinculado a riesgo, operación y remediación."],
+    evidence: ["Políticas, configuraciones, reportes, tickets, logs o artefactos equivalentes."],
+    gaps: ["Control solo nominal, sin evidencia suficiente o sin revisión periódica."],
+    nextStep: "Definir ownership, evidencia mínima y punto de control periódico."
+  }
+};
 
 function updateLLMStatus(){
   const cfg=document.getElementById('cfg-status');
   const ap=document.getElementById('ap-status');
   if(cfg){
     cfg.className='cfg-status '+(agentBackendReady?'ok':'warn');
-    cfg.textContent=agentBackendReady?'Backend conectado':'Backend no disponible';
+    cfg.textContent=agentBackendReady?'Modo local activo':'Modo local inactivo';
   }
   if(ap){
     ap.className='ap-status '+(agentBackendReady?'ok':'warn');
-    ap.textContent=agentBackendReady?'Agente activo':'Backend no disponible';
+    ap.textContent=agentBackendReady?'Guía local activa':'Guía local inactiva';
   }
 }
 
@@ -317,18 +479,35 @@ async function hydrateLLMConfig(){
   const heroTotal=document.getElementById('hero-total-controls');
   if(topTotal) topTotal.textContent=String(TOTAL_QUESTIONS);
   if(heroTotal) heroTotal.textContent=String(TOTAL_QUESTIONS);
-  try {
-    const resp=await fetch('/api/health');
-    if(resp.ok){
-      const data=await resp.json();
-      agentBackendReady=!!data.ok;
-    } else {
-      agentBackendReady=false;
-    }
-  } catch (_err) {
-    agentBackendReady=false;
-  }
+  agentBackendReady=true;
   updateLLMStatus();
+}
+
+function getGuidanceForControl(cid){
+  const prefix = cid.replace(/-\d+$/, '');
+  return CONTROL_GUIDANCE[cid] || DOMAIN_GUIDANCE[prefix] || DOMAIN_GUIDANCE.DEFAULT;
+}
+
+function buildGuidanceResponse(ctx, userMsg){
+  const guidance = getGuidanceForControl(ctx.cid);
+  const followup = userMsg
+    ? `\n\n#### Pregunta adicional\n**Consulta:** ${userMsg}\n**Orientación:** Para este control conviene responder la duda verificando si la implementación actual ya tiene evidencia objetiva, owner definido y revisión periódica. Si no existe esa trazabilidad, el control debería considerarse parcial o pendiente.`
+    : '';
+
+  return `#### Qué busca el control
+${guidance.summary}
+
+#### Cómo implementarlo
+- ${guidance.implementation.join('\n- ')}
+
+#### Evidencia esperada
+- ${guidance.evidence.join('\n- ')}
+
+#### Brechas comunes en LATAM
+- ${guidance.gaps.join('\n- ')}
+
+#### Siguiente paso recomendado
+**${guidance.nextStep}**${followup}`;
 }
 
 function selRole(el,r){document.querySelectorAll('.rbtn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');selRole_val=r;}
@@ -453,7 +632,7 @@ async function callAgent(userMsg){
   if(!agentCtx) return;
   if(!agentBackendReady){
     const msgs=document.getElementById('agent-messages');
-    msgs.innerHTML+=`<div class="am-agent"><div class="am-who">AGENTE AICM</div><div class="am-text" style="color:var(--am)"><p>El backend local no está disponible. Levanta el servidor proxy para activar el agente seguro.</p></div></div>`;
+    msgs.innerHTML+=`<div class="am-agent"><div class="am-who">AGENTE AICM</div><div class="am-text" style="color:var(--am)"><p>La guía local del control no está disponible.</p></div></div>`;
     msgs.scrollTop=msgs.scrollHeight;
     return;
   }
@@ -472,65 +651,11 @@ async function callAgent(userMsg){
   msgs.innerHTML+=`<div id="${loadId}" class="am-agent"><div class="am-who">AGENTE AICM</div><div class="am-loading"><span></span><span></span><span></span></div></div>`;
   msgs.scrollTop=msgs.scrollHeight;
 
-  const systemPrompt=`Actúas como un asesor senior del CSA LATAM Chapter especializado en Cloud Security, AI Governance y AI Security. Dominas AICM v1.0.3, AI-CAIQ v1.0.2, CCM v4, CIS Controls v8, NIST SP 800-53r5, ISO 27001 e ISO 42001.
-
-Tu trabajo es ayudar a un evaluador a interpretar controles y convertirlos en acciones concretas de assessment y remediación.
-
-Cuando respondas:
-1. Explica el control en lenguaje técnico y operativo, no académico.
-2. Indica cómo implementarlo en la práctica con ejemplos en Azure, AWS o GCP cuando aplique.
-3. Sugiere evidencia objetiva para assessment: políticas, configuraciones, logs, tickets, capturas, reportes, pipelines, inventarios o artefactos.
-4. Señala brechas típicas vistas en organizaciones LATAM.
-5. Cierra con una recomendación breve priorizada para el siguiente paso.
-
-Formato obligatorio:
-#### Qué busca el control
-#### Cómo implementarlo
-#### Evidencia esperada
-#### Brechas comunes en LATAM
-#### Siguiente paso recomendado
-
-Usa **negrita** para conceptos clave y \`código\` para herramientas, servicios o comandos. Responde siempre en español. Sé claro, práctico, ejecutable y convincente para una demo de producto. Máximo 420 palabras por respuesta salvo que el usuario pida más profundidad.
-
-Control actual evaluado: ${agentCtx.cid} — ${agentCtx.ctitle}
-Pregunta del control: ${agentCtx.question}
-Organización: ${orgN || 'No indicada'}
-Sector: ${orgS || 'No indicado'}
-Rol de SSRM declarado: ${selRole_val || 'No indicado'}`;
-
-  const messages=agentCtx.history.length>0 ? agentCtx.history : 
-    [{role:'user',content:`Explícame en detalle técnico cómo implementar el control ${agentCtx.cid} "${agentCtx.ctitle}" en una organización. La pregunta específica del AI-CAIQ es: "${agentCtx.question}"`}];
-
   try {
-    const resp=await fetch('/api/agent',{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify({
-        systemPrompt,
-        messages,
-        context:{
-          controlId:agentCtx.cid,
-          controlTitle:agentCtx.ctitle,
-          question:agentCtx.question,
-          organization:orgN || '',
-          sector:orgS || '',
-          ssrmRole:selRole_val || ''
-        }
-      })
-    });
-    if(!resp.ok){
-      const errText=await resp.text();
-      throw new Error(errText || ('HTTP '+resp.status));
-    }
-    const data=await resp.json();
-    const text=
-      data.text ||
-      'Error al obtener respuesta del agente.';
+    const text = buildGuidanceResponse(agentCtx, userMsg);
     
     // Update history
-    if(!userMsg) agentCtx.history=[{role:'user',content:messages[0].content}];
+    if(!userMsg) agentCtx.history=[{role:'assistant',content:text}];
     agentCtx.history.push({role:'assistant',content:text});
     
     // Replace loading with response
@@ -543,7 +668,7 @@ Rol de SSRM declarado: ${selRole_val || 'No indicado'}`;
   } catch(e){
     const loadEl=document.getElementById(loadId);
     const errMsg=e && e.message ? e.message : 'Error desconocido';
-    if(loadEl) loadEl.innerHTML=`<div class="am-who">AGENTE AICM</div><div class="am-text" style="color:var(--rd)"><p>No fue posible consultar OpenAI.</p><p style="color:var(--t1)">Detalle: ${errMsg.replace(/</g,'&lt;')}</p></div>`;
+    if(loadEl) loadEl.innerHTML=`<div class="am-who">AGENTE AICM</div><div class="am-text" style="color:var(--rd)"><p>No fue posible mostrar la guía local del control.</p><p style="color:var(--t1)">Detalle: ${errMsg.replace(/</g,'&lt;')}</p></div>`;
   }
   send.disabled=false;
   msgs.scrollTop=msgs.scrollHeight;
@@ -615,7 +740,7 @@ function expRes(){
   const n=Object.values(answers).filter(v=>v==='NO').length;
   const na=Object.values(answers).filter(v=>v==='NA').length;
   const answered=y+n+na;
-  const data={meta:{tool:'CSA LATAM AI-CAIQ v1.0.2 + AI Agent',date:new Date().toISOString(),org:orgN,sector:orgS,role:selRole_val},answers,summary:{total:tot,yes:y,no:n,na,score:answered>0?Math.round((y+na*0.5)/answered*100):0}};
+  const data={meta:{tool:'CSA LATAM AI-CAIQ v1.0.2 + Control Guidance Agent',date:new Date().toISOString(),org:orgN,sector:orgS,role:selRole_val},answers,summary:{total:tot,yes:y,no:n,na,score:answered>0?Math.round((y+na*0.5)/answered*100):0}};
   const b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='aicm-'+orgN.replace(/\s+/g,'-')+'.json';a.click();
 }

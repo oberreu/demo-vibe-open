@@ -354,7 +354,7 @@
         </p>
         <div class="cta-row">
           <a class="btn primary" href="csa_latam_aicm_agent_backend.html">Abrir versión recomendada</a>
-          <a class="btn" href="csa_latam_aicm_agent_openai.html">Ver versión OpenAI cliente</a>
+          <a class="btn" href="csa_latam_aicm_agent_openai.html">Ver variante OpenAI</a>
           <a class="btn" href="csa_latam_aicm_agent.html">Ver versión base</a>
         </div>
       </div>
@@ -372,7 +372,7 @@
           </div>
           <div class="stat">
             <strong>3</strong>
-            <span>Versiones de la demo según el escenario: base, cliente OpenAI y backend seguro.</span>
+            <span>Versiones de la demo según el escenario: base, guía local recomendada y variante OpenAI.</span>
           </div>
           <div class="stat">
             <strong>LATAM</strong>
@@ -385,19 +385,19 @@
     <section class="grid">
       <article class="card">
         <div class="pill">Recomendada</div>
-        <h3>Backend Secure Demo</h3>
+        <h3>Control Guidance Demo</h3>
         <p>
-          La mejor opción para mostrar el proyecto a terceros. El frontend consume un backend local que firma la
-          llamada a OpenAI desde variables de entorno, evitando exponer la API key en el navegador.
+          La mejor opción para mostrar el proyecto a terceros. El agente funciona con recomendaciones locales por
+          control y por dominio, así que la demo es estable, pública y no depende de API externa durante la evaluación.
         </p>
         <div class="meta">
-          <span>Más segura</span>
+          <span>Más estable</span>
           <span>Más publicable</span>
           <span>Lista para demo</span>
         </div>
         <div class="actions">
           <a class="main" href="csa_latam_aicm_agent_backend.html">Abrir demo</a>
-          <a href="Code/README_aicm_agent_backend.md">Cómo correrla</a>
+          <a href="README.md">Ver overview</a>
         </div>
       </article>
 
@@ -405,8 +405,8 @@
         <div class="pill">Exploración rápida</div>
         <h3>OpenAI Client Demo</h3>
         <p>
-          Ideal para pruebas rápidas si quieres pegar una API key en el navegador y validar el comportamiento del
-          agente sin levantar backend. Útil para iterar prompts o revisar el flujo de assessment.
+          Variante experimental para pruebas rápidas con API key en el navegador. Útil si quieres comparar el flujo
+          local con una respuesta generativa, pero no es la opción recomendada para compartir públicamente.
         </p>
         <div class="meta">
           <span>Más simple</span>
@@ -423,7 +423,7 @@
         <h3>Base Assessment UI</h3>
         <p>
           La versión sin integración activa del agente. Sirve como baseline funcional del cuestionario y como punto
-          de comparación para mostrar cómo evoluciona el producto al incorporar copiloto y backend seguro.
+          de comparación para mostrar cómo evoluciona el producto al incorporar guía contextual por control.
         </p>
         <div class="meta">
           <span>Sin dependencia API</span>
@@ -461,7 +461,7 @@
     <section class="note">
       <h3>Qué abrir según el contexto</h3>
       <p>
-        Si vas a compartir el proyecto o presentarlo, parte por <strong>Backend Secure Demo</strong>. Si estás iterando
+        Si vas a compartir el proyecto o presentarlo, parte por <strong>Control Guidance Demo</strong>. Si estás iterando
         comportamiento del agente, usa <strong>OpenAI Client Demo</strong>. Si quieres mostrar la evolución del producto
         desde una base estática hacia una experiencia con copiloto, conserva también la <strong>Base Assessment UI</strong>.
       </p>

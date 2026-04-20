@@ -2,7 +2,7 @@
 
 Demo interactiva para evaluación de controles `CSA AICM / AI-CAIQ`, orientada al Chapter LATAM de Cloud Security Alliance.
 
-La aplicación permite recorrer dominios de seguridad, responder preguntas de assessment y usar un agente IA contextual para explicar controles, evidencia esperada, brechas comunes y siguientes pasos de implementación.
+La aplicación permite recorrer dominios de seguridad, responder preguntas de assessment y usar un agente contextual para explicar controles, evidencia esperada, brechas comunes y siguientes pasos de implementación.
 
 ## Demo hub
 
@@ -14,13 +14,23 @@ La aplicación permite recorrer dominios de seguridad, responder preguntas de as
 - `csa_latam_aicm_agent.html`
   Versión base del assessment.
 - `csa_latam_aicm_agent_openai.html`
-  Versión cliente con conexión directa a OpenAI API desde el navegador.
+  Variante experimental con conexión directa a OpenAI API desde el navegador.
 - `csa_latam_aicm_agent_backend.html`
-  Versión recomendada para publicar demos, porque usa un backend local y no expone la API key.
+  Versión recomendada para demos públicas, porque usa guía local por control y no depende de API externa.
 - `Code/aicm_agent_server.js`
-  Proxy backend mínimo hacia OpenAI Responses API.
+  Backend mínimo heredado del prototipo técnico inicial.
 
 ## Inicio rápido
+
+Para ver la versión pública recomendada, abre:
+
+```text
+https://oberreu.github.io/demo-vibe-open/
+```
+
+Esa landing enlaza a la demo principal con guía local por control.
+
+## Variante técnica con backend
 
 1. Configura variables de entorno:
 
@@ -57,4 +67,4 @@ http://localhost:3000
 
 ## Recomendación
 
-Para demos públicas o compartidas, usa `csa_latam_aicm_agent_backend.html`. Esa versión mantiene la API key fuera del navegador y deja el agente más listo para un entorno real.
+Para demos públicas o compartidas, usa `csa_latam_aicm_agent_backend.html`. Esa versión hoy funciona con recomendaciones locales por control y por dominio, lo que la vuelve más estable para presentación y grabación de video.
