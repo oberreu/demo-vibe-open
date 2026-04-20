@@ -766,12 +766,96 @@ const DOMAIN_GUIDANCE = {
     gaps: ["APIs sin inventario, validación insuficiente y automatización parcial."],
     nextStep: "Priorizar el inventario y endurecimiento de interfaces expuestas."
   },
+  "BCR": {
+    summary: "El dominio aborda continuidad de negocio y resiliencia operacional para servicios cloud, procesos críticos y capacidades de recuperación ante interrupciones.",
+    implementation: ["Definir análisis de impacto, estrategias de continuidad, planes de recuperación y ejercicios periódicos.", "Validar respaldos, dependencias críticas y canales de comunicación en escenarios adversos."],
+    evidence: ["Planes de continuidad y desastre, resultados de ejercicios, reportes de respaldo y matrices de dependencia."],
+    gaps: ["Planes no probados, respaldos no validados y dependencia alta de personas o servicios no cubiertos."],
+    nextStep: "Ejecutar una prueba de restauración y revisar el impacto real sobre un servicio crítico."
+  },
+  "CCC": {
+    summary: "El dominio controla cómo se autorizan, prueban, ejecutan y revierten cambios sobre activos tecnológicos para reducir riesgo operativo y de seguridad.",
+    implementation: ["Establecer flujo formal de gestión de cambios con aprobación, testing, rollback y manejo de excepciones.", "Definir baseline y monitoreo de desviaciones para cambios relevantes."],
+    evidence: ["Tickets de cambio, aprobaciones, evidencia de pruebas, procedimientos de rollback y registros de excepción."],
+    gaps: ["Cambios urgentes sin trazabilidad, testing insuficiente y baselines no actualizados."],
+    nextStep: "Fortalecer primero la trazabilidad y aprobación de cambios con mayor impacto en seguridad."
+  },
+  "CEK": {
+    summary: "El dominio cubre protección criptográfica, gestión del ciclo de vida de claves y controles para resguardar datos en reposo, tránsito y uso.",
+    implementation: ["Definir política de cifrado, inventario de claves, rotación, revocación y almacenamiento seguro.", "Alinear algoritmos, librerías y servicios de gestión de claves a estándares aprobados."],
+    evidence: ["Políticas, inventario de material criptográfico, configuraciones KMS/HSM y cronogramas de rotación."],
+    gaps: ["Claves compartidas, rotación manual inconsistente y falta de inventario consolidado."],
+    nextStep: "Consolidar inventario de claves y revisar primero los usos asociados a datos críticos."
+  },
+  "DCS": {
+    summary: "El dominio trata controles físicos y ambientales sobre instalaciones, medios, equipos y accesos relacionados con activos críticos.",
+    implementation: ["Definir control de acceso físico, inventario de activos, protección ambiental y procedimientos de transporte o eliminación segura.", "Mantener monitoreo y revisión periódica de áreas seguras y equipamiento."],
+    evidence: ["Registros de acceso, catálogos de activos, políticas físicas, bitácoras de mantenimiento y evidencia de monitoreo."],
+    gaps: ["Inventarios incompletos, controles físicos desalineados y baja trazabilidad sobre movimientos de activos."],
+    nextStep: "Actualizar el inventario físico-lógico y validar primero accesos a áreas críticas."
+  },
+  "DSP": {
+    summary: "El dominio protege datos y privacidad a lo largo de su ciclo de vida, incluyendo clasificación, acceso, retención y uso seguro en contextos de IA.",
+    implementation: ["Clasificar datos, definir reglas de acceso, retención y eliminación, y controlar uso de datasets en servicios cloud y AI.", "Alinear controles con obligaciones de privacidad y protección de datos."],
+    evidence: ["Clasificación de datos, matrices de acceso, políticas de retención y registros de tratamiento."],
+    gaps: ["Datos sensibles sin clasificación, retención indefinida y uso de datasets sin trazabilidad suficiente."],
+    nextStep: "Identificar datasets críticos y formalizar sus reglas de acceso, retención y minimización."
+  },
+  "GRC": {
+    summary: "El dominio reúne gobierno, riesgo y cumplimiento para asegurar que los frameworks se traduzcan en políticas, controles y seguimiento real.",
+    implementation: ["Definir políticas, proceso de excepciones, evaluación de riesgo y reporting a stakeholders.", "Vincular controles cloud y AI con marcos regulatorios y decisiones de negocio."],
+    evidence: ["Políticas aprobadas, matrices de riesgo, registros de excepciones y reportes de cumplimiento."],
+    gaps: ["Gobierno fragmentado, riesgo no actualizado y cumplimiento tratado solo como checklist."],
+    nextStep: "Consolidar un mapa de riesgos y responsables para cloud y AI bajo un marco común."
+  },
+  "HRS": {
+    summary: "El dominio cubre controles de personas, roles, capacitación, onboarding y offboarding vinculados a seguridad y uso responsable de tecnología.",
+    implementation: ["Definir procesos de ingreso, cambio y salida con validaciones de acceso y responsabilidades claras.", "Mantener capacitación periódica para seguridad cloud y riesgos asociados a IA."],
+    evidence: ["Registros de capacitación, descripciones de rol, checklists de onboarding/offboarding y trazabilidad de accesos."],
+    gaps: ["Capacitación insuficiente, bajas sin cierre completo de accesos y roles ambiguos sobre servicios de AI."],
+    nextStep: "Priorizar revisiones de onboarding/offboarding y formación mínima sobre uso seguro de IA."
+  },
+  "IAM": {
+    summary: "El dominio de identidad y acceso está gobernado por políticas formales y controles consistentes para cloud y AI.",
+    implementation: ["Usar SSO, MFA y grupos administrados para acceso a workloads, datasets y plataformas de IA.", "Integrar revisiones periódicas de privilegios con altas, bajas y cambios de rol."],
+    evidence: ["Política IAM vigente.", "Configuraciones de SSO y MFA.", "Registros de recertificación de accesos."],
+    gaps: ["Accesos directos sin federación.", "Usuarios con privilegios excesivos.", "No se revisan privilegios sobre servicios de IA."],
+    nextStep: "Priorizar recertificación de accesos privilegiados y MFA obligatorio para cuentas críticas."
+  },
+  "IPY": {
+    summary: "El dominio cubre interoperabilidad y portabilidad para reducir dependencia de proveedores y facilitar continuidad o transición segura de servicios.",
+    implementation: ["Definir formatos interoperables, requisitos de exportación y criterios de salida para servicios críticos.", "Evaluar dependencias técnicas y contractuales que afecten la portabilidad."],
+    evidence: ["Requisitos de portabilidad, acuerdos de salida, inventario de dependencias y pruebas de exportación."],
+    gaps: ["Dependencia alta de un proveedor, ausencia de plan de salida y formatos poco portables."],
+    nextStep: "Identificar primero qué activos tendrían mayor impacto ante un cambio de proveedor."
+  },
+  "I&S": {
+    summary: "El dominio protege arquitectura, redes, ambientes y componentes de infraestructura que soportan servicios cloud y AI.",
+    implementation: ["Definir segmentación, endurecimiento, monitoreo de red y documentación de arquitectura.", "Asegurar migraciones seguras, protección perimetral y defensa en profundidad."],
+    evidence: ["Diagramas de red, configuraciones de seguridad, registros de monitoreo y controles de migración."],
+    gaps: ["Arquitectura poco documentada, segmentación débil y visibilidad insuficiente sobre tráfico crítico."],
+    nextStep: "Actualizar documentación de red y priorizar controles sobre segmentos de mayor riesgo."
+  },
+  "LOG": {
+    summary: "El dominio busca asegurar visibilidad de eventos, trazabilidad de actividades y respuesta oportuna sobre anomalías en cloud y AI.",
+    implementation: ["Definir alcance de logging, protección de logs, alertas y monitoreo continuo.", "Incluir entradas, salidas y actividades relevantes de modelos o servicios de IA."],
+    evidence: ["Políticas de logging, configuraciones SIEM, alertas, retención y reportes de revisión."],
+    gaps: ["Logs incompletos, retención insuficiente y poca visibilidad sobre uso de modelos de IA."],
+    nextStep: "Priorizar los eventos críticos que deben quedar trazados y alertados de forma consistente."
+  },
   "MDS": {
     summary: "El dominio de Model Security se centra en proteger el ciclo de vida del modelo, su documentación, robustez, integridad y monitoreo continuo.",
     implementation: ["Documentar modelos, evaluar amenazas adversariales y monitorear cambios y degradación.", "Aplicar integridad, hardening y control de artefactos."],
     evidence: ["Model cards, registros de validación, controles de integridad y monitoreo."],
     gaps: ["Modelos en operación sin documentación ni monitoreo suficiente."],
     nextStep: "Identificar el modelo más crítico y formalizar su gobernanza mínima."
+  },
+  "SEF": {
+    summary: "El dominio cubre preparación, detección, respuesta y coordinación ante incidentes de seguridad, e-discovery y forense en entornos cloud y AI.",
+    implementation: ["Definir planes de respuesta, pruebas periódicas, triage y criterios de notificación.", "Mantener métricas, contactos relevantes y coordinación con áreas legales y regulatorias."],
+    evidence: ["Planes de respuesta, ejercicios, métricas, bitácoras de incidentes y procedimientos de notificación."],
+    gaps: ["Planes no probados, clasificación difusa de incidentes de IA y contactos desactualizados."],
+    nextStep: "Ejecutar un tabletop exercise con un escenario de incidente asociado a datos o modelos de IA."
   },
   "STA": {
     summary: "El dominio de supply chain busca visibilidad y control sobre proveedores, servicios, modelos y responsabilidades compartidas.",
@@ -786,6 +870,13 @@ const DOMAIN_GUIDANCE = {
     evidence: ["Threat models, findings, métricas y planes de remediación."],
     gaps: ["Falta de priorización real y poca cobertura de escenarios AI."],
     nextStep: "Definir un backlog priorizado de riesgos y pruebas críticas."
+  },
+  "UEM": {
+    summary: "El dominio cubre gobierno y protección de endpoints que acceden, almacenan o procesan datos corporativos en contextos cloud y AI.",
+    implementation: ["Mantener inventario de endpoints, hardening, cifrado, antimalware, DLP y control de cambios.", "Definir políticas de borrado remoto, geolocalización y seguridad sobre dispositivos de terceros cuando aplique."],
+    evidence: ["Inventario de endpoints, políticas, configuraciones MDM/EDR, evidencias de cifrado y controles DLP."],
+    gaps: ["Dispositivos fuera de inventario, controles inconsistentes y baja visibilidad sobre endpoints de terceros."],
+    nextStep: "Priorizar el inventario y baseline de seguridad de los endpoints con acceso a información crítica."
   },
   "DEFAULT": {
     summary: "El control busca establecer una práctica de seguridad verificable y operativa, alineada con gobierno, evidencia y mejora continua.",
@@ -925,7 +1016,7 @@ function showDom(idx){
   const groups={};
   qs.forEach(q=>{const k=q.cid||'g';if(!groups[k])groups[k]={t:q.ct,qs:[]};groups[k].qs.push(q);});
   const a=document.getElementById('assessment');
-  let h=`<div class="dom-hdr"><div class="dh-top"><span class="dh-code">${m.c}</span>${m.ai?'<span class="ai-tag">AI-SPECIFIC</span>':''}</div><div class="dh-title">${translateDomain(d)}</div><div class="dh-sub">${qs.length} preguntas &middot; ${Object.keys(groups).length} controles &middot; <span style="color:var(--pu)">&#10022; clic en Agente para explicación contextual</span></div></div>`;
+  let h=`<div class="dom-hdr"><div class="dh-top"><span class="dh-code">${m.c}</span>${m.ai?'<span class="ai-tag">ESPECÍFICO IA</span>':''}</div><div class="dh-title">${translateDomain(d)}</div><div class="dh-sub">${qs.length} preguntas &middot; ${Object.keys(groups).length} controles &middot; <span style="color:var(--pu)">&#10022; clic en Agente para explicación contextual</span></div></div>`;
   Object.entries(groups).forEach(([cid,g])=>{
     h+=`<div class="cgroup"><div class="ctitle">${cid} &middot; ${translateControlTitle(cid, g.t)}</div>`;
     g.qs.forEach(q=>{
