@@ -134,6 +134,8 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 .qi.na{background:#F5A62306;border-left:3px solid var(--am)}
 .qid{font-size:9px;font-family:var(--mo);color:var(--t2);min-width:72px;padding-top:2px;flex-shrink:0}
 .qt{flex:1;font-size:12px;color:var(--t1);line-height:1.55}
+.qt-es{display:block;color:var(--t0);margin-bottom:4px}
+.qt-en{display:block;color:var(--t2);font-size:11px;line-height:1.45}
 .qi.y .qt,.qi.n .qt,.qi.na .qt{color:var(--t0)}
 .qa{display:flex;gap:4px;flex-shrink:0;align-items:center}
 .qb{padding:4px 9px;border:1px solid var(--bd);border-radius:6px;cursor:pointer;font-size:9px;font-weight:700;font-family:var(--mo);background:transparent;color:var(--t2);transition:all .12s}
@@ -292,6 +294,52 @@ const DMETA={
 "Threat & Vulnerability Management":{c:"TVM",ai:true},
 "Universal Endpoint Management":{c:"UEM",ai:false}
 };
+
+const DOMAIN_ES = {
+"Audit & Assurance":"Auditoría y Aseguramiento",
+"Application & Interface Security":"Seguridad de Aplicaciones e Interfaces",
+"Business Continuity Management and Operational Resilience":"Continuidad de Negocio y Resiliencia Operacional",
+"Change Control and Configuration Management":"Control de Cambios y Gestión de Configuración",
+"Cryptography, Encryption & Key Management":"Criptografía, Cifrado y Gestión de Claves",
+"Datacenter Security":"Seguridad de Datacenter",
+"Data Security and Privacy Lifecycle Management":"Seguridad de Datos y Gestión del Ciclo de Vida de Privacidad",
+"Governance, Risk and Compliance":"Gobierno, Riesgo y Cumplimiento",
+"Human Resources":"Recursos Humanos",
+"Identity & Access Management":"Gestión de Identidad y Accesos",
+"Interoperability & Portability":"Interoperabilidad y Portabilidad",
+"Infrastructure Security":"Seguridad de Infraestructura",
+"Logging and Monitoring":"Registro y Monitoreo",
+"Model Security":"Seguridad del Modelo",
+"Security Incident Management, E-Discovery, & Cloud Forensics":"Gestión de Incidentes, E-Discovery y Forense Cloud",
+"Supply Chain Management, Transparency, and Accountability":"Gestión de Cadena de Suministro, Transparencia y Accountability",
+"Threat & Vulnerability Management":"Gestión de Amenazas y Vulnerabilidades",
+"Universal Endpoint Management":"Gestión Universal de Endpoints"
+};
+
+const CONTROL_TITLE_ES = {
+"A&A-01":"Política y Procedimientos de Auditoría y Aseguramiento",
+"A&A-02":"Evaluaciones Independientes",
+"AIS-10":"Seguridad de APIs",
+"IAM-01":"Política y Procedimientos de Gestión de Identidad y Acceso",
+"MDS-03":"Documentación del Modelo",
+"STA-16":"Bill of Materials del Servicio",
+"TVM-11":"Guardrails"
+};
+
+const QUESTION_ES = {
+"A&A-01.1":"¿Las políticas, procedimientos y estándares de auditoría y aseguramiento están establecidos, documentados, aprobados, comunicados, aplicados, evaluados y mantenidos?",
+"A&A-01.2":"¿Las políticas, procedimientos y estándares de auditoría y aseguramiento se revisan y actualizan al menos una vez al año o ante cambios significativos?",
+"AIS-10.1":"¿Existen procesos, procedimientos y medidas técnicas definidas, implementadas y evaluadas para asegurar las APIs, incluyendo fallas de autorización, gestión de claves y pruebas de seguridad regulares?",
+"AIS-10.2":"¿Las medidas técnicas de mejora para APIs se revisan y actualizan al menos anualmente o después de cambios significativos del sistema?",
+"IAM-01.1":"¿Las políticas y procedimientos de gestión de identidad y acceso están establecidos, documentados, aprobados, comunicados, aplicados, evaluados y mantenidos?",
+"IAM-01.2":"¿Las políticas y procedimientos de gestión de identidad y acceso se revisan y actualizan al menos una vez al año o ante cambios significativos?",
+"MDS-03.1":"¿Existen procesos y procedimientos definidos, implementados, exigidos y evaluados para documentar, aprobar, comunicar, evaluar y mantener la documentación del modelo?",
+"MDS-03.2":"¿La documentación del modelo se revisa y actualiza regularmente?",
+"STA-16.1":"¿Existen procesos definidos, implementados, exigidos y evaluados para establecer un Bill of Materials del servicio de IA, incluyendo modelo, servicios orquestados y aplicaciones de IA?",
+"TVM-11.1":"¿Existen procesos, procedimientos y medidas técnicas definidas e implementadas para aplicar guardrails al sistema de IA?",
+"TVM-11.2":"¿Los guardrails se evalúan continuamente frente a cambios regulatorios y nuevos escenarios de riesgo?"
+};
+
 const DOMAINS=Object.keys(AICM);
 let answers={},selRole_val='',curDom=0,orgN='',orgS='';
 let agentCtx=null; // {qid, ctitle, question, history}
@@ -488,6 +536,24 @@ function getGuidanceForControl(cid){
   return CONTROL_GUIDANCE[cid] || DOMAIN_GUIDANCE[prefix] || DOMAIN_GUIDANCE.DEFAULT;
 }
 
+function translateDomain(domain){
+  return DOMAIN_ES[domain] || domain;
+}
+
+function translateControlTitle(cid, title){
+  return CONTROL_TITLE_ES[cid] || title;
+}
+
+function translateQuestion(qid, question){
+  return QUESTION_ES[qid] || '';
+}
+
+function renderQuestionText(qid, question){
+  const translated = translateQuestion(qid, question);
+  if(!translated) return question;
+  return `<span class="qt-es">${translated}</span><span class="qt-en">${question}</span>`;
+}
+
 function buildGuidanceResponse(ctx, userMsg){
   const guidance = getGuidanceForControl(ctx.cid);
   const followup = userMsg
@@ -530,7 +596,8 @@ function buildSB(){
     const b=document.createElement('button');
     b.className='dom-btn'+(pct===100?' done':'');
     b.id='db'+i;b.onclick=()=>showDom(i);
-    const dn=d.length>24?d.substring(0,22)+'..':d;
+    const translated = translateDomain(d);
+    const dn=translated.length>28?translated.substring(0,26)+'..':translated;
     b.innerHTML=`<span class="dcode">${m.c}</span><div style="flex:1"><div class="dname">${dn}</div><div class="dprog"><div class="dbar"><div class="dbar-fill" style="width:${pct}%"></div></div><span class="dpct">${pct}%</span></div></div>`;
     l.appendChild(b);
   });
@@ -559,15 +626,15 @@ function showDom(idx){
   const groups={};
   qs.forEach(q=>{const k=q.cid||'g';if(!groups[k])groups[k]={t:q.ct,qs:[]};groups[k].qs.push(q);});
   const a=document.getElementById('assessment');
-  let h=`<div class="dom-hdr"><div class="dh-top"><span class="dh-code">${m.c}</span>${m.ai?'<span class="ai-tag">AI-SPECIFIC</span>':''}</div><div class="dh-title">${d}</div><div class="dh-sub">${qs.length} preguntas &middot; ${Object.keys(groups).length} controles &middot; <span style="color:var(--pu)">&#10022; clic en Agente para explicaci&oacute;n t&eacute;cnica</span></div></div>`;
+  let h=`<div class="dom-hdr"><div class="dh-top"><span class="dh-code">${m.c}</span>${m.ai?'<span class="ai-tag">AI-SPECIFIC</span>':''}</div><div class="dh-title">${translateDomain(d)}</div><div class="dh-sub">${qs.length} preguntas &middot; ${Object.keys(groups).length} controles &middot; <span style="color:var(--pu)">&#10022; clic en Agente para explicación contextual</span></div></div>`;
   Object.entries(groups).forEach(([cid,g])=>{
-    h+=`<div class="cgroup"><div class="ctitle">${cid} &middot; ${g.t}</div>`;
+    h+=`<div class="cgroup"><div class="ctitle">${cid} &middot; ${translateControlTitle(cid, g.t)}</div>`;
     g.qs.forEach(q=>{
       const av=answers[q.id];const ac=av?('qi '+av.toLowerCase()):'qi';
       const sid='q'+q.id.replace(/[&. ]/g,'_');
       const qesc=q.q.replace(/'/g,"\'").replace(/"/g,'&quot;');
-      const ctesc=g.t.replace(/'/g,"\'");
-      h+=`<div class="${ac}" id="${sid}"><span class="qid">${q.id}</span><span class="qt">${q.q}</span><div class="qa"><button class="qb ${av==='YES'?'y':''}" onclick="ans('${q.id}','YES')">YES</button><button class="qb ${av==='NO'?'n':''}" onclick="ans('${q.id}','NO')">NO</button><button class="qb ${av==='NA'?'na':''}" onclick="ans('${q.id}','NA')">N/A</button><button class="qb agent-btn" onclick="openAgent('${q.id}','${cid}','${ctesc}','${qesc}')" title="Explicaci&oacute;n t&eacute;cnica del agente">&#129302; Agente</button></div></div>`;
+      const ctesc=translateControlTitle(cid, g.t).replace(/'/g,"\'");
+      h+=`<div class="${ac}" id="${sid}"><span class="qid">${q.id}</span><span class="qt">${renderQuestionText(q.id, q.q)}</span><div class="qa"><button class="qb ${av==='YES'?'y':''}" onclick="ans('${q.id}','YES')">YES</button><button class="qb ${av==='NO'?'n':''}" onclick="ans('${q.id}','NO')">NO</button><button class="qb ${av==='NA'?'na':''}" onclick="ans('${q.id}','NA')">N/A</button><button class="qb agent-btn" onclick="openAgent('${q.id}','${cid}','${ctesc}','${qesc}')" title="Explicación contextual del agente">&#129302; Agente</button></div></div>`;
     });
     h+=`</div>`;
   });
@@ -594,7 +661,8 @@ function openAgent(qid,cid,ctitle,question){
   const panel=document.getElementById('agent-panel');
   panel.classList.add('open');
   updateLLMStatus();
-  document.getElementById('ap-ctrl-box').innerHTML=`<div class="ap-ctrl-id">${cid}</div><div class="ap-ctrl-title">${ctitle}</div><div class="ap-ctrl-q">${question}</div>`;
+  const translatedQuestion = translateQuestion(qid, question);
+  document.getElementById('ap-ctrl-box').innerHTML=`<div class="ap-ctrl-id">${cid}</div><div class="ap-ctrl-title">${translateControlTitle(cid, ctitle)}</div><div class="ap-ctrl-q">${translatedQuestion || question}${translatedQuestion ? `<div style="margin-top:6px;color:var(--t2);font-size:10px;line-height:1.45">${question}</div>` : ''}</div>`;
   const msgs=document.getElementById('agent-messages');
   msgs.innerHTML='';
   // Check cache
@@ -705,7 +773,7 @@ function showResults(){
     const dna=qs.filter(q=>answers[q.id]==='NA').length;
     const da=dy+dn+dna;const ds=da>0?Math.round((dy+dna*0.5)/da*100):0;
     const dc=ds>=80?'#22C55E':ds>=60?'#F5A623':'#E53E3E';
-    const m=DMETA[d];const dn2=d.length>36?d.substring(0,34)+'..':d;
+    const m=DMETA[d];const translated = translateDomain(d);const dn2=translated.length>40?translated.substring(0,38)+'..':translated;
     dr+=`<div class="drc"><div class="drh"><span class="drcode">${m.c}</span><span class="drsc" style="color:${dc}">${ds}/100</span></div><div class="drn">${dn2}</div><div class="drbg"><div class="drf" style="width:${ds}%;background:${dc}"></div></div><div class="drct"><span class="drci" style="color:#22C55E">Y:${dy}</span><span class="drci" style="color:#E53E3E">N:${dn}</span><span class="drci" style="color:#F5A623">NA:${dna}</span><span class="drci" style="color:#5A7499">-:${qs.length-da}</span></div></div>`;
   });
   r.innerHTML=`<div><div class="rh">Resultados — AI-CAIQ v1.0.2</div><div class="rs">${orgN}${orgS?' · '+orgS:''} · Rol: ${selRole_val||'N/A'} · ${new Date().toLocaleDateString('es-CL')}</div></div>
