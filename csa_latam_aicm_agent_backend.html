@@ -193,6 +193,18 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 .rec-action{font-size:12px;color:var(--t0);line-height:1.6;margin-bottom:12px}
 .rec-evidence{font-size:11px;color:var(--t1);line-height:1.55;padding-top:10px;border-top:1px solid rgba(109,146,209,.16)}
 .rec-empty{font-size:13px;color:var(--t1);line-height:1.8;padding:6px 2px}
+.insight-wrap{grid-column:1/-1;display:grid;grid-template-columns:1.1fr .9fr;gap:12px}
+.insight-card{background:linear-gradient(180deg,#0C1730 0%,#0A1223 100%);border:1px solid var(--bdl);border-radius:14px;padding:18px}
+.insight-kicker{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--cy);margin-bottom:8px}
+.insight-title{font-size:16px;font-weight:700;color:var(--t0);margin-bottom:8px}
+.insight-body{font-size:12px;color:var(--t1);line-height:1.7}
+.roadmap-grid{display:grid;grid-template-columns:1fr;gap:10px}
+.roadmap-step{padding:14px;border-radius:12px;background:rgba(19,32,56,.74);border:1px solid rgba(109,146,209,.18)}
+.roadmap-step strong{display:block;font-size:11px;font-family:var(--mo);color:var(--cy);margin-bottom:6px}
+.roadmap-step span{display:block;font-size:12px;color:var(--t1);line-height:1.65}
+.agent-next{margin-top:12px;padding:10px 12px;border-radius:10px;background:rgba(0,196,168,.08);border:1px solid rgba(0,196,168,.2)}
+.agent-next-title{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--cy);margin-bottom:4px}
+.agent-next-body{font-size:12px;color:var(--t0);line-height:1.6}
 .ebar{padding:14px 16px;background:var(--bg1);border:1px solid var(--bd);border-radius:10px;display:flex;align-items:center;gap:12px}
 #btn-exp{padding:8px 18px;background:var(--bl);color:#fff;border:none;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--fn)}
 #btn-rst{padding:8px 18px;background:transparent;color:var(--t1);border:1px solid var(--bd);border-radius:7px;font-size:11px;cursor:pointer;font-family:var(--fn)}
@@ -908,6 +920,15 @@ const DOMAIN_GUIDANCE = {
   }
 };
 
+const NEXT_CONTROL_MAP = {
+  "AIS-10":"IAM-01",
+  "IAM-01":"LOG-03",
+  "MDS-03":"STA-16",
+  "STA-16":"TVM-11",
+  "TVM-11":"LOG-14",
+  "A&A-01":"GRC-01"
+};
+
 function updateLLMStatus(){
   const cfg=document.getElementById('cfg-status');
   const ap=document.getElementById('ap-status');
@@ -967,6 +988,14 @@ function renderQuestionText(qid, question){
 
 function buildGuidanceResponse(ctx, userMsg){
   const guidance = getGuidanceForControl(ctx.cid);
+  const suggested = NEXT_CONTROL_MAP[ctx.cid];
+  const suggestedQuestion = suggested ? Object.values(AICM).flat().find(item => item.cid === suggested) : null;
+  const nextControlBlock = suggestedQuestion ? `
+
+#### Siguiente control sugerido
+**${suggested} — ${translateControlTitle(suggested, suggestedQuestion.ct)}**
+
+Motivo: este control complementa la evaluación actual y ayuda a validar dependencias operativas o de evidencia asociadas al hallazgo.` : '';
   const followup = userMsg
     ? `\n\n#### Pregunta adicional\n**Consulta:** ${userMsg}\n**Orientación:** Para este control conviene responder la duda verificando si la implementación actual ya tiene evidencia objetiva, owner definido y revisión periódica. Si no existe esa trazabilidad, el control debería considerarse parcial o pendiente.`
     : '';
@@ -984,7 +1013,7 @@ ${guidance.summary}
 - ${guidance.gaps.join('\n- ')}
 
 #### Siguiente paso recomendado
-**${guidance.nextStep}**${followup}`;
+**${guidance.nextStep}**${nextControlBlock}${followup}`;
 }
 
 function getQuestionById(qid){
@@ -1074,6 +1103,74 @@ function renderRecommendations(findings){
         <div class="rec-chip">${top.length} focos de acción</div>
       </div>
       <div class="rec-grid">${cards}</div>
+    </div>`;
+}
+
+function detectPattern(findings){
+  const domains = new Set(findings.map(item => item.domainCode));
+  if (domains.has("MDS") && domains.has("IAM") && domains.has("LOG")) {
+    return "Brecha transversal en gobierno operativo de IA: falta de trazabilidad, control de acceso y monitoreo sobre servicios o modelos críticos.";
+  }
+  if (domains.has("STA") && domains.has("GRC") && domains.has("DSP")) {
+    return "Brecha relevante de cadena de suministro y gobierno de datos: el servicio depende de terceros o datasets sin suficiente control, trazabilidad o cumplimiento.";
+  }
+  if (domains.has("AIS") && domains.has("TVM")) {
+    return "Brecha técnica en superficie de ataque: APIs, validaciones y controles de protección muestran una postura reactiva frente a amenazas.";
+  }
+  if (domains.has("BCR") || domains.has("SEF")) {
+    return "Brecha de resiliencia y respuesta: la organización necesita fortalecer preparación, recuperación y respuesta ante incidentes en escenarios cloud y AI.";
+  }
+  if (!findings.length) {
+    return "No se detectan brechas críticas inmediatas; el foco pasa a confirmar controles N/A y fortalecer madurez de forma progresiva.";
+  }
+  return "Se observa una brecha operativa inicial que requiere formalización de controles, evidencia mínima y priorización de remediación.";
+}
+
+function buildRoadmap(findings){
+  const domains = new Set(findings.map(item => item.domainCode));
+  const day30 = [];
+  const day60 = [];
+  const day90 = [];
+
+  day30.push("Formalizar ownership, evidencia mínima y backlog de remediación para los controles marcados como NO.");
+  if (domains.has("IAM")) day30.push("Recertificar accesos críticos y reforzar MFA o federación en servicios sensibles.");
+  if (domains.has("GRC") || domains.has("A&A")) day30.push("Actualizar políticas, excepciones y criterios de revisión del assessment.");
+  if (domains.has("DSP") || domains.has("STA")) day30.push("Inventariar datasets, proveedores y componentes críticos.");
+
+  day60.push("Implementar controles técnicos prioritarios y cerrar brechas de configuración, APIs, logging o protección del modelo.");
+  if (domains.has("AIS") || domains.has("TVM")) day60.push("Endurecer interfaces expuestas, guardrails y pruebas de seguridad.");
+  if (domains.has("LOG")) day60.push("Ampliar visibilidad con logging, alertas y retención de eventos críticos.");
+  if (domains.has("MDS")) day60.push("Formalizar documentación del modelo, validaciones e integridad de artefactos.");
+
+  day90.push("Validar efectividad de controles con revisión ejecutiva, métricas y un nuevo ciclo de evaluación.");
+  if (domains.has("BCR") || domains.has("SEF")) day90.push("Ejecutar ejercicios de continuidad o respuesta a incidentes con alcance realista.");
+  if (domains.has("STA")) day90.push("Integrar gestión de terceros y BOM del servicio al proceso de cambio y riesgo.");
+
+  return {
+    day30: day30.slice(0, 3),
+    day60: day60.slice(0, 3),
+    day90: day90.slice(0, 3)
+  };
+}
+
+function renderAgenticInsights(findings){
+  const pattern = detectPattern(findings);
+  const roadmap = buildRoadmap(findings);
+  return `
+    <div class="insight-wrap">
+      <div class="insight-card">
+        <div class="insight-kicker">Patrón Detectado</div>
+        <div class="insight-title">Lectura agentic del assessment</div>
+        <div class="insight-body">${pattern}</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-kicker">Roadmap 30 / 60 / 90</div>
+        <div class="roadmap-grid">
+          <div class="roadmap-step"><strong>30 días</strong><span>${roadmap.day30.join(' ')}</span></div>
+          <div class="roadmap-step"><strong>60 días</strong><span>${roadmap.day60.join(' ')}</span></div>
+          <div class="roadmap-step"><strong>90 días</strong><span>${roadmap.day90.join(' ')}</span></div>
+        </div>
+      </div>
     </div>`;
 }
 
@@ -1268,6 +1365,7 @@ function showResults(){
   const C=2*Math.PI*45;const off=C-(sc/100)*C;
   const findings = buildFindings();
   const recommendationsHtml = renderRecommendations(findings);
+  const agenticInsightsHtml = renderAgenticInsights(findings);
   let dr='';
   DOMAINS.forEach(d=>{
     const qs=AICM[d];
@@ -1297,6 +1395,7 @@ function showResults(){
       <div style="margin-top:10px;padding:9px;background:#22C55E15;border-radius:7px;font-size:11px;color:#22C55E;border:1px solid #22C55E40">Tu score: <strong>${sc}/100 — ${scl}</strong></div>
     </div>
   </div>
+  ${agenticInsightsHtml}
   <div><div style="font-size:13px;font-weight:600;margin-bottom:10px">Score por dominio (18 dominios AICM)</div><div class="drgrid">${dr}</div></div>
   ${recommendationsHtml}
   <div class="ebar">
