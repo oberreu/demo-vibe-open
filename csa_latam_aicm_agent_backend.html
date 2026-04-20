@@ -966,6 +966,80 @@ ${guidance.summary}
 **${guidance.nextStep}**${followup}`;
 }
 
+function getQuestionById(qid){
+  for (const domain of DOMAINS){
+    const found = AICM[domain].find(q => q.id === qid);
+    if(found) return { ...found, domain };
+  }
+  return null;
+}
+
+function buildFindings(){
+  const findings = Object.entries(answers)
+    .filter(([, value]) => value === 'NO')
+    .map(([qid]) => {
+      const question = getQuestionById(qid);
+      if(!question) return null;
+      const guidance = getGuidanceForControl(question.cid);
+      const domainMeta = DMETA[question.domain] || { c: 'GEN' };
+      return {
+        qid,
+        cid: question.cid,
+        domain: question.domain,
+        domainCode: domainMeta.c,
+        domainLabel: translateDomain(question.domain),
+        controlTitle: translateControlTitle(question.cid, question.ct),
+        questionEs: translateQuestion(qid, question.q) || question.q,
+        nextStep: guidance.nextStep,
+        evidence: guidance.evidence[0] || 'Definir evidencia mínima del control.'
+      };
+    })
+    .filter(Boolean);
+
+  const priorityDomains = ["MDS", "IAM", "AIS", "STA", "TVM", "GRC", "LOG"];
+  findings.sort((a, b) => {
+    const ap = priorityDomains.indexOf(a.domainCode);
+    const bp = priorityDomains.indexOf(b.domainCode);
+    const av = ap === -1 ? 999 : ap;
+    const bv = bp === -1 ? 999 : bp;
+    return av - bv || a.cid.localeCompare(b.cid);
+  });
+
+  return findings;
+}
+
+function renderRecommendations(findings){
+  if(!findings.length){
+    return `
+      <div class="scc" style="grid-column:1/-1">
+        <div class="sct">Recomendaciones Prioritarias</div>
+        <div style="font-size:13px;color:var(--t1);line-height:1.7">
+          No se detectaron hallazgos marcados como <strong style="color:var(--t0)">NO</strong> en esta evaluación. La siguiente recomendación es revisar los controles respondidos como <strong style="color:var(--t0)">N/A</strong> y confirmar que realmente no aplican al contexto evaluado.
+        </div>
+      </div>`;
+  }
+
+  const top = findings.slice(0, 5);
+  const cards = top.map((item, index) => `
+    <div class="drc" style="padding:14px">
+      <div class="drh">
+        <span class="drcode">P${index + 1} · ${item.cid}</span>
+        <span class="drci" style="color:#F5A623">${item.domainCode}</span>
+      </div>
+      <div class="drn" style="font-size:11px;color:var(--t0);margin-bottom:8px">${item.controlTitle}</div>
+      <div style="font-size:11px;color:var(--t1);line-height:1.55;margin-bottom:8px">${item.questionEs}</div>
+      <div style="font-size:11px;color:var(--cy);margin-bottom:6px"><strong>Recomendación:</strong> ${item.nextStep}</div>
+      <div style="font-size:10px;color:var(--t2);line-height:1.45"><strong>Evidencia sugerida:</strong> ${item.evidence}</div>
+    </div>`).join('');
+
+  return `
+    <div class="scc" style="grid-column:1/-1">
+      <div class="sct">Recomendaciones Prioritarias</div>
+      <div style="font-size:11px;color:var(--t1);margin-bottom:12px">Estas recomendaciones se generan a partir de los hallazgos detectados en respuestas <strong style="color:var(--t0)">NO</strong> y se ordenan para apoyar una primera priorización de remediación.</div>
+      <div class="drgrid">${cards}</div>
+    </div>`;
+}
+
 function selRole(el,r){document.querySelectorAll('.rbtn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');selRole_val=r;}
 
 function startA(){
@@ -1155,6 +1229,8 @@ function showResults(){
   const scc=sc>=80?'#22C55E':sc>=60?'#F5A623':'#E53E3E';
   const scl=sc>=80?'Maduro':sc>=60?'En desarrollo':sc>=40?'Inicial':'Básico';
   const C=2*Math.PI*45;const off=C-(sc/100)*C;
+  const findings = buildFindings();
+  const recommendationsHtml = renderRecommendations(findings);
   let dr='';
   DOMAINS.forEach(d=>{
     const qs=AICM[d];
@@ -1185,6 +1261,7 @@ function showResults(){
     </div>
   </div>
   <div><div style="font-size:13px;font-weight:600;margin-bottom:10px">Score por dominio (18 dominios AICM)</div><div class="drgrid">${dr}</div></div>
+  ${recommendationsHtml}
   <div class="ebar">
     <div style="flex:1"><div style="font-size:12px;font-weight:600">Exportar resultados</div><div style="font-size:10px;color:var(--t1);margin-top:2px">JSON compatible con CSA STAR Registry</div></div>
     <button id="btn-rst" onclick="restart()">Nueva evaluación</button>
