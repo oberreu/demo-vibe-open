@@ -172,6 +172,27 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 .drf{height:100%;border-radius:99px}
 .drct{display:flex;gap:8px}
 .drci{font-size:10px;font-family:var(--mo)}
+.rec-wrap{grid-column:1/-1;background:linear-gradient(180deg,#0D1830 0%,#0A1426 100%);border:1px solid var(--bdl);border-radius:14px;padding:18px;box-shadow:0 18px 40px rgba(0,0,0,.18)}
+.rec-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:14px}
+.rec-title{font-size:14px;font-weight:700;color:var(--t0);margin-bottom:4px}
+.rec-sub{font-size:11px;color:var(--t1);line-height:1.6;max-width:72ch}
+.rec-chip{padding:6px 10px;border-radius:999px;background:var(--cyf);border:1px solid #00C4A840;color:var(--cy);font-size:10px;font-weight:700;font-family:var(--mo);white-space:nowrap}
+.rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rec-card{position:relative;padding:16px;border-radius:14px;background:linear-gradient(180deg,rgba(19,32,56,.94) 0%,rgba(12,21,37,.96) 100%);border:1px solid var(--bd);overflow:hidden}
+.rec-card::after{content:"";position:absolute;inset:auto -30px -30px auto;width:120px;height:120px;background:radial-gradient(circle,rgba(45,107,244,.18),transparent 68%);pointer-events:none}
+.rec-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.rec-priority{display:flex;align-items:center;gap:8px}
+.rec-rank{width:28px;height:28px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(245,166,35,.16);border:1px solid rgba(245,166,35,.34);color:var(--am);font-size:11px;font-weight:800;font-family:var(--mo)}
+.rec-code{font-size:11px;font-weight:700;color:var(--t0);font-family:var(--mo)}
+.rec-domain{padding:4px 8px;border-radius:999px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);color:var(--pu);font-size:10px;font-weight:700;font-family:var(--mo)}
+.rec-control{font-size:13px;font-weight:700;color:var(--t0);line-height:1.4;margin-bottom:8px;padding-right:18px}
+.rec-question{font-size:11px;color:var(--t1);line-height:1.6;margin-bottom:12px}
+.rec-label{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.rec-label.action{color:var(--cy)}
+.rec-label.evidence{color:var(--t2)}
+.rec-action{font-size:12px;color:var(--t0);line-height:1.6;margin-bottom:12px}
+.rec-evidence{font-size:11px;color:var(--t1);line-height:1.55;padding-top:10px;border-top:1px solid rgba(109,146,209,.16)}
+.rec-empty{font-size:13px;color:var(--t1);line-height:1.8;padding:6px 2px}
 .ebar{padding:14px 16px;background:var(--bg1);border:1px solid var(--bd);border-radius:10px;display:flex;align-items:center;gap:12px}
 #btn-exp{padding:8px 18px;background:var(--bl);color:#fff;border:none;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--fn)}
 #btn-rst{padding:8px 18px;background:transparent;color:var(--t1);border:1px solid var(--bd);border-radius:7px;font-size:11px;cursor:pointer;font-family:var(--fn)}
@@ -1011,9 +1032,15 @@ function buildFindings(){
 function renderRecommendations(findings){
   if(!findings.length){
     return `
-      <div class="scc" style="grid-column:1/-1">
-        <div class="sct">Recomendaciones Prioritarias</div>
-        <div style="font-size:13px;color:var(--t1);line-height:1.7">
+      <div class="rec-wrap">
+        <div class="rec-head">
+          <div>
+            <div class="rec-title">Recomendaciones Prioritarias</div>
+            <div class="rec-sub">No se detectaron brechas marcadas como <strong style="color:var(--t0)">NO</strong> en esta evaluación.</div>
+          </div>
+          <div class="rec-chip">Sin hallazgos críticos</div>
+        </div>
+        <div class="rec-empty">
           No se detectaron hallazgos marcados como <strong style="color:var(--t0)">NO</strong> en esta evaluación. La siguiente recomendación es revisar los controles respondidos como <strong style="color:var(--t0)">N/A</strong> y confirmar que realmente no aplican al contexto evaluado.
         </div>
       </div>`;
@@ -1021,22 +1048,32 @@ function renderRecommendations(findings){
 
   const top = findings.slice(0, 5);
   const cards = top.map((item, index) => `
-    <div class="drc" style="padding:14px">
-      <div class="drh">
-        <span class="drcode">P${index + 1} · ${item.cid}</span>
-        <span class="drci" style="color:#F5A623">${item.domainCode}</span>
+    <div class="rec-card">
+      <div class="rec-top">
+        <div class="rec-priority">
+          <div class="rec-rank">P${index + 1}</div>
+          <div class="rec-code">${item.cid}</div>
+        </div>
+        <div class="rec-domain">${item.domainCode}</div>
       </div>
-      <div class="drn" style="font-size:11px;color:var(--t0);margin-bottom:8px">${item.controlTitle}</div>
-      <div style="font-size:11px;color:var(--t1);line-height:1.55;margin-bottom:8px">${item.questionEs}</div>
-      <div style="font-size:11px;color:var(--cy);margin-bottom:6px"><strong>Recomendación:</strong> ${item.nextStep}</div>
-      <div style="font-size:10px;color:var(--t2);line-height:1.45"><strong>Evidencia sugerida:</strong> ${item.evidence}</div>
+      <div class="rec-control">${item.controlTitle}</div>
+      <div class="rec-question">${item.questionEs}</div>
+      <div class="rec-label action">Recomendación Prioritaria</div>
+      <div class="rec-action">${item.nextStep}</div>
+      <div class="rec-label evidence">Evidencia Sugerida</div>
+      <div class="rec-evidence">${item.evidence}</div>
     </div>`).join('');
 
   return `
-    <div class="scc" style="grid-column:1/-1">
-      <div class="sct">Recomendaciones Prioritarias</div>
-      <div style="font-size:11px;color:var(--t1);margin-bottom:12px">Estas recomendaciones se generan a partir de los hallazgos detectados en respuestas <strong style="color:var(--t0)">NO</strong> y se ordenan para apoyar una primera priorización de remediación.</div>
-      <div class="drgrid">${cards}</div>
+    <div class="rec-wrap">
+      <div class="rec-head">
+        <div>
+          <div class="rec-title">Recomendaciones Prioritarias</div>
+          <div class="rec-sub">Estas recomendaciones se generan a partir de los hallazgos detectados en respuestas <strong style="color:var(--t0)">NO</strong> y se ordenan para apoyar una primera priorización de remediación.</div>
+        </div>
+        <div class="rec-chip">${top.length} focos de acción</div>
+      </div>
+      <div class="rec-grid">${cards}</div>
     </div>`;
 }
 
