@@ -24,6 +24,9 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 .csa-sq{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#1B4FD8,#00C4A8);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;font-family:var(--mo)}
 .csa-name{font-size:13px;font-weight:700}
 .csa-sub{font-size:9px;color:var(--t2);font-family:var(--mo)}
+.hdr-nav{display:flex;align-items:center;gap:8px}
+.hdr-link{padding:6px 10px;background:transparent;border:1px solid var(--bd);border-radius:999px;color:var(--t1);font-size:10px;font-weight:700;font-family:var(--mo);cursor:pointer;transition:all .15s}
+.hdr-link:hover{color:var(--t0);border-color:var(--t1);background:rgba(45,107,244,.08)}
 .hdr-sep{width:1px;height:24px;background:var(--bd);margin:0 4px}
 .hdr-badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:20px;background:var(--cyf);color:var(--cy);border:1px solid #00C4A840;font-family:var(--mo)}
 .agent-badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:20px;background:var(--puf);color:var(--pu);border:1px solid #8B5CF640;font-family:var(--mo)}
@@ -131,6 +134,21 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 .tenant-note{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;border-radius:10px;background:rgba(0,196,168,.08);border:1px solid rgba(0,196,168,.2)}
 .tenant-note strong{display:block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--cy);margin-bottom:3px}
 .tenant-note span{display:block;font-size:11px;color:var(--t1);line-height:1.55}
+.story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.story-card{background:linear-gradient(180deg,#0F1830 0%,#0B1323 100%);border:1px solid var(--bd);border-radius:12px;padding:16px;position:relative;overflow:hidden}
+.story-card::after{content:"";position:absolute;inset:auto -24px -30px auto;width:100px;height:100px;background:radial-gradient(circle,rgba(139,92,246,.16),transparent 70%);pointer-events:none}
+.story-kicker{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--cy);margin-bottom:8px}
+.story-title{font-size:14px;font-weight:700;color:var(--t0);margin-bottom:8px}
+.story-copy{font-size:11px;color:var(--t1);line-height:1.65}
+.flow-card{background:var(--bg1);border:1px solid var(--bd);border-radius:12px;padding:18px;margin-bottom:16px}
+.flow-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
+.flow-title{font-size:13px;font-weight:700;color:var(--t0)}
+.flow-sub{font-size:11px;color:var(--t1);line-height:1.6;max-width:72ch}
+.flow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.flow-step{padding:14px;border-radius:12px;background:rgba(19,32,56,.78);border:1px solid rgba(109,146,209,.18)}
+.flow-num{width:24px;height:24px;border-radius:999px;background:rgba(45,107,244,.16);border:1px solid rgba(45,107,244,.3);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;font-family:var(--mo);color:var(--bl);margin-bottom:8px}
+.flow-step strong{display:block;font-size:12px;color:var(--t0);margin-bottom:6px}
+.flow-step span{display:block;font-size:11px;color:var(--t1);line-height:1.6}
 /* ASSESSMENT */
 #assessment{flex:1;padding:18px 22px;display:none;flex-direction:column;overflow-y:auto}
 .dom-hdr{padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--bd)}
@@ -242,11 +260,17 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 .evidence-row{margin-bottom:8px}
 .evidence-label{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--cy);margin-bottom:4px}
 .evidence-text{font-size:11px;color:var(--t1);line-height:1.6}
+.evidence-conclusion{margin-top:10px;padding:10px 12px;border-radius:10px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.22)}
+.evidence-conclusion .evidence-label{color:var(--pu)}
 .evidence-gap{margin-top:10px;padding-top:10px;border-top:1px solid rgba(109,146,209,.16)}
 .evidence-gap .evidence-label{color:var(--am)}
 .ebar{padding:14px 16px;background:var(--bg1);border:1px solid var(--bd);border-radius:10px;display:flex;align-items:center;gap:12px}
 #btn-exp{padding:8px 18px;background:var(--bl);color:#fff;border:none;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--fn)}
 #btn-rst{padding:8px 18px;background:transparent;color:var(--t1);border:1px solid var(--bd);border-radius:7px;font-size:11px;cursor:pointer;font-family:var(--fn)}
+@media (max-width:1100px){
+  .story-grid,.flow-grid,.evidence-summary,.evidence-grid,.insight-wrap,.rec-grid,.tenant-grid,.sgrid{grid-template-columns:1fr}
+  .hdr-nav{display:none}
+}
 @keyframes pulse{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:var(--bg1)}
@@ -258,6 +282,12 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
   <div style="display:flex;align-items:center;gap:8px">
     <div class="csa-sq">CSA</div>
     <div><div class="csa-name">CSA LATAM Chapter</div><div class="csa-sub">AI-CAIQ SELF-ASSESSMENT TOOL</div></div>
+  </div>
+  <div class="hdr-nav">
+    <button class="hdr-link" onclick="navHome()">Inicio</button>
+    <button class="hdr-link" onclick="scrollToSection('agent-story')">Cómo Trabaja</button>
+    <button class="hdr-link" onclick="scrollToSection('tenant-connection')">Tenant Cloud</button>
+    <button class="hdr-link" onclick="navResults()">Resultados</button>
   </div>
   <div class="hdr-sep"></div>
   <span style="font-size:12px;color:var(--t1)">AI Controls Matrix v1.0.3</span>
@@ -286,20 +316,68 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
       <div id="intro" style="padding:32px;max-width:660px;margin:0 auto;width:100%">
         <div class="ibadge">&#9733; CSA LATAM Chapter &middot; Herramienta Gratuita</div>
         <h1 class="ih1">AI Controls Matrix<br>Self-Assessment Tool</h1>
-        <p class="isub">Evalúa la postura de seguridad de tu organización frente a los controles del AI-CAIQ v1.0.2. Incluye un <strong style="color:var(--pu)">Agente contextual</strong> con recomendaciones específicas por control para orientar implementación, evidencia y prioridades de remediación.</p>
+        <p class="isub">Evalúa la postura de seguridad de tu organización frente a los controles del AI-CAIQ v1.0.2. Incluye un <strong style="color:var(--pu)">Agente de validación de evidencia</strong> que cruza respuestas del auditor, señales del tenant cloud y artefactos documentales para orientar implementación, conclusión y remediación.</p>
         <div class="igrid">
           <div class="icard"><div class="inum" id="hero-total-controls">311</div><div class="ilabel">Preguntas AI-CAIQ v1.0.2</div></div>
           <div class="icard"><div class="inum">18</div><div class="ilabel">Dominios de seguridad</div></div>
-          <div class="icard ai-card"><div class="inum">&#10022;</div><div class="ilabel">Guía local por control</div></div>
+          <div class="icard ai-card"><div class="inum">&#10022;</div><div class="ilabel">Correlación de evidencia</div></div>
+        </div>
+        <div id="agent-story" class="story-grid">
+          <div class="story-card">
+            <div class="story-kicker">Infraestructura</div>
+            <div class="story-title">Consulta el tenant cloud</div>
+            <div class="story-copy">El agente puede conectarse a Azure, AWS o GCP para contrastar configuraciones, findings, políticas, inventarios, logging y señales de postura técnica.</div>
+          </div>
+          <div class="story-card">
+            <div class="story-kicker">Auditoría</div>
+            <div class="story-title">Analiza evidencias</div>
+            <div class="story-copy">Además del tenant, interpreta evidencia documental como políticas, reportes, tickets, screenshots, matrices de control y artefactos de remediación.</div>
+          </div>
+          <div class="story-card">
+            <div class="story-kicker">Correlación</div>
+            <div class="story-title">Concluye y prioriza</div>
+            <div class="story-copy">La salida no es solo una respuesta declarativa: el agente determina brechas entre lo declarado, lo evidenciado y lo que requiere revisión manual.</div>
+          </div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-head">
+            <div>
+              <div class="flow-title">Cómo trabaja el agente</div>
+              <div class="flow-sub">La evaluación deja de ser solo un cuestionario y pasa a ser una validación híbrida entre auditor, nube y evidencia documental.</div>
+            </div>
+            <div class="tenant-pill">Assessment + Evidence</div>
+          </div>
+          <div class="flow-grid">
+            <div class="flow-step">
+              <div class="flow-num">01</div>
+              <strong>Respuesta del auditor</strong>
+              <span>Se registra la evaluación humana del control y el contexto operativo de la organización.</span>
+            </div>
+            <div class="flow-step">
+              <div class="flow-num">02</div>
+              <strong>Conexión al tenant</strong>
+              <span>Se consulta la infraestructura cloud para obtener señales técnicas y postura de seguridad real.</span>
+            </div>
+            <div class="flow-step">
+              <div class="flow-num">03</div>
+              <strong>Revisión documental</strong>
+              <span>Se incorpora evidencia de auditoría como políticas, reportes, tickets y planes de remediación.</span>
+            </div>
+            <div class="flow-step">
+              <div class="flow-num">04</div>
+              <strong>Conclusión del agente</strong>
+              <span>El agente determina si el control está validado, parcial, no validado o en contradicción con la evidencia.</span>
+            </div>
+          </div>
         </div>
         <div class="cfg-card">
           <div class="cfg-head">
             <div class="cfg-title">Modo del Agente</div>
             <div id="cfg-status" class="cfg-status ok">Activo</div>
           </div>
-          <div class="cfg-help">Esta versión usa recomendaciones locales por control y por dominio. Así el demo funciona sin API externa y mantiene una experiencia estable para presentar el caso de CSA LATAM Chapter.</div>
+          <div class="cfg-help">Esta versión comunica el modelo objetivo del agente: correlacionar respuestas del auditor, evidencia cloud y evidencia documental. En una implementación real, esta capa se conectaría a APIs cloud y a repositorios de evidencias de auditoría.</div>
         </div>
-        <div class="tenant-card">
+        <div id="tenant-connection" class="tenant-card">
           <div class="tenant-head">
             <div>
               <div class="tenant-title">Conexión al Tenant Cloud</div>
@@ -739,6 +817,36 @@ let agentCtx=null; // {qid, ctitle, question, history}
 const agentCache={};
 const TOTAL_QUESTIONS=DOMAINS.reduce((sum,domain)=>sum + AICM[domain].length,0);
 let agentBackendReady=true;
+
+function navHome(){
+  document.getElementById('results').style.display='none';
+  document.getElementById('assessment').style.display='none';
+  document.getElementById('sidebar').style.display='none';
+  document.getElementById('intro').style.display='block';
+  document.getElementById('btn-results').style.display=Object.keys(answers).length?'block':'none';
+  document.getElementById('content').scrollTo({top:0,behavior:'smooth'});
+}
+
+function navResults(){
+  if(Object.keys(answers).length){
+    showResults();
+    return;
+  }
+  scrollToSection('tenant-connection');
+}
+
+function scrollToSection(id){
+  const target=document.getElementById(id);
+  const content=document.getElementById('content');
+  if(!target||!content) return;
+  if(document.getElementById('intro').style.display==='none'){
+    navHome();
+    setTimeout(()=>scrollToSection(id),120);
+    return;
+  }
+  const top=target.offsetTop-18;
+  content.scrollTo({top,behavior:'smooth'});
+}
 
 const CONTROL_GUIDANCE = {
   "A&A-01": {
@@ -1275,6 +1383,14 @@ function buildEvidenceItems(findings){
       : tenantProvider === 'AWS'
         ? `Se contrastaría este control con hallazgos, configuración y trazabilidad obtenidos desde ${source}.`
         : `Se revisaría cumplimiento técnico y postura de seguridad a partir de ${source}.`;
+    const documentary = index % 2 === 0
+      ? 'Política vigente, captura de consola, ticket de remediación y reporte de revisión disponibles para contraste.'
+      : 'Existe evidencia parcial: procedimiento documentado y artefactos operativos, pero falta trazabilidad completa o validación reciente.';
+    const agentConclusion = evidenceStatus === 'Implementado'
+      ? 'Conclusión del agente: el control aparece razonablemente respaldado por señales técnicas y evidencia documental.'
+      : evidenceStatus === 'Parcial'
+        ? 'Conclusión del agente: el control muestra avance, pero la cobertura técnica o documental todavía no permite validarlo completamente.'
+        : 'Conclusión del agente: el control permanece no validado; la declaración del auditor requiere contraste adicional y priorización de remediación.';
     const gap = evidenceStatus === 'Implementado'
       ? 'La evidencia técnica esperada respalda la declaración y sugiere validar periodicidad y coverage.'
       : evidenceStatus === 'Parcial'
@@ -1288,6 +1404,8 @@ function buildEvidenceItems(findings){
       statusClass,
       source,
       evidenceText,
+      documentary,
+      agentConclusion,
       gap
     };
   });
@@ -1316,6 +1434,14 @@ function renderEvidencePanel(findings){
       <div class="evidence-row">
         <div class="evidence-label">Fuente simulada</div>
         <div class="evidence-text">${item.source}</div>
+      </div>
+      <div class="evidence-row">
+        <div class="evidence-label">Evidencia documental</div>
+        <div class="evidence-text">${item.documentary}</div>
+      </div>
+      <div class="evidence-conclusion">
+        <div class="evidence-label">Conclusión del agente</div>
+        <div class="evidence-text">${item.agentConclusion}</div>
       </div>
       <div class="evidence-gap">
         <div class="evidence-label">Brecha detectada</div>
