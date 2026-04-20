@@ -4,6 +4,11 @@ Demo interactiva para evaluación de controles `CSA AICM / AI-CAIQ`, orientada a
 
 La aplicación permite recorrer dominios de seguridad, responder preguntas de assessment y usar un agente IA contextual para explicar controles, evidencia esperada, brechas comunes y siguientes pasos de implementación.
 
+## Demo hub
+
+- `index.html`
+  Landing principal del proyecto con acceso a las 3 variantes de la demo.
+
 ## Versiones incluidas
 
 - `csa_latam_aicm_agent.html`

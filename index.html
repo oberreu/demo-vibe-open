@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CSA LATAM AICM Demo Hub</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #07111f;
+      --bg-soft: #0d1b31;
+      --panel: rgba(15, 28, 52, 0.88);
+      --panel-2: rgba(10, 22, 43, 0.92);
+      --line: rgba(109, 146, 209, 0.22);
+      --text: #eef4ff;
+      --muted: #96a8c5;
+      --cyan: #1ed5c1;
+      --blue: #4f8cff;
+      --violet: #8b78ff;
+      --green: #5fd38d;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --mono: "SF Mono", "Cascadia Code", Consolas, monospace;
+      --sans: "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+    }
+    body {
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(79, 140, 255, 0.22), transparent 28%),
+        radial-gradient(circle at top right, rgba(30, 213, 193, 0.18), transparent 24%),
+        linear-gradient(180deg, #091120 0%, #06101c 100%);
+      min-height: 100vh;
+    }
+    .shell {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      display: grid;
+      place-items: center;
+      font: 700 13px var(--mono);
+      letter-spacing: 0.08em;
+    }
+    .brand h1 {
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .brand p {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: rgba(10, 18, 33, 0.56);
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.25fr 0.9fr;
+      gap: 22px;
+      align-items: stretch;
+      margin-bottom: 22px;
+    }
+    .hero-card,
+    .stats-card,
+    .card,
+    .arch,
+    .note {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+    .hero-card {
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -40px auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(139, 120, 255, 0.18), transparent 65%);
+      pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--cyan);
+      background: rgba(30, 213, 193, 0.08);
+      border: 1px solid rgba(30, 213, 193, 0.2);
+    }
+    .hero h2 {
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      margin-bottom: 18px;
+      max-width: 11ch;
+    }
+    .hero p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 62ch;
+      margin-bottom: 24px;
+    }
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      text-decoration: none;
+      color: var(--text);
+      padding: 13px 18px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(10, 20, 38, 0.92);
+      font-weight: 700;
+      font-size: 14px;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .btn:hover { transform: translateY(-2px); border-color: rgba(79, 140, 255, 0.6); }
+    .btn.primary {
+      color: #04111f;
+      background: linear-gradient(135deg, var(--cyan), #85f1e4);
+      border-color: transparent;
+    }
+    .stats-card {
+      padding: 26px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+    .stats-card h3 {
+      font-size: 14px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .stat {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      min-height: 118px;
+    }
+    .stat strong {
+      display: block;
+      font-size: 30px;
+      line-height: 1;
+      margin-bottom: 8px;
+      color: var(--cyan);
+      font-family: var(--mono);
+    }
+    .stat span {
+      display: block;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+    .card {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      min-height: 290px;
+    }
+    .card .pill {
+      display: inline-flex;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.02);
+      font: 700 11px var(--mono);
+      margin-bottom: 14px;
+    }
+    .card h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      letter-spacing: -0.03em;
+    }
+    .card p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+      margin-bottom: 18px;
+      flex: 1;
+    }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .meta span {
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
+      color: var(--text);
+      background: rgba(79, 140, 255, 0.1);
+      border: 1px solid rgba(79, 140, 255, 0.2);
+    }
+    .card .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .actions a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 11px 14px;
+      border-radius: 12px;
+      background: rgba(9, 18, 35, 0.9);
+      border: 1px solid var(--line);
+    }
+    .actions a.main {
+      background: linear-gradient(135deg, rgba(79, 140, 255, 0.24), rgba(139, 120, 255, 0.22));
+    }
+    .arch {
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+    .arch h3,
+    .note h3 {
+      font-size: 20px;
+      margin-bottom: 14px;
+      letter-spacing: -0.03em;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .step {
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+    }
+    .step strong {
+      display: inline-block;
+      margin-bottom: 10px;
+      font: 700 11px var(--mono);
+      color: var(--cyan);
+      letter-spacing: 0.08em;
+    }
+    .step p {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 13px;
+    }
+    .note {
+      padding: 22px 24px;
+    }
+    .note p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 14px;
+      max-width: 72ch;
+    }
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 18px;
+      font-size: 12px;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+    @media (max-width: 980px) {
+      .hero, .grid, .steps { grid-template-columns: 1fr; }
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .shell { width: min(100vw - 20px, 1180px); padding-top: 18px; }
+      .hero-card, .stats-card, .card, .arch, .note { border-radius: 20px; }
+      .hero-card { padding: 24px; }
+      .stats-card, .card, .arch, .note { padding: 18px; }
+      .stat-grid { grid-template-columns: 1fr; }
+      .nav { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="nav">
+      <div class="brand">
+        <div class="badge">CSA</div>
+        <div>
+          <h1>CSA LATAM AICM Demo Hub</h1>
+          <p>Cloud Security Alliance • LATAM Chapter</p>
+        </div>
+      </div>
+      <a href="https://github.com/oberreu/demo-vibe-open" target="_blank" rel="noreferrer">Ver repositorio</a>
+    </div>
+
+    <section class="hero">
+      <div class="hero-card">
+        <div class="eyebrow">Assessment demo • AI-CAIQ + AICM</div>
+        <h2>Evalúa Cloud + AI Security con una experiencia mucho más demo-ready.</h2>
+        <p>
+          Este proyecto traduce el framework de controles de CSA en una experiencia navegable para assessment:
+          preguntas por dominio, scoring, contexto de implementación y un agente IA que actúa como asesor técnico
+          para explicar evidencia, brechas comunes y próximos pasos.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="csa_latam_aicm_agent_backend.html">Abrir versión recomendada</a>
+          <a class="btn" href="csa_latam_aicm_agent_openai.html">Ver versión OpenAI cliente</a>
+          <a class="btn" href="csa_latam_aicm_agent.html">Ver versión base</a>
+        </div>
+      </div>
+
+      <aside class="stats-card">
+        <h3>Snapshot</h3>
+        <div class="stat-grid">
+          <div class="stat">
+            <strong>18</strong>
+            <span>Dominios AICM presentados como recorrido estructurado de evaluación.</span>
+          </div>
+          <div class="stat">
+            <strong>AI</strong>
+            <span>Agente contextual para explicar controles con foco práctico y evidencia esperada.</span>
+          </div>
+          <div class="stat">
+            <strong>3</strong>
+            <span>Versiones de la demo según el escenario: base, cliente OpenAI y backend seguro.</span>
+          </div>
+          <div class="stat">
+            <strong>LATAM</strong>
+            <span>Narrativa alineada al Chapter LATAM y a casos de adopción regionales.</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <div class="pill">Recomendada</div>
+        <h3>Backend Secure Demo</h3>
+        <p>
+          La mejor opción para mostrar el proyecto a terceros. El frontend consume un backend local que firma la
+          llamada a OpenAI desde variables de entorno, evitando exponer la API key en el navegador.
+        </p>
+        <div class="meta">
+          <span>Más segura</span>
+          <span>Más publicable</span>
+          <span>Lista para demo</span>
+        </div>
+        <div class="actions">
+          <a class="main" href="csa_latam_aicm_agent_backend.html">Abrir demo</a>
+          <a href="Code/README_aicm_agent_backend.md">Cómo correrla</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="pill">Exploración rápida</div>
+        <h3>OpenAI Client Demo</h3>
+        <p>
+          Ideal para pruebas rápidas si quieres pegar una API key en el navegador y validar el comportamiento del
+          agente sin levantar backend. Útil para iterar prompts o revisar el flujo de assessment.
+        </p>
+        <div class="meta">
+          <span>Más simple</span>
+          <span>Menos segura</span>
+          <span>Útil para pruebas</span>
+        </div>
+        <div class="actions">
+          <a class="main" href="csa_latam_aicm_agent_openai.html">Abrir demo</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="pill">Referencia</div>
+        <h3>Base Assessment UI</h3>
+        <p>
+          La versión sin integración activa del agente. Sirve como baseline funcional del cuestionario y como punto
+          de comparación para mostrar cómo evoluciona el producto al incorporar copiloto y backend seguro.
+        </p>
+        <div class="meta">
+          <span>Sin dependencia API</span>
+          <span>Ligera</span>
+          <span>Útil para comparar</span>
+        </div>
+        <div class="actions">
+          <a class="main" href="csa_latam_aicm_agent.html">Abrir demo</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="arch">
+      <h3>Cómo se entiende el demo en 4 pasos</h3>
+      <div class="steps">
+        <div class="step">
+          <strong>01 • SCOPE</strong>
+          <p>La app recorre dominios AICM y preguntas AI-CAIQ para estructurar un self-assessment más guiado.</p>
+        </div>
+        <div class="step">
+          <strong>02 • EVALUACIÓN</strong>
+          <p>El usuario responde controles por dominio y visualiza avance, cobertura y estado del assessment.</p>
+        </div>
+        <div class="step">
+          <strong>03 • AGENTE</strong>
+          <p>El copiloto explica el control, su implementación, evidencia esperada y brechas comunes en LATAM.</p>
+        </div>
+        <div class="step">
+          <strong>04 • RESULTADO</strong>
+          <p>La demo devuelve scoring, hallazgos y una narrativa más lista para stakeholders técnicos y ejecutivos.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="note">
+      <h3>Qué abrir según el contexto</h3>
+      <p>
+        Si vas a compartir el proyecto o presentarlo, parte por <strong>Backend Secure Demo</strong>. Si estás iterando
+        comportamiento del agente, usa <strong>OpenAI Client Demo</strong>. Si quieres mostrar la evolución del producto
+        desde una base estática hacia una experiencia con copiloto, conserva también la <strong>Base Assessment UI</strong>.
+      </p>
+      <div class="footer">
+        <span>Repo pensado para demo, exploración y storytelling de producto.</span>
+        <span>Diseñado para CSA LATAM Chapter • Vibe Coding module</span>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
