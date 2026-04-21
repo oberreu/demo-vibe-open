@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CSA LATAM — AI-CAIQ v1.0.2 Self-Assessment Tool + Control Guidance Agent</title>
+<title>CSA LATAM — Cloud + AI Governance Assessment Prototype</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -309,7 +309,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 <div id="hdr">
   <div style="display:flex;align-items:center;gap:8px">
     <div class="csa-sq">CSA</div>
-    <div><div class="csa-name">CSA LATAM Chapter</div><div class="csa-sub">AI-CAIQ SELF-ASSESSMENT TOOL</div></div>
+    <div><div class="csa-name">CSA LATAM Chapter</div><div class="csa-sub">CLOUD + AI GOVERNANCE ASSESSMENT PROTOTYPE</div></div>
   </div>
   <div class="hdr-nav">
     <button class="hdr-link" onclick="navHome()">Inicio</button>
@@ -341,7 +341,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
   <div id="main">
     <div id="content">
       <!-- INTRO -->
-      <div id="intro" style="padding:32px;max-width:660px;margin:0 auto;width:100%">
+      <div id="intro" style="padding:32px;max-width:1080px;margin:0 auto;width:100%">
         <div class="ibadge">&#9733; CSA LATAM Chapter &middot; Herramienta Gratuita</div>
         <h1 class="ih1">Cloud + AI Governance<br>Assessment Prototype</h1>
         <p class="isub">Prototipo impulsado por <strong style="color:var(--t0)">CSA LATAM Chapter</strong> para transformar el <strong style="color:var(--cy)">AI Controls Matrix (AICM) v1.0.3</strong> en una experiencia evidence-driven, accesible y escalable. El foco no es solo responder preguntas: es ayudar a equipos de GRC, seguridad y arquitectura a evaluar postura, interpretar controles y preparar una evolución hacia <strong style="color:var(--pu)">continuous assurance en Cloud + AI</strong>.</p>
@@ -1801,7 +1801,7 @@ function showResults(){
     const m=DMETA[d];const translated = translateDomain(d);const dn2=translated.length>40?translated.substring(0,38)+'..':translated;
     dr+=`<div class="drc"><div class="drh"><span class="drcode">${m.c}</span><span class="drsc" style="color:${dc}">${ds}/100</span></div><div class="drn">${dn2}</div><div class="drbg"><div class="drf" style="width:${ds}%;background:${dc}"></div></div><div class="drct"><span class="drci" style="color:#22C55E">Y:${dy}</span><span class="drci" style="color:#E53E3E">N:${dn}</span><span class="drci" style="color:#F5A623">NA:${dna}</span><span class="drci" style="color:#5A7499">-:${qs.length-da}</span></div></div>`;
   });
-  r.innerHTML=`<div><div class="rh">Resultados — AI-CAIQ v1.0.2</div><div class="rs">${orgN}${orgS?' · '+orgS:''} · Rol: ${selRole_val||'N/A'} · ${new Date().toLocaleDateString('es-CL')}</div></div>
+  r.innerHTML=`<div><div class="rh">Resultados — Cloud + AI Governance Assessment</div><div class="rs">${orgN}${orgS?' · '+orgS:''} · Rol: ${selRole_val||'N/A'} · ${new Date().toLocaleDateString('es-CL')}</div></div>
   <div class="sgrid">
     <div class="src">
       <div style="font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Score Global</div>
@@ -1836,7 +1836,7 @@ function expRes(){
   const n=Object.values(answers).filter(v=>v==='NO').length;
   const na=Object.values(answers).filter(v=>v==='NA').length;
   const answered=y+n+na;
-  const data={meta:{tool:'CSA LATAM AI-CAIQ v1.0.2 + Control Guidance Agent',date:new Date().toISOString(),org:orgN,sector:orgS,role:selRole_val,tenantProvider},answers,summary:{total:tot,yes:y,no:n,na,score:answered>0?Math.round((y+na*0.5)/answered*100):0}};
+  const data={meta:{tool:'CSA LATAM Cloud + AI Governance Assessment Prototype',date:new Date().toISOString(),org:orgN,sector:orgS,role:selRole_val,tenantProvider},answers,summary:{total:tot,yes:y,no:n,na,score:answered>0?Math.round((y+na*0.5)/answered*100):0}};
   const b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='aicm-'+orgN.replace(/\s+/g,'-')+'.json';a.click();
 }
