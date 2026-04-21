@@ -22,6 +22,7 @@
 body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100vh;overflow:hidden;padding-left:244px}
 #hdr{height:52px;background:var(--bg1);border-bottom:1px solid var(--bd);display:flex;align-items:center;padding:0 16px;gap:12px;position:fixed;top:0;left:244px;width:calc(100% - 244px);z-index:100}
 .portal-nav{position:fixed;top:12px;left:12px;bottom:12px;width:220px;padding:16px 12px;border-radius:22px;border:1px solid var(--bd);background:rgba(8,16,31,.94);display:flex;flex-direction:column;align-items:stretch;gap:12px;z-index:220;box-shadow:0 24px 80px rgba(0,0,0,.35);backdrop-filter:blur(18px)}
+.portal-section-label{padding:2px 8px 0;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t2)}
 .portal-head{display:flex;align-items:center;gap:10px;padding:6px 4px 10px;border-bottom:1px solid rgba(109,146,209,.16)}
 .portal-mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#1B4FD8,#00C4A8);display:grid;place-items:center;font:700 12px var(--mo);letter-spacing:.08em;color:#fff;flex-shrink:0}
 .portal-title{display:flex;flex-direction:column;min-width:0}
@@ -31,6 +32,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 .portal-link:hover,.portal-back:hover,.portal-link.active{color:var(--t0);border-color:#2D6BF455;background:#2D6BF420}
 .portal-link strong,.portal-back strong{font:700 12px var(--mo);color:var(--cy);width:30px;text-align:center;flex-shrink:0}
 .portal-spacer{flex:1}
+.portal-link.portal-utility strong{color:var(--pu)}
 .csa-sq{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#1B4FD8,#00C4A8);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;font-family:var(--mo)}
 .csa-name{font-size:13px;font-weight:700}
 .csa-sub{font-size:9px;color:var(--t2);font-family:var(--mo)}
@@ -350,6 +352,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
   .portal-mark{width:40px;height:40px;flex-shrink:0}
   .portal-head{border-bottom:none;padding:0;flex-shrink:0}
   .portal-title{display:none}
+  .portal-section-label{display:none}
   .portal-link,.portal-back{width:92px;min-height:46px;flex-shrink:0;justify-content:center;text-align:center;flex-direction:column;gap:4px;padding:8px 6px}
   .portal-link strong,.portal-back strong{width:auto}
   .portal-spacer{display:none}
@@ -369,12 +372,16 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
     <div class="portal-mark">CSA</div>
     <div class="portal-title"><strong>CSA LATAM</strong><span>Portal del prototipo</span></div>
   </div>
-  <button class="portal-back" onclick="history.back()"><strong>&larr;</strong><span>Volver</span></button>
-  <a class="portal-link" href="index.html"><strong>01</strong><span>Centro</span></a>
-  <a class="portal-link active" href="csa_latam_aicm_agent_backend.html"><strong>02</strong><span>Demo principal</span></a>
-  <a class="portal-link" href="csa_latam_aicm_agent_openai.html"><strong>03</strong><span>Variante OpenAI</span></a>
-  <a class="portal-link" href="csa_latam_aicm_agent.html"><strong>04</strong><span>Versión base</span></a>
+  <div class="portal-section-label">Principal</div>
+  <button class="portal-back" onclick="history.back()"><strong>←</strong><span>Volver</span></button>
+  <a class="portal-link" href="index.html"><strong>⌂</strong><span>Centro</span></a>
+  <a class="portal-link active" href="csa_latam_aicm_agent_backend.html"><strong>◫</strong><span>Demo principal</span></a>
+  <a class="portal-link" href="csa_latam_aicm_agent_openai.html"><strong>✦</strong><span>Variante OpenAI</span></a>
+  <a class="portal-link" href="csa_latam_aicm_agent.html"><strong>□</strong><span>Versión base</span></a>
   <div class="portal-spacer"></div>
+  <div class="portal-section-label">Recursos</div>
+  <a class="portal-link portal-utility" href="README.md"><strong>i</strong><span>README</span></a>
+  <a class="portal-link portal-utility" href="https://github.com/oberreu/demo-vibe-open" target="_blank" rel="noreferrer"><strong>↗</strong><span>GitHub</span></a>
 </nav>
 <div id="hdr">
   <div style="display:flex;align-items:center;gap:8px">

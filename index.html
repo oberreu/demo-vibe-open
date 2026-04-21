@@ -52,6 +52,14 @@
       gap: 12px;
       z-index: 200;
     }
+    .portal-section-label {
+      padding: 2px 8px 0;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
     .portal-head {
       display: flex;
       align-items: center;
@@ -127,6 +135,9 @@
     }
     .portal-spacer {
       flex: 1;
+    }
+    .portal-link.portal-utility strong {
+      color: var(--violet);
     }
     .shell {
       width: min(1180px, calc(100vw - 32px));
@@ -436,6 +447,7 @@
         flex-shrink: 0;
       }
       .portal-title { display: none; }
+      .portal-section-label { display: none; }
       .portal-link,
       .portal-back {
         width: 92px;
@@ -474,27 +486,37 @@
         <span>Navegación del prototipo</span>
       </div>
     </div>
+    <div class="portal-section-label">Principal</div>
     <button class="portal-back" onclick="history.back()">
-      <strong>&larr;</strong>
+      <strong>←</strong>
       <span>Volver</span>
     </button>
     <a class="portal-link active" href="index.html">
-      <strong>01</strong>
+      <strong>⌂</strong>
       <span>Centro</span>
     </a>
     <a class="portal-link" href="csa_latam_aicm_agent_backend.html">
-      <strong>02</strong>
+      <strong>◫</strong>
       <span>Demo principal</span>
     </a>
     <a class="portal-link" href="csa_latam_aicm_agent_openai.html">
-      <strong>03</strong>
+      <strong>✦</strong>
       <span>Variante OpenAI</span>
     </a>
     <a class="portal-link" href="csa_latam_aicm_agent.html">
-      <strong>04</strong>
+      <strong>□</strong>
       <span>Versión base</span>
     </a>
     <div class="portal-spacer"></div>
+    <div class="portal-section-label">Recursos</div>
+    <a class="portal-link portal-utility" href="README.md">
+      <strong>i</strong>
+      <span>README</span>
+    </a>
+    <a class="portal-link portal-utility" href="https://github.com/oberreu/demo-vibe-open" target="_blank" rel="noreferrer">
+      <strong>↗</strong>
+      <span>GitHub</span>
+    </a>
   </nav>
   <div class="shell">
     <div class="nav">
