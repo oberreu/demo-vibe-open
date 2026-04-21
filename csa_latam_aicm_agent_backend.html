@@ -352,7 +352,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
   <div class="hdr-nav">
     <button class="hdr-link" onclick="navHome()">Inicio</button>
     <button class="hdr-link" onclick="scrollToSection('agent-story')">Cómo Trabaja</button>
-    <button class="hdr-link" onclick="scrollToSection('tenant-connection')">Tenant Cloud</button>
+    <button class="hdr-link" onclick="scrollToSection('tenant-connection')">Tenant en la nube</button>
     <button class="hdr-link" onclick="navResults()">Resultados</button>
   </div>
   <div class="hdr-sep"></div>
@@ -384,7 +384,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
         <h1 class="ih1">Prototipo de Evaluación<br>de Gobierno y Seguridad en Cloud + IA</h1>
         <p class="isub">Prototipo impulsado por <strong style="color:var(--t0)">CSA LATAM Chapter</strong> para transformar el <strong style="color:var(--cy)">AI Controls Matrix (AICM) v1.0.3</strong> en una experiencia <strong style="color:var(--t0)">basada en evidencia</strong>, accesible y escalable. El foco no es solo responder preguntas: es ayudar a equipos de GRC, seguridad y arquitectura a evaluar postura, interpretar controles y preparar una evolución hacia un modelo de <strong style="color:var(--pu)">aseguramiento continuo en Cloud + IA</strong>.</p>
         <div class="igrid">
-          <div class="icard"><div class="inum" id="hero-total-controls">311</div><div class="ilabel">Preguntas del assessment</div></div>
+          <div class="icard"><div class="inum" id="hero-total-controls">311</div><div class="ilabel">Preguntas de la evaluación</div></div>
           <div class="icard"><div class="inum">18</div><div class="ilabel">Dominios de seguridad</div></div>
           <div class="icard ai-card"><div class="inum">&#10022;</div><div class="ilabel">Evaluación basada en evidencia</div></div>
         </div>
@@ -430,7 +430,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
             <div class="exec-list">
               <div class="exec-chip">
                 <span>Tiempo</span>
-                <strong>Reducir el assessment desde semanas a una experiencia más cercana a horas.</strong>
+                <strong>Reducir la evaluación desde semanas a una experiencia más cercana a horas.</strong>
               </div>
               <div class="exec-chip">
                 <span>Valor</span>
@@ -572,11 +572,11 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
           <input class="fi" id="org-sector" placeholder="Ej: Banca, Retail, Salud, Gobierno..."/>
           <label class="fl">Rol en la cadena de suministro de IA</label>
           <div class="rgrid">
-            <div class="rbtn" onclick="selRole(this,&#39;AIC&#39;)"><div class="rbc">AIC</div><div class="rbn">AI Customer</div></div>
-            <div class="rbtn" onclick="selRole(this,&#39;AP&#39;)"><div class="rbc">AP</div><div class="rbn">App Provider</div></div>
-            <div class="rbtn" onclick="selRole(this,&#39;OSP&#39;)"><div class="rbc">OSP</div><div class="rbn">Orch. Service Provider</div></div>
-            <div class="rbtn" onclick="selRole(this,&#39;MP&#39;)"><div class="rbc">MP</div><div class="rbn">Model Provider</div></div>
-            <div class="rbtn" onclick="selRole(this,&#39;CSP&#39;)"><div class="rbc">CSP</div><div class="rbn">Cloud Service Provider</div></div>
+            <div class="rbtn" onclick="selRole(this,&#39;AIC&#39;)"><div class="rbc">AIC</div><div class="rbn">Cliente de IA</div></div>
+            <div class="rbtn" onclick="selRole(this,&#39;AP&#39;)"><div class="rbc">AP</div><div class="rbn">Proveedor de aplicaciones</div></div>
+            <div class="rbtn" onclick="selRole(this,&#39;OSP&#39;)"><div class="rbc">OSP</div><div class="rbn">Proveedor de orquestación</div></div>
+            <div class="rbtn" onclick="selRole(this,&#39;MP&#39;)"><div class="rbc">MP</div><div class="rbn">Proveedor de modelos</div></div>
+            <div class="rbtn" onclick="selRole(this,&#39;CSP&#39;)"><div class="rbc">CSP</div><div class="rbn">Proveedor de servicios cloud</div></div>
           </div>
           <button id="btn-start" onclick="startA()">Iniciar Evaluaci&oacute;n &rarr;</button>
         </div>
@@ -1682,7 +1682,7 @@ function renderAgenticInsights(findings){
     <div class="insight-wrap">
       <div class="insight-card">
         <div class="insight-kicker">Patrón Detectado</div>
-        <div class="insight-title">Lectura agentic del assessment</div>
+        <div class="insight-title">Lectura agéntica de la evaluación</div>
         <div class="insight-body">${pattern}</div>
       </div>
       <div class="insight-card">
@@ -1708,7 +1708,7 @@ function selTenant(el, provider){
 
 function providerEvidenceSource(provider){
   if(provider === 'AWS') return 'Security Hub / Config / CSPM';
-  if(provider === 'GCP') return 'Security Command Center / IAM / Posture Dashboard';
+  if(provider === 'GCP') return 'Security Command Center / IAM / Panel de postura';
   return 'Defender for Cloud / Azure Policy / CSPM';
 }
 
@@ -1791,7 +1791,7 @@ function buildEvidenceItems(){
       verdict = 'Validado';
       verdictClass = 'verdict-good';
       agentConclusion = 'Conclusión del agente: el control aparece respaldado por señales técnicas consistentes y por documentación suficiente para auditoría inicial.';
-      gap = 'No se observan brechas inmediatas; el foco pasa a mantener periodicidad de revisión y coverage.';
+      gap = 'No se observan brechas inmediatas; el foco pasa a mantener periodicidad de revisión y cobertura.';
     } else if (item.answer === 'YES' && profile.type === 'technical') {
       evidenceStatus = 'Parcial';
       statusClass = 'warn';
@@ -1860,7 +1860,7 @@ function renderEvidencePanel(){
       </div>
       <div class="evidence-badges">
         <span class="evidence-badge audit">Auditor: ${item.declaredShort}</span>
-        <span class="evidence-badge cloud">Cloud: ${item.evidenceStatus}</span>
+        <span class="evidence-badge cloud">Nube: ${item.evidenceStatus}</span>
         <span class="evidence-badge doc">Documental: ${item.documentary}</span>
         <span class="evidence-badge ${item.verdictClass}">${item.verdict}</span>
       </div>
@@ -1918,7 +1918,7 @@ function renderEvidencePanel(){
         <div class="evidence-metric">
           <div class="evidence-metric-label">Parciales</div>
           <div class="evidence-metric-value">${partial}</div>
-          <div class="evidence-metric-hint">Controles con coverage o trazabilidad insuficiente</div>
+          <div class="evidence-metric-hint">Controles con cobertura o trazabilidad insuficiente</div>
         </div>
         <div class="evidence-metric">
           <div class="evidence-metric-label">Brechas</div>
@@ -1985,7 +1985,7 @@ function showDom(idx){
   const groups={};
   qs.forEach(q=>{const k=q.cid||'g';if(!groups[k])groups[k]={t:q.ct,qs:[]};groups[k].qs.push(q);});
   const a=document.getElementById('assessment');
-  let h=`<div class="dom-hdr"><div class="dh-top"><span class="dh-code">${m.c}</span>${m.ai?'<span class="ai-tag">ESPECÍFICO IA</span>':''}</div><div class="dh-title">${translateDomain(d)}</div><div class="dh-sub">${qs.length} preguntas &middot; ${Object.keys(groups).length} controles &middot; <span style="color:var(--pu)">&#10022; clic en Agente para explicación contextual</span></div></div>`;
+  let h=`<div class="dom-hdr"><div class="dh-top"><span class="dh-code">${m.c}</span>${m.ai?'<span class="ai-tag">ESPECÍFICO IA</span>':''}</div><div class="dh-title">${translateDomain(d)}</div><div class="dh-sub">${qs.length} preguntas &middot; ${Object.keys(groups).length} controles &middot; <span style="color:var(--pu)">&#10022; haz clic en Agente para explicación contextual</span></div></div>`;
   Object.entries(groups).forEach(([cid,g])=>{
     h+=`<div class="cgroup"><div class="ctitle">${cid} &middot; ${translateControlTitle(cid, g.t)}</div>`;
     g.qs.forEach(q=>{
@@ -2142,9 +2142,9 @@ function showResults(){
   r.innerHTML=`<div><div class="rh">Resultados — Evaluación de Gobierno y Seguridad en Cloud + IA</div><div class="rs">${orgN}${orgS?' · '+orgS:''} · Rol: ${selRole_val||'No definido'} · ${new Date().toLocaleDateString('es-CL')}</div></div>
   <div class="sgrid">
     <div class="src">
-      <div style="font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Score Global</div>
+      <div style="font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Puntaje global</div>
       <div style="position:relative"><svg width="110" height="110" style="transform:rotate(-90deg)"><circle cx="55" cy="55" r="45" fill="none" stroke="#1A2D50" stroke-width="9"/><circle cx="55" cy="55" r="45" fill="none" stroke="${scc}" stroke-width="9" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" stroke-linecap="round"/></svg><div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center"><span style="font-size:26px;font-weight:700;font-family:var(--mo);color:${scc}">${sc}</span><span style="font-size:9px;font-weight:600;color:${scc}">${scl}</span></div></div>
-      <div style="font-size:10px;color:var(--t1);text-align:center">AI Controls<br>Maturity Score</div>
+      <div style="font-size:10px;color:var(--t1);text-align:center">Índice de madurez<br>de controles AICM</div>
     </div>
     <div class="scc"><div class="sct">Respuestas</div>
       <div class="sbrow"><div class="sblr"><span class="sbl">Sí — Implementado</span><span class="sbv" style="color:#22C55E">${y}</span></div><div class="sbbg"><div class="sbf" style="width:${tot>0?y/tot*100:0}%;background:#22C55E"></div></div></div>
@@ -2159,10 +2159,10 @@ function showResults(){
   </div>
   ${agenticInsightsHtml}
   ${evidenceHtml}
-  <div><div style="font-size:13px;font-weight:600;margin-bottom:10px">Score por dominio (18 dominios AICM)</div><div class="drgrid">${dr}</div></div>
+  <div><div style="font-size:13px;font-weight:600;margin-bottom:10px">Puntaje por dominio (18 dominios AICM)</div><div class="drgrid">${dr}</div></div>
   ${recommendationsHtml}
   <div class="ebar">
-    <div style="flex:1"><div style="font-size:12px;font-weight:600">Exportar resultados</div><div style="font-size:10px;color:var(--t1);margin-top:2px">JSON compatible con CSA STAR Registry</div></div>
+    <div style="flex:1"><div style="font-size:12px;font-weight:600">Exportar resultados</div><div style="font-size:10px;color:var(--t1);margin-top:2px">JSON compatible con el registro CSA STAR</div></div>
     <button id="btn-rst" onclick="restart()">Nueva evaluación</button>
     <button id="btn-exp" onclick="expRes()">Exportar JSON</button>
   </div>`;
@@ -2174,7 +2174,7 @@ function expRes(){
   const n=Object.values(answers).filter(v=>v==='NO').length;
   const na=Object.values(answers).filter(v=>v==='NA').length;
   const answered=y+n+na;
-  const data={meta:{tool:'CSA LATAM Cloud + AI Governance Assessment Prototype',date:new Date().toISOString(),org:orgN,sector:orgS,role:selRole_val,tenantProvider},answers,summary:{total:tot,yes:y,no:n,na,score:answered>0?Math.round((y+na*0.5)/answered*100):0}};
+  const data={meta:{tool:'Prototipo CSA LATAM de evaluación de gobierno y seguridad en Cloud + IA',date:new Date().toISOString(),org:orgN,sector:orgS,role:selRole_val,tenantProvider},answers,summary:{total:tot,yes:y,no:n,na,score:answered>0?Math.round((y+na*0.5)/answered*100):0}};
   const b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='aicm-'+orgN.replace(/\s+/g,'-')+'.json';a.click();
 }
