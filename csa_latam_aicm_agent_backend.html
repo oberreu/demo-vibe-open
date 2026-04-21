@@ -399,7 +399,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
               </div>
               <div class="exec-chip">
                 <span>Evidencia</span>
-                <strong>Pasar de respuestas `YES/NO` a una lógica evidence-driven y trazable.</strong>
+                <strong>Pasar de respuestas declarativas a una lógica evidence-driven y trazable.</strong>
               </div>
               <div class="exec-chip">
                 <span>Futuro</span>
@@ -1331,12 +1331,12 @@ function renderRecommendations(findings){
         <div class="rec-head">
           <div>
             <div class="rec-title">Recomendaciones Prioritarias</div>
-            <div class="rec-sub">No se detectaron brechas marcadas como <strong style="color:var(--t0)">NO</strong> en esta evaluación.</div>
+            <div class="rec-sub">No se detectaron brechas marcadas como <strong style="color:var(--t0)">No</strong> en esta evaluación.</div>
           </div>
           <div class="rec-chip">Sin hallazgos críticos</div>
         </div>
         <div class="rec-empty">
-          No se detectaron hallazgos marcados como <strong style="color:var(--t0)">NO</strong> en esta evaluación. La siguiente recomendación es revisar los controles respondidos como <strong style="color:var(--t0)">N/A</strong> y confirmar que realmente no aplican al contexto evaluado.
+          No se detectaron hallazgos marcados como <strong style="color:var(--t0)">No</strong> en esta evaluación. La siguiente recomendación es revisar los controles respondidos como <strong style="color:var(--t0)">N/A</strong> y confirmar que realmente no aplican al contexto evaluado.
         </div>
       </div>`;
   }
@@ -1364,7 +1364,7 @@ function renderRecommendations(findings){
       <div class="rec-head">
         <div>
           <div class="rec-title">Recomendaciones Prioritarias</div>
-          <div class="rec-sub">Estas recomendaciones se generan a partir de los hallazgos detectados en respuestas <strong style="color:var(--t0)">NO</strong> y se ordenan para apoyar una primera priorización de remediación.</div>
+          <div class="rec-sub">Estas recomendaciones se generan a partir de los hallazgos detectados en respuestas <strong style="color:var(--t0)">No</strong> y se ordenan para apoyar una primera priorización de remediación.</div>
         </div>
         <div class="rec-chip">${top.length} focos de acción</div>
       </div>
@@ -1387,7 +1387,7 @@ function detectPattern(findings){
     return "Brecha de resiliencia y respuesta: la organización necesita fortalecer preparación, recuperación y respuesta ante incidentes en escenarios cloud y AI.";
   }
   if (!findings.length) {
-    return "No se detectan brechas críticas inmediatas; el foco pasa a confirmar controles N/A y fortalecer madurez de forma progresiva.";
+    return "No se detectan brechas críticas inmediatas; el foco pasa a confirmar controles marcados como N/A y fortalecer madurez de forma progresiva.";
   }
   return "Se observa una brecha operativa inicial que requiere formalización de controles, evidencia mínima y priorización de remediación.";
 }
@@ -1398,7 +1398,7 @@ function buildRoadmap(findings){
   const day60 = [];
   const day90 = [];
 
-  day30.push("Formalizar ownership, evidencia mínima y backlog de remediación para los controles marcados como NO.");
+  day30.push("Formalizar ownership, evidencia mínima y backlog de remediación para los controles marcados como No.");
   if (domains.has("IAM")) day30.push("Recertificar accesos críticos y reforzar MFA o federación en servicios sensibles.");
   if (domains.has("GRC") || domains.has("A&A")) day30.push("Actualizar políticas, excepciones y criterios de revisión del assessment.");
   if (domains.has("DSP") || domains.has("STA")) day30.push("Inventariar datasets, proveedores y componentes críticos.");
@@ -1653,7 +1653,7 @@ function showDom(idx){
       const sid='q'+q.id.replace(/[&. ]/g,'_');
       const qesc=q.q.replace(/'/g,"\'").replace(/"/g,'&quot;');
       const ctesc=translateControlTitle(cid, g.t).replace(/'/g,"\'");
-      h+=`<div class="${ac}" id="${sid}"><span class="qid">${q.id}</span><span class="qt">${renderQuestionText(q.id, q.q)}</span><div class="qa"><button class="qb ${av==='YES'?'y':''}" onclick="ans('${q.id}','YES')">YES</button><button class="qb ${av==='NO'?'n':''}" onclick="ans('${q.id}','NO')">NO</button><button class="qb ${av==='NA'?'na':''}" onclick="ans('${q.id}','NA')">N/A</button><button class="qb agent-btn" onclick="openAgent('${q.id}','${cid}','${ctesc}','${qesc}')" title="Explicación contextual del agente">&#129302; Agente</button></div></div>`;
+      h+=`<div class="${ac}" id="${sid}"><span class="qid">${q.id}</span><span class="qt">${renderQuestionText(q.id, q.q)}</span><div class="qa"><button class="qb ${av==='YES'?'y':''}" onclick="ans('${q.id}','YES')">Sí</button><button class="qb ${av==='NO'?'n':''}" onclick="ans('${q.id}','NO')">No</button><button class="qb ${av==='NA'?'na':''}" onclick="ans('${q.id}','NA')">N/A</button><button class="qb agent-btn" onclick="openAgent('${q.id}','${cid}','${ctesc}','${qesc}')" title="Explicación contextual del agente">&#129302; Agente</button></div></div>`;
     });
     h+=`</div>`;
   });
@@ -1797,9 +1797,9 @@ function showResults(){
     const da=dy+dn+dna;const ds=da>0?Math.round((dy+dna*0.5)/da*100):0;
     const dc=ds>=80?'#22C55E':ds>=60?'#F5A623':'#E53E3E';
     const m=DMETA[d];const translated = translateDomain(d);const dn2=translated.length>40?translated.substring(0,38)+'..':translated;
-    dr+=`<div class="drc"><div class="drh"><span class="drcode">${m.c}</span><span class="drsc" style="color:${dc}">${ds}/100</span></div><div class="drn">${dn2}</div><div class="drbg"><div class="drf" style="width:${ds}%;background:${dc}"></div></div><div class="drct"><span class="drci" style="color:#22C55E">Y:${dy}</span><span class="drci" style="color:#E53E3E">N:${dn}</span><span class="drci" style="color:#F5A623">NA:${dna}</span><span class="drci" style="color:#5A7499">-:${qs.length-da}</span></div></div>`;
+    dr+=`<div class="drc"><div class="drh"><span class="drcode">${m.c}</span><span class="drsc" style="color:${dc}">${ds}/100</span></div><div class="drn">${dn2}</div><div class="drbg"><div class="drf" style="width:${ds}%;background:${dc}"></div></div><div class="drct"><span class="drci" style="color:#22C55E">Sí:${dy}</span><span class="drci" style="color:#E53E3E">No:${dn}</span><span class="drci" style="color:#F5A623">N/A:${dna}</span><span class="drci" style="color:#5A7499">-:${qs.length-da}</span></div></div>`;
   });
-  r.innerHTML=`<div><div class="rh">Resultados — Cloud + AI Governance Assessment</div><div class="rs">${orgN}${orgS?' · '+orgS:''} · Rol: ${selRole_val||'N/A'} · ${new Date().toLocaleDateString('es-CL')}</div></div>
+  r.innerHTML=`<div><div class="rh">Resultados — Cloud + AI Governance Assessment</div><div class="rs">${orgN}${orgS?' · '+orgS:''} · Rol: ${selRole_val||'No definido'} · ${new Date().toLocaleDateString('es-CL')}</div></div>
   <div class="sgrid">
     <div class="src">
       <div style="font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Score Global</div>
@@ -1807,8 +1807,8 @@ function showResults(){
       <div style="font-size:10px;color:var(--t1);text-align:center">AI Controls<br>Maturity Score</div>
     </div>
     <div class="scc"><div class="sct">Respuestas</div>
-      <div class="sbrow"><div class="sblr"><span class="sbl">YES — Implementado</span><span class="sbv" style="color:#22C55E">${y}</span></div><div class="sbbg"><div class="sbf" style="width:${tot>0?y/tot*100:0}%;background:#22C55E"></div></div></div>
-      <div class="sbrow"><div class="sblr"><span class="sbl">NO — No implementado</span><span class="sbv" style="color:#E53E3E">${n}</span></div><div class="sbbg"><div class="sbf" style="width:${tot>0?n/tot*100:0}%;background:#E53E3E"></div></div></div>
+      <div class="sbrow"><div class="sblr"><span class="sbl">Sí — Implementado</span><span class="sbv" style="color:#22C55E">${y}</span></div><div class="sbbg"><div class="sbf" style="width:${tot>0?y/tot*100:0}%;background:#22C55E"></div></div></div>
+      <div class="sbrow"><div class="sblr"><span class="sbl">No — No implementado</span><span class="sbv" style="color:#E53E3E">${n}</span></div><div class="sbbg"><div class="sbf" style="width:${tot>0?n/tot*100:0}%;background:#E53E3E"></div></div></div>
       <div class="sbrow"><div class="sblr"><span class="sbl">N/A — No aplica</span><span class="sbv" style="color:#F5A623">${na}</span></div><div class="sbbg"><div class="sbf" style="width:${tot>0?na/tot*100:0}%;background:#F5A623"></div></div></div>
       <div class="sbrow"><div class="sblr"><span class="sbl">Sin responder</span><span class="sbv" style="color:#5A7499">${tot-ans2}</span></div><div class="sbbg"><div class="sbf" style="width:${tot>0?(tot-ans2)/tot*100:0}%;background:#5A7499"></div></div></div>
     </div>
