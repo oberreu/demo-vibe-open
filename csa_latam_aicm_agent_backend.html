@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CSA LATAM — Cloud + AI Governance Assessment Prototype</title>
+<title>CSA LATAM — Prototipo de Evaluación de Gobierno y Seguridad en Cloud + IA</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -160,6 +160,37 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 .exec-chip{padding:12px;border-radius:12px;background:rgba(12,21,37,.92);border:1px solid rgba(109,146,209,.16)}
 .exec-chip span{display:block;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--t2);margin-bottom:6px}
 .exec-chip strong{display:block;font-size:12px;color:var(--t0);line-height:1.55}
+.pitch-card{background:linear-gradient(180deg,#0E1730 0%,#0A1221 100%);border:1px solid var(--bdl);border-radius:14px;padding:20px;margin-bottom:16px;position:relative;overflow:hidden}
+.pitch-card::after{content:"";position:absolute;inset:auto -40px -50px auto;width:180px;height:180px;background:radial-gradient(circle,rgba(0,196,168,.14),transparent 68%);pointer-events:none}
+.pitch-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}
+.pitch-title{font-size:14px;font-weight:700;color:var(--t0)}
+.pitch-sub{font-size:11px;color:var(--t1);line-height:1.65;max-width:72ch}
+.pitch-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.pitch-step{padding:14px;border-radius:12px;background:rgba(19,32,56,.78);border:1px solid rgba(109,146,209,.18)}
+.pitch-step strong{display:block;font-size:11px;font-family:var(--mo);color:var(--cy);margin-bottom:8px}
+.pitch-step span{display:block;font-size:11px;color:var(--t1);line-height:1.6}
+.tour-card{background:linear-gradient(180deg,#0D1730 0%,#09111F 100%);border:1px solid var(--bdl);border-radius:14px;padding:20px;margin-bottom:16px}
+.tour-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}
+.tour-title{font-size:14px;font-weight:700;color:var(--t0)}
+.tour-sub{font-size:11px;color:var(--t1);line-height:1.65;max-width:76ch}
+.tour-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:12px}
+.tour-steps{display:grid;grid-template-columns:1fr;gap:10px}
+.tour-step{padding:14px;border-radius:12px;background:rgba(19,32,56,.74);border:1px solid rgba(109,146,209,.16);cursor:pointer;transition:all .15s}
+.tour-step.active{background:rgba(45,107,244,.14);border-color:rgba(45,107,244,.4);box-shadow:inset 0 0 0 1px rgba(45,107,244,.18)}
+.tour-step-kicker{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--cy);margin-bottom:6px}
+.tour-step-title{font-size:13px;font-weight:700;color:var(--t0);margin-bottom:6px}
+.tour-step-copy{font-size:11px;color:var(--t1);line-height:1.6}
+.tour-detail{padding:18px;border-radius:14px;background:linear-gradient(180deg,rgba(19,32,56,.96) 0%,rgba(10,18,33,.96) 100%);border:1px solid rgba(109,146,209,.18);position:relative;overflow:hidden}
+.tour-detail::after{content:"";position:absolute;inset:auto -32px -36px auto;width:160px;height:160px;background:radial-gradient(circle,rgba(139,92,246,.14),transparent 68%);pointer-events:none}
+.tour-detail-kicker{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--cy);margin-bottom:8px}
+.tour-detail-title{font-size:18px;font-weight:700;color:var(--t0);margin-bottom:10px;line-height:1.25}
+.tour-detail-copy{font-size:12px;color:var(--t1);line-height:1.75;margin-bottom:14px;max-width:66ch}
+.tour-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.tour-metric{padding:12px;border-radius:12px;background:rgba(12,21,37,.88);border:1px solid rgba(109,146,209,.16)}
+.tour-metric strong{display:block;font-size:18px;font-family:var(--mo);color:var(--t0);margin-bottom:4px}
+.tour-metric span{display:block;font-size:10px;color:var(--t1);line-height:1.5}
+.tour-detail-note{padding:12px;border-radius:12px;background:rgba(0,196,168,.08);border:1px solid rgba(0,196,168,.18);font-size:11px;color:var(--t1);line-height:1.7}
+.tour-detail-note strong{color:var(--cy)}
 .flow-card{background:var(--bg1);border:1px solid var(--bd);border-radius:12px;padding:18px;margin-bottom:16px}
 .flow-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
 .flow-title{font-size:13px;font-weight:700;color:var(--t0)}
@@ -275,6 +306,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 .evidence-status.good{color:var(--gr);border-color:rgba(34,197,94,.25);background:rgba(34,197,94,.1)}
 .evidence-status.warn{color:var(--am);border-color:rgba(245,166,35,.25);background:rgba(245,166,35,.1)}
 .evidence-status.bad{color:var(--rd);border-color:rgba(229,62,62,.25);background:rgba(229,62,62,.1)}
+.evidence-status.review{color:var(--bl);border-color:rgba(45,107,244,.25);background:rgba(45,107,244,.1)}
 .evidence-badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
 .evidence-badge{padding:4px 8px;border-radius:999px;font-size:10px;font-weight:700;font-family:var(--mo);border:1px solid transparent}
 .evidence-badge.audit{color:var(--bl);border-color:rgba(45,107,244,.22);background:rgba(45,107,244,.1)}
@@ -283,6 +315,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 .evidence-badge.verdict-good{color:var(--gr);border-color:rgba(34,197,94,.22);background:rgba(34,197,94,.1)}
 .evidence-badge.verdict-warn{color:var(--am);border-color:rgba(245,166,35,.22);background:rgba(245,166,35,.1)}
 .evidence-badge.verdict-bad{color:var(--rd);border-color:rgba(229,62,62,.22);background:rgba(229,62,62,.1)}
+.evidence-badge.verdict-review{color:var(--bl);border-color:rgba(45,107,244,.22);background:rgba(45,107,244,.1)}
 .evidence-question{font-size:12px;color:var(--t0);line-height:1.6;margin-bottom:10px}
 .evidence-row{margin-bottom:8px}
 .evidence-label{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--cy);margin-bottom:4px}
@@ -295,7 +328,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 #btn-exp{padding:8px 18px;background:var(--bl);color:#fff;border:none;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--fn)}
 #btn-rst{padding:8px 18px;background:transparent;color:var(--t1);border:1px solid var(--bd);border-radius:7px;font-size:11px;cursor:pointer;font-family:var(--fn)}
 @media (max-width:1100px){
-  .story-grid,.flow-grid,.evidence-summary,.evidence-grid,.insight-wrap,.rec-grid,.tenant-grid,.sgrid,.scope-grid,.exec-grid,.exec-list{grid-template-columns:1fr}
+  .story-grid,.flow-grid,.evidence-summary,.evidence-grid,.insight-wrap,.rec-grid,.tenant-grid,.sgrid,.scope-grid,.exec-grid,.exec-list,.pitch-grid,.tour-grid,.tour-metrics{grid-template-columns:1fr}
   .hdr-nav{display:none}
 }
 @keyframes pulse{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
@@ -308,7 +341,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 <div id="hdr">
   <div style="display:flex;align-items:center;gap:8px">
     <div class="csa-sq">CSA</div>
-    <div><div class="csa-name">CSA LATAM Chapter</div><div class="csa-sub">CLOUD + AI GOVERNANCE ASSESSMENT PROTOTYPE</div></div>
+    <div><div class="csa-name">CSA LATAM Chapter</div><div class="csa-sub">PROTOTIPO DE EVALUACIÓN EN CLOUD + IA</div></div>
   </div>
   <div class="hdr-nav">
     <button class="hdr-link" onclick="navHome()">Inicio</button>
@@ -334,7 +367,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
     <div class="sb-sect" style="margin-top:auto;border-top:1px solid var(--bd)">
       <div style="font-size:10px;color:var(--t2);margin-bottom:4px">Contribución de</div>
       <div style="font-size:12px;font-weight:600">CSA LATAM Chapter</div>
-      <div style="font-size:9px;color:var(--t2);font-family:var(--mo)">Assessment Prototype</div>
+      <div style="font-size:9px;color:var(--t2);font-family:var(--mo)">Prototipo de evaluación</div>
     </div>
   </div>
   <div id="main">
@@ -342,51 +375,51 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
       <!-- INTRO -->
       <div id="intro" style="padding:32px;max-width:1080px;margin:0 auto;width:100%">
         <div class="ibadge">&#9733; CSA LATAM Chapter &middot; Herramienta Gratuita</div>
-        <h1 class="ih1">Cloud + AI Governance<br>Assessment Prototype</h1>
-        <p class="isub">Prototipo impulsado por <strong style="color:var(--t0)">CSA LATAM Chapter</strong> para transformar el <strong style="color:var(--cy)">AI Controls Matrix (AICM) v1.0.3</strong> en una experiencia evidence-driven, accesible y escalable. El foco no es solo responder preguntas: es ayudar a equipos de GRC, seguridad y arquitectura a evaluar postura, interpretar controles y preparar una evolución hacia <strong style="color:var(--pu)">continuous assurance en Cloud + AI</strong>.</p>
+        <h1 class="ih1">Prototipo de Evaluación<br>de Gobierno y Seguridad en Cloud + IA</h1>
+        <p class="isub">Prototipo impulsado por <strong style="color:var(--t0)">CSA LATAM Chapter</strong> para transformar el <strong style="color:var(--cy)">AI Controls Matrix (AICM) v1.0.3</strong> en una experiencia <strong style="color:var(--t0)">basada en evidencia</strong>, accesible y escalable. El foco no es solo responder preguntas: es ayudar a equipos de GRC, seguridad y arquitectura a evaluar postura, interpretar controles y preparar una evolución hacia un modelo de <strong style="color:var(--pu)">aseguramiento continuo en Cloud + IA</strong>.</p>
         <div class="igrid">
           <div class="icard"><div class="inum" id="hero-total-controls">311</div><div class="ilabel">Preguntas del assessment</div></div>
           <div class="icard"><div class="inum">18</div><div class="ilabel">Dominios de seguridad</div></div>
-          <div class="icard ai-card"><div class="inum">&#10022;</div><div class="ilabel">Assessment evidence-driven</div></div>
+          <div class="icard ai-card"><div class="inum">&#10022;</div><div class="ilabel">Evaluación basada en evidencia</div></div>
         </div>
         <div class="scope-card">
           <div class="scope-head">
             <div>
-              <div class="scope-title">Problem / Impact / Target / North Star</div>
+              <div class="scope-title">Problema / Impacto / Público objetivo / Visión objetivo</div>
               <div class="scope-sub">Este prototipo responde a una brecha concreta en LATAM: la adopción de AI avanza más rápido que la capacidad de gobernarla. El objetivo es reducir fricción, dependencia de consultoría y falta de trazabilidad al operacionalizar AICM en una experiencia más repetible y comprensible.</div>
             </div>
-            <div class="tenant-pill">Executive Scope</div>
+            <div class="tenant-pill">Alcance ejecutivo</div>
           </div>
           <div class="scope-grid">
             <div class="scope-item">
-              <div class="scope-kicker">Problem</div>
+              <div class="scope-kicker">Problema</div>
               <strong>Aplicar AICM sigue siendo lento, manual y difícil de escalar.</strong>
-              <span>Los equipos deben interpretar controles nuevos de AI Security sin herramientas consolidadas, con alto esfuerzo y baja estandarización regional.</span>
+              <span>Los equipos deben interpretar controles nuevos de seguridad de IA sin herramientas consolidadas, con alto esfuerzo y baja estandarización regional.</span>
             </div>
             <div class="scope-item">
-              <div class="scope-kicker">Impact</div>
+              <div class="scope-kicker">Impacto</div>
               <strong>La adopción de AI supera la capacidad de gobernarla y demostrar cumplimiento.</strong>
               <span>Esto aumenta exposición a riesgo operativo, regulatorio y de confianza, especialmente en organizaciones cloud-first de sectores intensivos en riesgo.</span>
             </div>
             <div class="scope-item">
-              <div class="scope-kicker">Target</div>
-              <strong>Líderes de GRC, seguridad, riesgo y arquitectura AI/Cloud en LATAM.</strong>
+              <div class="scope-kicker">Público objetivo</div>
+              <strong>Líderes de GRC, seguridad, riesgo y arquitectura de IA/Cloud en LATAM.</strong>
               <span>Orientado a organizaciones medianas y grandes que necesitan evaluar postura, evidenciar controles y priorizar remediación sin depender totalmente de consultoría externa.</span>
             </div>
             <div class="scope-item">
-              <div class="scope-kicker">North Star</div>
-              <strong>Evolucionar hacia continuous assurance en Cloud + AI.</strong>
-              <span>La visión es correlacionar assessment, evidencia documental, tenant cloud y posture management para clasificar cumplimiento de forma más verificable y comparable.</span>
+              <div class="scope-kicker">Visión objetivo</div>
+              <strong>Evolucionar hacia aseguramiento continuo en Cloud + IA.</strong>
+              <span>La visión es correlacionar evaluación, evidencia documental, tenant cloud y gestión de postura para clasificar cumplimiento de forma más verificable y comparable.</span>
             </div>
           </div>
         </div>
         <div class="exec-card">
           <div class="exec-title">Resumen ejecutivo del alcance</div>
-          <div class="exec-sub">La solución actual funciona como una capa de diagnóstico estructurado y storytelling ejecutivo. Ayuda a traducir frameworks complejos en decisiones más claras y prepara la transición desde una autoevaluación declarativa hacia una validación más cercana a auditoría real.</div>
+          <div class="exec-sub">La solución actual funciona como una capa de diagnóstico estructurado y presentación ejecutiva. Ayuda a traducir frameworks complejos en decisiones más claras y prepara la transición desde una autoevaluación declarativa hacia una validación más cercana a auditoría real.</div>
           <div class="exec-grid">
             <div class="exec-panel">
               <strong>Qué demuestra hoy el prototipo</strong>
-              <p>Evaluación guiada de los dominios AICM, agente contextual por control, recomendaciones, trazabilidad conceptual de evidencia, señales de posture management y resultados pensados para stakeholders técnicos y ejecutivos.</p>
+              <p>Evaluación guiada de los dominios AICM, agente contextual por control, recomendaciones, trazabilidad conceptual de evidencia, señales de gestión de postura y resultados pensados para audiencias técnicas y ejecutivas.</p>
             </div>
             <div class="exec-list">
               <div class="exec-chip">
@@ -395,24 +428,53 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
               </div>
               <div class="exec-chip">
                 <span>Valor</span>
-                <strong>Mejorar consistencia, comparabilidad y comprensión de AI Governance.</strong>
+                <strong>Mejorar consistencia, comparabilidad y comprensión del gobierno de IA.</strong>
               </div>
               <div class="exec-chip">
                 <span>Evidencia</span>
-                <strong>Pasar de respuestas declarativas a una lógica evidence-driven y trazable.</strong>
+                <strong>Pasar de respuestas declarativas a una lógica basada en evidencia y trazable.</strong>
               </div>
               <div class="exec-chip">
                 <span>Futuro</span>
-                <strong>Preparar integración real con tenant, CSPM/CNAPP/AI-SPM y continuous assurance.</strong>
+                <strong>Preparar integración real con tenant, CSPM/CNAPP/AI-SPM y aseguramiento continuo.</strong>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="pitch-card">
+          <div class="pitch-head">
+            <div>
+              <div class="pitch-title">Guion de demo en 5 minutos</div>
+              <div class="pitch-sub">Bloque pensado para explicar el prototipo rápidamente ante CSA LATAM Chapter, comité interno o presentación académica, sin entrar todavía en detalle técnico profundo.</div>
+            </div>
+            <div class="tenant-pill">Versión pitch</div>
+          </div>
+          <div class="pitch-grid">
+            <div class="pitch-step"><strong>01 • Contexto</strong><span>La adopción de IA está creciendo más rápido que la capacidad de gobernarla.</span></div>
+            <div class="pitch-step"><strong>02 • Problema</strong><span>Aplicar AICM hoy sigue siendo manual, costoso y poco escalable en LATAM.</span></div>
+            <div class="pitch-step"><strong>03 • Solución</strong><span>El prototipo estructura la evaluación, explica controles y ordena la evidencia.</span></div>
+            <div class="pitch-step"><strong>04 • Diferenciación</strong><span>No se queda en Sí/No: introduce lógica basada en evidencia y gestión de postura.</span></div>
+            <div class="pitch-step"><strong>05 • Visión</strong><span>Preparar la evolución hacia aseguramiento continuo en Cloud + IA.</span></div>
+          </div>
+        </div>
+        <div class="tour-card">
+          <div class="tour-head">
+            <div>
+              <div class="tour-title">Recorrido guiado del prototipo</div>
+              <div class="tour-sub">Haz clic en cada etapa para ver cómo se explica la funcionalidad con datos realistas del problema, el uso esperado y el valor que entrega la solución en una conversación ejecutiva.</div>
+            </div>
+            <div class="tenant-pill">Guía interactiva</div>
+          </div>
+          <div class="tour-grid">
+            <div id="tour-steps" class="tour-steps"></div>
+            <div id="tour-detail" class="tour-detail"></div>
           </div>
         </div>
         <div id="agent-story" class="story-grid">
           <div class="story-card">
             <div class="story-kicker">Infraestructura</div>
             <div class="story-title">Consulta el tenant cloud</div>
-            <div class="story-copy">El agente puede conectarse a Azure, AWS o GCP para contrastar configuraciones, findings, políticas, inventarios, logging y señales de postura técnica provenientes de capacidades de posture management.</div>
+            <div class="story-copy">El agente puede conectarse a Azure, AWS o GCP para contrastar configuraciones, hallazgos, políticas, inventarios, registros y señales técnicas provenientes de capacidades de gestión de postura.</div>
           </div>
           <div class="story-card">
             <div class="story-kicker">Auditoría</div>
@@ -429,9 +491,9 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
           <div class="flow-head">
             <div>
               <div class="flow-title">Cómo trabaja el agente</div>
-              <div class="flow-sub">La evaluación deja de ser solo un cuestionario y pasa a ser una validación híbrida entre auditor, nube, posture management y evidencia documental.</div>
+              <div class="flow-sub">La evaluación deja de ser solo un cuestionario y pasa a ser una validación híbrida entre auditor, nube, gestión de postura y evidencia documental.</div>
             </div>
-            <div class="tenant-pill">Assessment + Evidence</div>
+            <div class="tenant-pill">Evaluación + evidencia</div>
           </div>
           <div class="flow-grid">
             <div class="flow-step">
@@ -442,7 +504,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
             <div class="flow-step">
               <div class="flow-num">02</div>
               <strong>Conexión al tenant</strong>
-              <span>Se consulta la infraestructura cloud para obtener señales técnicas, hallazgos de posture management y postura de seguridad real.</span>
+              <span>Se consulta la infraestructura cloud para obtener señales técnicas, hallazgos de gestión de postura y postura de seguridad real.</span>
             </div>
             <div class="flow-step">
               <div class="flow-num">03</div>
@@ -466,10 +528,10 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
         <div id="tenant-connection" class="tenant-card">
           <div class="tenant-head">
             <div>
-              <div class="tenant-title">Conexión al Tenant Cloud y Posture Management</div>
+              <div class="tenant-title">Conexión al tenant cloud y gestión de postura</div>
               <div class="tenant-sub">Esta capa simula cómo la solución validaría evidencia técnica desde el tenant o la suscripción del cliente. En una versión productiva, aquí conectaríamos OAuth, roles cross-account o service accounts de solo lectura, además de señales desde plataformas CSPM, CNAPP o AI-SPM.</div>
             </div>
-            <div id="tenant-status" class="tenant-pill">Demo mode</div>
+            <div id="tenant-status" class="tenant-pill">Modo demo</div>
           </div>
           <div class="tenant-grid">
             <button class="tenant-btn sel" onclick="selTenant(this,'Azure')">
@@ -492,7 +554,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
             <div style="font-size:16px;line-height:1">&#128274;</div>
             <div>
               <strong>Evidencia técnica simulada</strong>
-              <span>La demo mostrará evidencia por control, brecha entre lo declarado y lo evidenciado y recomendaciones asociadas al proveedor cloud seleccionado y a sus señales de posture management.</span>
+              <span>La demo mostrará evidencia por control, brecha entre lo declarado y lo evidenciado y recomendaciones asociadas al proveedor cloud seleccionado y a sus señales de gestión de postura.</span>
             </div>
           </div>
         </div>
@@ -903,6 +965,85 @@ let agentCtx=null; // {qid, ctitle, question, history}
 const agentCache={};
 const TOTAL_QUESTIONS=DOMAINS.reduce((sum,domain)=>sum + AICM[domain].length,0);
 let agentBackendReady=true;
+let activeTourStep=0;
+
+const TOUR_STEPS = [
+  {
+    kicker: 'Etapa 1',
+    title: 'Por qué existe este prototipo',
+    teaser: 'Explica el problema regional de adopción acelerada de IA versus baja capacidad de gobierno.',
+    detailTitle: 'La adopción de IA ya es masiva; la gobernanza todavía no lo es.',
+    detailCopy: 'En LATAM, muchas organizaciones ya están ejecutando casos de uso de IA sobre Azure, AWS o entornos multi-cloud, pero aún no cuentan con una forma simple y repetible de aplicar AICM. El assessment tradicional requiere interpretación experta, talleres internos y recopilación manual de evidencia.',
+    metrics: [
+      { value: '40–120 h', label: 'esfuerzo típico de consultoría por evaluación' },
+      { value: 'USD 4k–15k', label: 'rango estimado por assessment especializado' },
+      { value: '18 dominios', label: 'alcance estructural del AICM v1.0.3' }
+    ],
+    note: 'Ejemplo realista de narrativa: un banco mediano con iniciativas de IA generativa puede tardar entre 4 y 8 semanas en ordenar criterios, evidencias y reporte ejecutivo.'
+  },
+  {
+    kicker: 'Etapa 2',
+    title: 'Cómo se guía la evaluación',
+    teaser: 'Muestra que la solución convierte el framework en una experiencia guiada y comprensible.',
+    detailTitle: 'El framework se transforma en una evaluación navegable y en español.',
+    detailCopy: 'La demo estructura la evaluación por dominio, agrupa controles relacionados y reduce la carga de interpretación. Esto permite que perfiles de GRC, seguridad o arquitectura recorran el marco sin depender totalmente de un especialista externo en cada paso.',
+    metrics: [
+      { value: '311', label: 'preguntas visibles en el prototipo actual' },
+      { value: '80%+', label: 'objetivo de completitud sin asistencia externa' },
+      { value: '< 4 h', label: 'meta de tiempo para un primer recorrido guiado' }
+    ],
+    note: 'Ejemplo de uso: un líder de riesgo puede completar un primer diagnóstico con su equipo técnico en una sola sesión de trabajo y luego refinar hallazgos por prioridad.'
+  },
+  {
+    kicker: 'Etapa 3',
+    title: 'Cómo se interpreta la evidencia',
+    teaser: 'Explica la lógica híbrida entre auditor, cloud, evidencia documental y gestión de postura.',
+    detailTitle: 'La solución busca pasar de autoevaluación declarativa a evaluación sustentada.',
+    detailCopy: 'El prototipo introduce una lectura basada en evidencia: cruza lo que declara el evaluador, lo que podría observarse en el tenant cloud y lo que existe como soporte documental. Para controles técnicos, la carga recae más en señales de configuración y postura; para controles de gobierno, pesa más la trazabilidad documental.',
+    metrics: [
+      { value: 'CSPM / CNAPP', label: 'fuentes pensadas para controles técnicos' },
+      { value: 'Políticas / tickets', label: 'fuentes esperadas para controles documentales' },
+      { value: '3 estados', label: 'validado, parcial, brecha o revisión requerida' }
+    ],
+    note: 'Ejemplo realista: un control de IAM puede contrastarse con MFA y privilegios observables; uno de GRC requiere políticas vigentes, ownership y evidencia de revisión.'
+  },
+  {
+    kicker: 'Etapa 4',
+    title: 'Qué ve un comité o chapter',
+    teaser: 'Presenta el valor ejecutivo: resultados, brechas y prioridades.',
+    detailTitle: 'La salida está pensada para conversación ejecutiva, no solo para técnicos.',
+    detailCopy: 'El prototipo entrega score global, score por dominio, patrones detectados, roadmap 30/60/90, focos de remediación y lectura de evidencia. Esto permite convertir un framework complejo en una conversación más clara sobre riesgo, madurez y siguientes pasos.',
+    metrics: [
+      { value: '30 / 60 / 90', label: 'roadmap automático de remediación' },
+      { value: 'Top hallazgos', label: 'priorización inicial por control y dominio' },
+      { value: 'Exportable', label: 'resultado utilizable para auditoría y seguimiento' }
+    ],
+    note: 'Ejemplo de presentación: “Hoy tenemos brechas críticas en identidad, logging y model security; en 30 días formalizamos ownership y evidencia mínima, en 60 días cerramos controles técnicos prioritarios”.'
+  }
+];
+
+function renderTourStep(step, index){
+  return `<button class="tour-step ${index===activeTourStep?'active':''}" onclick="setTourStep(${index})"><div class="tour-step-kicker">${step.kicker}</div><div class="tour-step-title">${step.title}</div><div class="tour-step-copy">${step.teaser}</div></button>`;
+}
+
+function renderTourDetail(step){
+  return `<div class="tour-detail-kicker">${step.kicker}</div><div class="tour-detail-title">${step.detailTitle}</div><div class="tour-detail-copy">${step.detailCopy}</div><div class="tour-metrics">${step.metrics.map(metric=>`<div class="tour-metric"><strong>${metric.value}</strong><span>${metric.label}</span></div>`).join('')}</div><div class="tour-detail-note"><strong>Dato de uso:</strong> ${step.note}</div>`;
+}
+
+function setTourStep(index){
+  activeTourStep=index;
+  const stepsEl=document.getElementById('tour-steps');
+  const detailEl=document.getElementById('tour-detail');
+  if(!stepsEl || !detailEl) return;
+  stepsEl.innerHTML=TOUR_STEPS.map((step, i)=>renderTourStep(step, i)).join('');
+  detailEl.innerHTML=renderTourDetail(TOUR_STEPS[index]);
+}
+
+function initTour(){
+  if(document.getElementById('tour-steps') && document.getElementById('tour-detail')){
+    setTourStep(activeTourStep);
+  }
+}
 
 function navHome(){
   document.getElementById('results').style.display='none';
@@ -1446,7 +1587,7 @@ function selTenant(el, provider){
   el.classList.add('sel');
   const status = document.getElementById('tenant-status');
   if(status){
-    status.textContent = `${provider} · Demo mode`;
+    status.textContent = `${provider} · Modo demo`;
   }
 }
 
@@ -1456,41 +1597,119 @@ function providerEvidenceSource(provider){
   return 'Defender for Cloud / Azure Policy / CSPM';
 }
 
-function buildEvidenceItems(findings){
-  const top = findings.slice(0, 4);
-  return top.map((item, index) => {
+function getEvidenceProfile(domainCode){
+  if (["IAM","LOG","AIS","TVM","UEM","EKM","I&S"].includes(domainCode)) {
+    return { type: "technical", automation: "Alta", sourceFocus: "Señales técnicas, postura cloud y configuraciones observables" };
+  }
+  if (["MDS","STA","SEF","BCR","DSP"].includes(domainCode)) {
+    return { type: "hybrid", automation: "Media", sourceFocus: "Combinación de evidencia técnica, procesos y trazabilidad documental" };
+  }
+  return { type: "documentary", automation: "Baja", sourceFocus: "Políticas, ownership, revisiones y artefactos documentales" };
+}
+
+function buildEvidenceReviewItems(){
+  const answered = Object.entries(answers)
+    .map(([qid, answer]) => {
+      const question = getQuestionById(qid);
+      if(!question) return null;
+      const domainMeta = DMETA[question.domain] || { c: 'GEN' };
+      return {
+        qid,
+        answer,
+        cid: question.cid,
+        domain: question.domain,
+        domainCode: domainMeta.c,
+        controlTitle: translateControlTitle(question.cid, question.ct),
+        questionEs: translateQuestion(qid, question.q) || question.q
+      };
+    })
+    .filter(Boolean);
+
+  const ordered = [];
+  const firstYes = answered.find(item => item.answer === 'YES');
+  const firstNo = answered.find(item => item.answer === 'NO');
+  const firstNa = answered.find(item => item.answer === 'NA');
+  const secondYes = answered.find(item => item.answer === 'YES' && item.qid !== (firstYes && firstYes.qid));
+  [firstNo, firstYes, secondYes, firstNa].forEach(item => {
+    if(item && !ordered.some(existing => existing.qid === item.qid)) ordered.push(item);
+  });
+  answered.forEach(item => {
+    if(ordered.length >= 4) return;
+    if(!ordered.some(existing => existing.qid === item.qid)) ordered.push(item);
+  });
+  return ordered.slice(0, 4);
+}
+
+function buildEvidenceItems(){
+  const sample = buildEvidenceReviewItems();
+  return sample.map((item, index) => {
     const declared = item.answer === 'NO' ? 'No implementado' : item.answer === 'YES' ? 'Implementado' : 'No aplica';
-    const declaredShort = item.answer === 'NO' ? 'No implementado' : item.answer === 'YES' ? 'Implementado' : 'No aplica';
-    const evidenceStatus = index % 3 === 0 ? 'No validado' : index % 3 === 1 ? 'Parcial' : 'Implementado';
-    const statusClass = evidenceStatus === 'Implementado' ? 'good' : evidenceStatus === 'Parcial' ? 'warn' : 'bad';
+    const declaredShort = declared;
+    const profile = getEvidenceProfile(item.domainCode);
     const source = providerEvidenceSource(tenantProvider);
-    const evidenceText = tenantProvider === 'Azure'
-      ? `Se consultarían configuraciones, findings y señales de posture management desde ${source} para validar este control en recursos y servicios asociados.`
-      : tenantProvider === 'AWS'
-        ? `Se contrastaría este control con hallazgos, configuración, trazabilidad y posture findings obtenidos desde ${source}.`
-        : `Se revisaría cumplimiento técnico, posture management y postura de seguridad a partir de ${source}.`;
-    const documentary = index % 2 === 0
-      ? 'Disponible'
-      : 'Parcial';
-    const documentaryText = documentary === 'Disponible'
-      ? 'Política vigente, captura de consola, ticket de remediación y reporte de revisión disponibles para contraste.'
-      : 'Existe evidencia parcial: procedimiento documentado y artefactos operativos, pero falta trazabilidad completa o validación reciente.';
-    const verdict = evidenceStatus === 'Implementado'
-      ? 'Validado'
-      : evidenceStatus === 'Parcial'
-        ? 'Validación parcial'
-        : 'Contradicción detectada';
-    const verdictClass = evidenceStatus === 'Implementado' ? 'verdict-good' : evidenceStatus === 'Parcial' ? 'verdict-warn' : 'verdict-bad';
-    const agentConclusion = evidenceStatus === 'Implementado'
-      ? 'Conclusión del agente: el control aparece razonablemente respaldado por señales técnicas y evidencia documental.'
-      : evidenceStatus === 'Parcial'
-        ? 'Conclusión del agente: el control muestra avance, pero la cobertura técnica o documental todavía no permite validarlo completamente.'
-        : 'Conclusión del agente: el control permanece no validado; la declaración del auditor requiere contraste adicional y priorización de remediación.';
-    const gap = evidenceStatus === 'Implementado'
-      ? 'La evidencia técnica esperada respalda la declaración y sugiere validar periodicidad y coverage.'
-      : evidenceStatus === 'Parcial'
-        ? 'La evidencia técnica sería insuficiente para sostener completamente la respuesta declarada; conviene revisar alcance, exceptions y coverage.'
-        : 'La evidencia técnica simulada contradice o no respalda la respuesta declarada; este control debería priorizarse para validación real.';
+
+    let evidenceStatus = 'Parcial';
+    let statusClass = 'warn';
+    let documentary = 'Parcial';
+    let documentaryText = 'Existe evidencia parcial: procedimiento documentado y artefactos operativos, pero falta trazabilidad completa o validación reciente.';
+    let verdict = 'Validación parcial';
+    let verdictClass = 'verdict-warn';
+    let agentConclusion = 'Conclusión del agente: el control requiere revisión adicional para consolidar evidencia suficiente.';
+    let gap = 'La cobertura de evidencia todavía no permite sostener completamente la conclusión del control.';
+
+    if (item.answer === 'NO') {
+      evidenceStatus = 'No validado';
+      statusClass = 'bad';
+      documentary = profile.type === 'documentary' ? 'Insuficiente' : 'Parcial';
+      documentaryText = profile.type === 'documentary'
+        ? 'No se observan políticas vigentes, actas de revisión o artefactos suficientes para sustentar el control.'
+        : 'La documentación existe solo de forma parcial y no compensa la ausencia de señales técnicas o de operación.';
+      verdict = 'Brecha confirmada';
+      verdictClass = 'verdict-bad';
+      agentConclusion = 'Conclusión del agente: la evidencia disponible confirma que el control presenta una brecha real y debería priorizarse en el plan de remediación.';
+      gap = 'La evidencia técnica o documental no respalda la implementación del control; conviene asignar ownership y plan de cierre.';
+    } else if (item.answer === 'YES' && profile.type === 'technical' && index % 2 === 0) {
+      evidenceStatus = 'Implementado';
+      statusClass = 'good';
+      documentary = 'Disponible';
+      documentaryText = 'Se cuenta con procedimiento, registro de revisión y trazabilidad básica para acompañar la evidencia técnica observada.';
+      verdict = 'Validado';
+      verdictClass = 'verdict-good';
+      agentConclusion = 'Conclusión del agente: el control aparece respaldado por señales técnicas consistentes y por documentación suficiente para auditoría inicial.';
+      gap = 'No se observan brechas inmediatas; el foco pasa a mantener periodicidad de revisión y coverage.';
+    } else if (item.answer === 'YES' && profile.type === 'technical') {
+      evidenceStatus = 'Parcial';
+      statusClass = 'warn';
+      documentary = 'Parcial';
+      verdict = 'Contradicción detectada';
+      verdictClass = 'verdict-bad';
+      agentConclusion = 'Conclusión del agente: la organización declara el control como implementado, pero la evidencia técnica simulada sugiere una cobertura menor a la esperada.';
+      gap = 'Existe una diferencia entre la declaración del auditor y la señal técnica observable; conviene revisar alcance, excepciones y cobertura real.';
+    } else if (item.answer === 'YES' && profile.type === 'documentary') {
+      evidenceStatus = 'Revisión requerida';
+      statusClass = 'review';
+      documentary = 'Disponible';
+      documentaryText = 'El control parece apoyarse en política, ownership y evidencia de revisión, pero su validación depende de documentación formal y vigencia comprobable.';
+      verdict = 'Revisión documental';
+      verdictClass = 'verdict-review';
+      agentConclusion = 'Conclusión del agente: el control podría considerarse implementado, pero su validación depende más de la calidad documental que de señales técnicas automáticas.';
+      gap = 'La prioridad es confirmar vigencia documental, responsables y trazabilidad de revisiones periódicas.';
+    } else if (item.answer === 'NA') {
+      evidenceStatus = 'Revisión requerida';
+      statusClass = 'review';
+      documentary = 'Parcial';
+      verdict = 'N/A por confirmar';
+      verdictClass = 'verdict-review';
+      agentConclusion = 'Conclusión del agente: el control fue marcado como N/A, pero conviene confirmar que realmente no aplica al alcance, arquitectura y modelo operativo evaluado.';
+      gap = 'El riesgo aquí no es técnico, sino de clasificación: un control mal descartado puede ocultar una brecha relevante.';
+    }
+
+    const evidenceText = profile.type === 'technical'
+      ? `Para este control se esperarían principalmente configuraciones, hallazgos y señales de gestión de postura desde ${source}.`
+      : profile.type === 'hybrid'
+        ? `Para este control se esperaría una combinación de señales cloud desde ${source} junto con artefactos operativos y trazabilidad documental.`
+        : `Para este control el mayor peso recae en evidencia documental y de gobierno; ${source} puede aportar contexto, pero no validación plena por sí solo.`;
+
     return {
       cid: item.cid,
       questionEs: item.questionEs,
@@ -1505,13 +1724,15 @@ function buildEvidenceItems(findings){
       verdict,
       verdictClass,
       agentConclusion,
-      gap
+      gap,
+      automation: profile.automation,
+      sourceFocus: profile.sourceFocus
     };
   });
 }
 
-function renderEvidencePanel(findings){
-  const items = buildEvidenceItems(findings);
+function renderEvidencePanel(){
+  const items = buildEvidenceItems();
   const validated = items.filter(item => item.evidenceStatus === 'Implementado').length;
   const partial = items.filter(item => item.evidenceStatus === 'Parcial').length;
   const gaps = items.filter(item => item.evidenceStatus === 'No validado').length;
@@ -1542,6 +1763,10 @@ function renderEvidencePanel(findings){
         <div class="evidence-text">${item.source}</div>
       </div>
       <div class="evidence-row">
+        <div class="evidence-label">Peso esperado de evidencia</div>
+        <div class="evidence-text">${item.sourceFocus}. Automatización esperada: ${item.automation}.</div>
+      </div>
+      <div class="evidence-row">
         <div class="evidence-label">Evidencia documental</div>
         <div class="evidence-text">${item.documentaryText}</div>
       </div>
@@ -1560,7 +1785,7 @@ function renderEvidencePanel(findings){
       <div class="evidence-head">
         <div>
           <div class="evidence-title">Evidencia Técnica del Tenant y Posture Management</div>
-          <div class="evidence-sub">Vista conceptual de cómo se cruzaría la evaluación humana con evidencia automática proveniente de <strong style="color:var(--t0)">${tenantProvider}</strong> y de capacidades de posture management. Esto permite distinguir controles declarados, evidenciados y brechas que requieren validación real.</div>
+          <div class="evidence-sub">Vista conceptual de cómo se cruzaría la evaluación humana con evidencia automática proveniente de <strong style="color:var(--t0)">${tenantProvider}</strong> y de capacidades de gestión de postura. La lectura varía según el tipo de control: algunos dependen más de señales técnicas y otros de gobierno y documentación.</div>
         </div>
         <div class="evidence-chip">${tenantProvider} conectado en modo demo</div>
       </div>
@@ -1785,7 +2010,7 @@ function showResults(){
   const scl=sc>=80?'Maduro':sc>=60?'En desarrollo':sc>=40?'Inicial':'Básico';
   const C=2*Math.PI*45;const off=C-(sc/100)*C;
   const findings = buildFindings();
-  const evidenceHtml = renderEvidencePanel(findings);
+  const evidenceHtml = renderEvidencePanel();
   const recommendationsHtml = renderRecommendations(findings);
   const agenticInsightsHtml = renderAgenticInsights(findings);
   let dr='';
@@ -1799,7 +2024,7 @@ function showResults(){
     const m=DMETA[d];const translated = translateDomain(d);const dn2=translated.length>40?translated.substring(0,38)+'..':translated;
     dr+=`<div class="drc"><div class="drh"><span class="drcode">${m.c}</span><span class="drsc" style="color:${dc}">${ds}/100</span></div><div class="drn">${dn2}</div><div class="drbg"><div class="drf" style="width:${ds}%;background:${dc}"></div></div><div class="drct"><span class="drci" style="color:#22C55E">Sí:${dy}</span><span class="drci" style="color:#E53E3E">No:${dn}</span><span class="drci" style="color:#F5A623">N/A:${dna}</span><span class="drci" style="color:#5A7499">-:${qs.length-da}</span></div></div>`;
   });
-  r.innerHTML=`<div><div class="rh">Resultados — Cloud + AI Governance Assessment</div><div class="rs">${orgN}${orgS?' · '+orgS:''} · Rol: ${selRole_val||'No definido'} · ${new Date().toLocaleDateString('es-CL')}</div></div>
+  r.innerHTML=`<div><div class="rh">Resultados — Evaluación de Gobierno y Seguridad en Cloud + IA</div><div class="rs">${orgN}${orgS?' · '+orgS:''} · Rol: ${selRole_val||'No definido'} · ${new Date().toLocaleDateString('es-CL')}</div></div>
   <div class="sgrid">
     <div class="src">
       <div style="font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Score Global</div>
@@ -1853,6 +2078,7 @@ function restart(){
 }
 
 hydrateLLMConfig();
+initTour();
 </script>
 </body>
 </html>
