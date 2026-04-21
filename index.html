@@ -32,15 +32,15 @@
         radial-gradient(circle at top right, rgba(30, 213, 193, 0.18), transparent 24%),
         linear-gradient(180deg, #091120 0%, #06101c 100%);
       min-height: 100vh;
-      padding-left: 96px;
+      padding-left: 244px;
     }
     .portal-nav {
       position: fixed;
       top: 12px;
       left: 12px;
       bottom: 12px;
-      width: 72px;
-      padding: 14px 10px;
+      width: 220px;
+      padding: 16px 12px;
       border-radius: 22px;
       border: 1px solid var(--line);
       background: rgba(8, 16, 31, 0.94);
@@ -48,9 +48,16 @@
       backdrop-filter: blur(18px);
       display: flex;
       flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+      z-index: 200;
+    }
+    .portal-head {
+      display: flex;
       align-items: center;
       gap: 10px;
-      z-index: 200;
+      padding: 6px 4px 10px;
+      border-bottom: 1px solid var(--line);
     }
     .portal-mark {
       width: 42px;
@@ -62,25 +69,41 @@
       font: 700 12px var(--mono);
       letter-spacing: 0.08em;
       color: #fff;
-      margin-bottom: 4px;
+      flex-shrink: 0;
+    }
+    .portal-title {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .portal-title strong {
+      font-size: 12px;
+      line-height: 1.2;
+      color: var(--text);
+    }
+    .portal-title span {
+      font-size: 10px;
+      color: var(--muted);
+      line-height: 1.35;
+      margin-top: 2px;
     }
     .portal-link,
     .portal-back {
       width: 100%;
-      min-height: 54px;
+      min-height: 50px;
       border-radius: 16px;
       border: 1px solid transparent;
       background: rgba(255, 255, 255, 0.02);
       color: var(--muted);
       text-decoration: none;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-      text-align: center;
-      padding: 8px 6px;
-      font-size: 10px;
+      gap: 10px;
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 11px;
       font-weight: 700;
       line-height: 1.2;
       transition: all 0.18s ease;
@@ -98,6 +121,9 @@
     .portal-back strong {
       font: 700 12px var(--mono);
       color: var(--cyan);
+      width: 30px;
+      text-align: center;
+      flex-shrink: 0;
     }
     .portal-spacer {
       flex: 1;
@@ -402,14 +428,28 @@
       .portal-mark {
         width: 40px;
         height: 40px;
-        margin-bottom: 0;
         flex-shrink: 0;
       }
+      .portal-head {
+        border-bottom: none;
+        padding: 0;
+        flex-shrink: 0;
+      }
+      .portal-title { display: none; }
       .portal-link,
       .portal-back {
         width: 92px;
         min-height: 46px;
         flex-shrink: 0;
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+        gap: 4px;
+        padding: 8px 6px;
+      }
+      .portal-link strong,
+      .portal-back strong {
+        width: auto;
       }
       .portal-spacer { display: none; }
       .hero, .grid, .steps { grid-template-columns: 1fr; }
@@ -427,26 +467,32 @@
 </head>
 <body>
   <nav class="portal-nav" aria-label="Navegación entre interfaces">
-    <div class="portal-mark">CSA</div>
+    <div class="portal-head">
+      <div class="portal-mark">CSA</div>
+      <div class="portal-title">
+        <strong>CSA LATAM</strong>
+        <span>Navegación del prototipo</span>
+      </div>
+    </div>
     <button class="portal-back" onclick="history.back()">
       <strong>&larr;</strong>
       <span>Volver</span>
     </button>
     <a class="portal-link active" href="index.html">
       <strong>01</strong>
-      <span>Hub</span>
+      <span>Centro</span>
     </a>
     <a class="portal-link" href="csa_latam_aicm_agent_backend.html">
       <strong>02</strong>
-      <span>Demo</span>
+      <span>Demo principal</span>
     </a>
     <a class="portal-link" href="csa_latam_aicm_agent_openai.html">
       <strong>03</strong>
-      <span>OpenAI</span>
+      <span>Variante OpenAI</span>
     </a>
     <a class="portal-link" href="csa_latam_aicm_agent.html">
       <strong>04</strong>
-      <span>Base</span>
+      <span>Versión base</span>
     </a>
     <div class="portal-spacer"></div>
   </nav>
