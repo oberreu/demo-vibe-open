@@ -345,12 +345,13 @@
 
     <section class="hero">
       <div class="hero-card">
-        <div class="eyebrow">Assessment demo • AI-CAIQ + AICM</div>
-        <h2>Evalúa Cloud + AI Security con una experiencia mucho más demo-ready.</h2>
+        <div class="eyebrow">CSA LATAM • Evidence-driven Cloud + AI Governance</div>
+        <h2>De un assessment manual a un prototipo de continuous assurance para Cloud + AI.</h2>
         <p>
-          Este proyecto traduce el framework de controles de CSA en una experiencia navegable para assessment:
-          preguntas por dominio, scoring, contexto de implementación y un agente IA que actúa como asesor técnico
-          para explicar evidencia, brechas comunes y próximos pasos.
+          Este proyecto traduce el `AI Controls Matrix (AICM) v1.0.3` de CSA en una experiencia navegable y en español
+          para organizaciones de LATAM. El foco ya no es solo responder preguntas: es acelerar la interpretación de
+          controles, capturar evidencia, visualizar postura de seguridad y preparar el camino hacia un modelo
+          evidence-driven de `Cloud + AI Governance`.
         </p>
         <div class="cta-row">
           <a class="btn primary" href="csa_latam_aicm_agent_backend.html">Abrir versión recomendada</a>
@@ -364,19 +365,19 @@
         <div class="stat-grid">
           <div class="stat">
             <strong>18</strong>
-            <span>Dominios AICM presentados como recorrido estructurado de evaluación.</span>
+            <span>Dominios AICM estructurados para evaluación guiada y comparable.</span>
+          </div>
+          <div class="stat">
+            <strong>243</strong>
+            <span>Controles AICM v1.0.3 como base conceptual del problema que el prototipo operacionaliza.</span>
           </div>
           <div class="stat">
             <strong>AI</strong>
-            <span>Agente contextual para explicar controles con foco práctico y evidencia esperada.</span>
-          </div>
-          <div class="stat">
-            <strong>3</strong>
-            <span>Versiones de la demo según el escenario: base, guía local recomendada y variante OpenAI.</span>
+            <span>Agente contextual para interpretar controles, evidencia y brechas con foco práctico.</span>
           </div>
           <div class="stat">
             <strong>LATAM</strong>
-            <span>Narrativa alineada al Chapter LATAM y a casos de adopción regionales.</span>
+            <span>Narrativa alineada al Chapter LATAM, adopción temprana y baja madurez regional en AI Governance.</span>
           </div>
         </div>
       </aside>
@@ -387,8 +388,9 @@
         <div class="pill">Recomendada</div>
         <h3>Control Guidance Demo</h3>
         <p>
-          La mejor opción para mostrar el proyecto a terceros. El agente funciona con recomendaciones locales por
-          control y por dominio, así que la demo es estable, pública y no depende de API externa durante la evaluación.
+          La mejor opción para mostrar el prototipo a terceros. Comunica la propuesta de valor completa:
+          assessment guiado, evidencia, posture management, narrativa ejecutiva y dirección futura hacia continuous assurance,
+          sin depender de API externa durante la evaluación.
         </p>
         <div class="meta">
           <span>Más estable</span>
@@ -406,7 +408,8 @@
         <h3>OpenAI Client Demo</h3>
         <p>
           Variante experimental para pruebas rápidas con API key en el navegador. Útil si quieres comparar el flujo
-          local con una respuesta generativa, pero no es la opción recomendada para compartir públicamente.
+          local con una respuesta generativa, pero no es la opción recomendada para compartir públicamente ni para
+          posicionar el alcance estratégico actual del prototipo.
         </p>
         <div class="meta">
           <span>Más simple</span>
@@ -423,7 +426,8 @@
         <h3>Base Assessment UI</h3>
         <p>
           La versión sin integración activa del agente. Sirve como baseline funcional del cuestionario y como punto
-          de comparación para mostrar cómo evoluciona el producto al incorporar guía contextual por control.
+          de comparación para mostrar cómo evoluciona el producto desde una autoevaluación declarativa hacia una
+          experiencia evidence-driven más cercana a auditoría real.
         </p>
         <div class="meta">
           <span>Sin dependencia API</span>
@@ -437,36 +441,37 @@
     </section>
 
     <section class="arch">
-      <h3>Cómo se entiende el demo en 4 pasos</h3>
+      <h3>Scope actual del prototipo en 4 pasos</h3>
       <div class="steps">
         <div class="step">
-          <strong>01 • SCOPE</strong>
-          <p>La app recorre dominios AICM y preguntas AI-CAIQ para estructurar un self-assessment más guiado.</p>
+          <strong>01 • PROBLEMA</strong>
+          <p>LATAM adopta Cloud + AI más rápido de lo que puede gobernarlos, y aplicar AICM manualmente sigue siendo lento, costoso y poco escalable.</p>
         </div>
         <div class="step">
-          <strong>02 • EVALUACIÓN</strong>
-          <p>El usuario responde controles por dominio y visualiza avance, cobertura y estado del assessment.</p>
+          <strong>02 • PROTOTIPO</strong>
+          <p>La app estructura el assessment, guía la evaluación y baja la barrera de entrada para interpretar controles de AI Security y AI Governance.</p>
         </div>
         <div class="step">
-          <strong>03 • AGENTE</strong>
-          <p>El copiloto explica el control, su implementación, evidencia esperada y brechas comunes en LATAM.</p>
+          <strong>03 • EVIDENCIA</strong>
+          <p>El agente introduce una lógica evidence-driven: explica controles, evidencia esperada, posture management y brechas entre lo declarado y lo evidenciado.</p>
         </div>
         <div class="step">
-          <strong>04 • RESULTADO</strong>
-          <p>La demo devuelve scoring, hallazgos y una narrativa más lista para stakeholders técnicos y ejecutivos.</p>
+          <strong>04 • NORTH STAR</strong>
+          <p>La meta es evolucionar hacia una plataforma de continuous assurance en Cloud + AI, con integración de evidencia y validación más automatizada.</p>
         </div>
       </div>
     </section>
 
     <section class="note">
-      <h3>Qué abrir según el contexto</h3>
+      <h3>Problem Statement y dirección futura</h3>
       <p>
-        Si vas a compartir el proyecto o presentarlo, parte por <strong>Control Guidance Demo</strong>. Si estás iterando
-        comportamiento del agente, usa <strong>OpenAI Client Demo</strong>. Si quieres mostrar la evolución del producto
-        desde una base estática hacia una experiencia con copiloto, conserva también la <strong>Base Assessment UI</strong>.
+        Los equipos de `GRC`, seguridad, riesgo y arquitectura de `AI/Cloud` necesitan evaluar y demostrar cumplimiento
+        sobre controles de `Cloud + AI` sin depender totalmente de consultoría experta. Este prototipo busca reducir
+        ese esfuerzo, aumentar trazabilidad y preparar una evolución hacia evaluaciones repetibles, comparables y
+        evidence-driven para el ecosistema `CSA LATAM Chapter`.
       </p>
       <div class="footer">
-        <span>Repo pensado para demo, exploración y storytelling de producto.</span>
+        <span>Repo pensado para demo, exploración, storytelling de producto y definición de scope futuro.</span>
         <span>Diseñado para CSA LATAM Chapter • Vibe Coding y Prototipado de Productos con AI<br>Máster en Inteligencia Artificial Generativa &amp; No Code - Universidad Complutense de Madrid</span>
       </div>
     </section>
