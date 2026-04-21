@@ -90,7 +90,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 #agent-send{padding:8px 14px;background:var(--pu);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:11px;font-weight:700;font-family:var(--fn);flex-shrink:0}
 #agent-send:disabled{opacity:.4;cursor:not-allowed}
 /* INTRO */
-#intro{padding:32px;max-width:660px;margin:0 auto;width:100%}
+#intro{padding:32px;max-width:1080px;margin:0 auto;width:100%}
 .ibadge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:var(--cyf);border:1px solid #00C4A840;border-radius:20px;font-size:11px;color:var(--cy);font-weight:600;margin-bottom:20px}
 .ih1{font-size:26px;font-weight:700;margin-bottom:8px;line-height:1.2}
 .isub{font-size:13px;color:var(--t1);line-height:1.6;margin-bottom:20px}
@@ -140,6 +140,26 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 .story-kicker{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--cy);margin-bottom:8px}
 .story-title{font-size:14px;font-weight:700;color:var(--t0);margin-bottom:8px}
 .story-copy{font-size:11px;color:var(--t1);line-height:1.65}
+.scope-card{background:linear-gradient(180deg,#0E1931 0%,#0A1324 100%);border:1px solid var(--bdl);border-radius:14px;padding:20px;margin-bottom:16px}
+.scope-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}
+.scope-title{font-size:14px;font-weight:700;color:var(--t0)}
+.scope-sub{font-size:11px;color:var(--t1);line-height:1.65;max-width:78ch}
+.scope-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.scope-item{padding:16px;border-radius:12px;background:rgba(19,32,56,.78);border:1px solid rgba(109,146,209,.18)}
+.scope-kicker{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--cy);margin-bottom:8px}
+.scope-item strong{display:block;font-size:14px;color:var(--t0);margin-bottom:8px;line-height:1.35}
+.scope-item span{display:block;font-size:11px;color:var(--t1);line-height:1.65}
+.exec-card{background:linear-gradient(180deg,#101B33 0%,#0A1222 100%);border:1px solid var(--bdl);border-radius:14px;padding:20px;margin-bottom:16px}
+.exec-title{font-size:14px;font-weight:700;color:var(--t0);margin-bottom:6px}
+.exec-sub{font-size:11px;color:var(--t1);line-height:1.65;margin-bottom:14px;max-width:76ch}
+.exec-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:12px}
+.exec-panel{padding:16px;border-radius:12px;background:rgba(19,32,56,.78);border:1px solid rgba(109,146,209,.18)}
+.exec-panel strong{display:block;font-size:11px;font-family:var(--mo);color:var(--cy);margin-bottom:8px}
+.exec-panel p{font-size:12px;color:var(--t1);line-height:1.7}
+.exec-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.exec-chip{padding:12px;border-radius:12px;background:rgba(12,21,37,.92);border:1px solid rgba(109,146,209,.16)}
+.exec-chip span{display:block;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--t2);margin-bottom:6px}
+.exec-chip strong{display:block;font-size:12px;color:var(--t0);line-height:1.55}
 .flow-card{background:var(--bg1);border:1px solid var(--bd);border-radius:12px;padding:18px;margin-bottom:16px}
 .flow-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
 .flow-title{font-size:13px;font-weight:700;color:var(--t0)}
@@ -276,7 +296,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 #btn-exp{padding:8px 18px;background:var(--bl);color:#fff;border:none;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--fn)}
 #btn-rst{padding:8px 18px;background:transparent;color:var(--t1);border:1px solid var(--bd);border-radius:7px;font-size:11px;cursor:pointer;font-family:var(--fn)}
 @media (max-width:1100px){
-  .story-grid,.flow-grid,.evidence-summary,.evidence-grid,.insight-wrap,.rec-grid,.tenant-grid,.sgrid{grid-template-columns:1fr}
+  .story-grid,.flow-grid,.evidence-summary,.evidence-grid,.insight-wrap,.rec-grid,.tenant-grid,.sgrid,.scope-grid,.exec-grid,.exec-list{grid-template-columns:1fr}
   .hdr-nav{display:none}
 }
 @keyframes pulse{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
@@ -323,12 +343,71 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
       <!-- INTRO -->
       <div id="intro" style="padding:32px;max-width:660px;margin:0 auto;width:100%">
         <div class="ibadge">&#9733; CSA LATAM Chapter &middot; Herramienta Gratuita</div>
-        <h1 class="ih1">AI Controls Matrix<br>Self-Assessment Tool</h1>
-        <p class="isub">Evalúa la postura de seguridad de tu organización frente a los controles del AI-CAIQ v1.0.2. Incluye un <strong style="color:var(--pu)">Agente de validación de evidencia</strong> que cruza respuestas del auditor, señales del tenant cloud, capacidades de <strong style="color:var(--cy)">posture management</strong> y artefactos documentales para orientar implementación, conclusión y remediación.</p>
+        <h1 class="ih1">Cloud + AI Governance<br>Assessment Prototype</h1>
+        <p class="isub">Prototipo impulsado por <strong style="color:var(--t0)">CSA LATAM Chapter</strong> para transformar el <strong style="color:var(--cy)">AI Controls Matrix (AICM) v1.0.3</strong> en una experiencia evidence-driven, accesible y escalable. El foco no es solo responder preguntas: es ayudar a equipos de GRC, seguridad y arquitectura a evaluar postura, interpretar controles y preparar una evolución hacia <strong style="color:var(--pu)">continuous assurance en Cloud + AI</strong>.</p>
         <div class="igrid">
-          <div class="icard"><div class="inum" id="hero-total-controls">311</div><div class="ilabel">Preguntas AI-CAIQ v1.0.2</div></div>
+          <div class="icard"><div class="inum" id="hero-total-controls">311</div><div class="ilabel">Preguntas del assessment</div></div>
           <div class="icard"><div class="inum">18</div><div class="ilabel">Dominios de seguridad</div></div>
-          <div class="icard ai-card"><div class="inum">&#10022;</div><div class="ilabel">Correlación de evidencia</div></div>
+          <div class="icard ai-card"><div class="inum">&#10022;</div><div class="ilabel">Assessment evidence-driven</div></div>
+        </div>
+        <div class="scope-card">
+          <div class="scope-head">
+            <div>
+              <div class="scope-title">Problem / Impact / Target / North Star</div>
+              <div class="scope-sub">Este prototipo responde a una brecha concreta en LATAM: la adopción de AI avanza más rápido que la capacidad de gobernarla. El objetivo es reducir fricción, dependencia de consultoría y falta de trazabilidad al operacionalizar AICM en una experiencia más repetible y comprensible.</div>
+            </div>
+            <div class="tenant-pill">Executive Scope</div>
+          </div>
+          <div class="scope-grid">
+            <div class="scope-item">
+              <div class="scope-kicker">Problem</div>
+              <strong>Aplicar AICM sigue siendo lento, manual y difícil de escalar.</strong>
+              <span>Los equipos deben interpretar controles nuevos de AI Security sin herramientas consolidadas, con alto esfuerzo y baja estandarización regional.</span>
+            </div>
+            <div class="scope-item">
+              <div class="scope-kicker">Impact</div>
+              <strong>La adopción de AI supera la capacidad de gobernarla y demostrar cumplimiento.</strong>
+              <span>Esto aumenta exposición a riesgo operativo, regulatorio y de confianza, especialmente en organizaciones cloud-first de sectores intensivos en riesgo.</span>
+            </div>
+            <div class="scope-item">
+              <div class="scope-kicker">Target</div>
+              <strong>Líderes de GRC, seguridad, riesgo y arquitectura AI/Cloud en LATAM.</strong>
+              <span>Orientado a organizaciones medianas y grandes que necesitan evaluar postura, evidenciar controles y priorizar remediación sin depender totalmente de consultoría externa.</span>
+            </div>
+            <div class="scope-item">
+              <div class="scope-kicker">North Star</div>
+              <strong>Evolucionar hacia continuous assurance en Cloud + AI.</strong>
+              <span>La visión es correlacionar assessment, evidencia documental, tenant cloud y posture management para clasificar cumplimiento de forma más verificable y comparable.</span>
+            </div>
+          </div>
+        </div>
+        <div class="exec-card">
+          <div class="exec-title">Resumen ejecutivo del alcance</div>
+          <div class="exec-sub">La solución actual funciona como una capa de diagnóstico estructurado y storytelling ejecutivo. Ayuda a traducir frameworks complejos en decisiones más claras y prepara la transición desde una autoevaluación declarativa hacia una validación más cercana a auditoría real.</div>
+          <div class="exec-grid">
+            <div class="exec-panel">
+              <strong>Qué demuestra hoy el prototipo</strong>
+              <p>Evaluación guiada de los dominios AICM, agente contextual por control, recomendaciones, trazabilidad conceptual de evidencia, señales de posture management y resultados pensados para stakeholders técnicos y ejecutivos.</p>
+            </div>
+            <div class="exec-list">
+              <div class="exec-chip">
+                <span>Tiempo</span>
+                <strong>Reducir el assessment desde semanas a una experiencia más cercana a horas.</strong>
+              </div>
+              <div class="exec-chip">
+                <span>Valor</span>
+                <strong>Mejorar consistencia, comparabilidad y comprensión de AI Governance.</strong>
+              </div>
+              <div class="exec-chip">
+                <span>Evidencia</span>
+                <strong>Pasar de respuestas `YES/NO` a una lógica evidence-driven y trazable.</strong>
+              </div>
+              <div class="exec-chip">
+                <span>Futuro</span>
+                <strong>Preparar integración real con tenant, CSPM/CNAPP/AI-SPM y continuous assurance.</strong>
+              </div>
+            </div>
+          </div>
         </div>
         <div id="agent-story" class="story-grid">
           <div class="story-card">
