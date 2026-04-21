@@ -191,6 +191,11 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 .tour-metric span{display:block;font-size:10px;color:var(--t1);line-height:1.5}
 .tour-detail-note{padding:12px;border-radius:12px;background:rgba(0,196,168,.08);border:1px solid rgba(0,196,168,.18);font-size:11px;color:var(--t1);line-height:1.7}
 .tour-detail-note strong{color:var(--cy)}
+.tour-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.tour-btn{padding:10px 14px;border-radius:12px;border:1px solid var(--bd);background:rgba(12,21,37,.9);color:var(--t0);font-size:11px;font-weight:700;cursor:pointer;font-family:var(--fn)}
+.tour-btn.primary{background:linear-gradient(135deg,rgba(45,107,244,.28),rgba(0,196,168,.22));border-color:rgba(45,107,244,.4)}
+.tour-btn:hover{border-color:var(--t1)}
+.spotlight{animation:spotlightPulse 1.6s ease 2}
 .flow-card{background:var(--bg1);border:1px solid var(--bd);border-radius:12px;padding:18px;margin-bottom:16px}
 .flow-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
 .flow-title{font-size:13px;font-weight:700;color:var(--t0)}
@@ -332,6 +337,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
   .hdr-nav{display:none}
 }
 @keyframes pulse{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
+@keyframes spotlightPulse{0%,100%{box-shadow:0 0 0 0 rgba(45,107,244,0)}50%{box-shadow:0 0 0 3px rgba(45,107,244,.55),0 0 28px rgba(0,196,168,.18)}}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:var(--bg1)}
 ::-webkit-scrollbar-thumb{background:var(--bd);border-radius:99px}
@@ -979,7 +985,9 @@ const TOUR_STEPS = [
       { value: 'USD 4k–15k', label: 'rango estimado por assessment especializado' },
       { value: '18 dominios', label: 'alcance estructural del AICM v1.0.3' }
     ],
-    note: 'Ejemplo realista de narrativa: un banco mediano con iniciativas de IA generativa puede tardar entre 4 y 8 semanas en ordenar criterios, evidencias y reporte ejecutivo.'
+    note: 'Ejemplo realista de narrativa: un banco mediano con iniciativas de IA generativa puede tardar entre 4 y 8 semanas en ordenar criterios, evidencias y reporte ejecutivo.',
+    actionLabel: 'Abrir bloque de tenant',
+    action: 'tourOpenTenant'
   },
   {
     kicker: 'Etapa 2',
@@ -992,7 +1000,9 @@ const TOUR_STEPS = [
       { value: '80%+', label: 'objetivo de completitud sin asistencia externa' },
       { value: '< 4 h', label: 'meta de tiempo para un primer recorrido guiado' }
     ],
-    note: 'Ejemplo de uso: un líder de riesgo puede completar un primer diagnóstico con su equipo técnico en una sola sesión de trabajo y luego refinar hallazgos por prioridad.'
+    note: 'Ejemplo de uso: un líder de riesgo puede completar un primer diagnóstico con su equipo técnico en una sola sesión de trabajo y luego refinar hallazgos por prioridad.',
+    actionLabel: 'Mostrar control ejemplo',
+    action: 'tourShowExampleControl'
   },
   {
     kicker: 'Etapa 3',
@@ -1005,7 +1015,9 @@ const TOUR_STEPS = [
       { value: 'Políticas / tickets', label: 'fuentes esperadas para controles documentales' },
       { value: '3 estados', label: 'validado, parcial, brecha o revisión requerida' }
     ],
-    note: 'Ejemplo realista: un control de IAM puede contrastarse con MFA y privilegios observables; uno de GRC requiere políticas vigentes, ownership y evidencia de revisión.'
+    note: 'Ejemplo realista: un control de IAM puede contrastarse con MFA y privilegios observables; uno de GRC requiere políticas vigentes, ownership y evidencia de revisión.',
+    actionLabel: 'Cargar evaluación demo',
+    action: 'tourLoadPresetAssessment'
   },
   {
     kicker: 'Etapa 4',
@@ -1018,16 +1030,39 @@ const TOUR_STEPS = [
       { value: 'Top hallazgos', label: 'priorización inicial por control y dominio' },
       { value: 'Exportable', label: 'resultado utilizable para auditoría y seguimiento' }
     ],
-    note: 'Ejemplo de presentación: “Hoy tenemos brechas críticas en identidad, logging y model security; en 30 días formalizamos ownership y evidencia mínima, en 60 días cerramos controles técnicos prioritarios”.'
+    note: 'Ejemplo de presentación: “Hoy tenemos brechas críticas en identidad, logging y model security; en 30 días formalizamos ownership y evidencia mínima, en 60 días cerramos controles técnicos prioritarios”.',
+    actionLabel: 'Ir a vista ejecutiva',
+    action: 'tourExecutiveView'
   }
 ];
+
+const DEMO_PRESET = {
+  org: 'Banco Andina LATAM',
+  sector: 'Banca y Servicios Financieros',
+  role: 'AIC',
+  provider: 'Azure',
+  answers: {
+    'IAM-01.1':'YES',
+    'IAM-02.1':'NO',
+    'LOG-03.1':'NO',
+    'LOG-14.1':'YES',
+    'MDS-03.1':'NO',
+    'STA-16.1':'NO',
+    'TVM-11.1':'YES',
+    'GRC-01.1':'YES',
+    'A&A-02.1':'YES',
+    'DSP-03.1':'NA',
+    'AIS-10.1':'YES',
+    'SEF-03.1':'NO'
+  }
+};
 
 function renderTourStep(step, index){
   return `<button class="tour-step ${index===activeTourStep?'active':''}" onclick="setTourStep(${index})"><div class="tour-step-kicker">${step.kicker}</div><div class="tour-step-title">${step.title}</div><div class="tour-step-copy">${step.teaser}</div></button>`;
 }
 
 function renderTourDetail(step){
-  return `<div class="tour-detail-kicker">${step.kicker}</div><div class="tour-detail-title">${step.detailTitle}</div><div class="tour-detail-copy">${step.detailCopy}</div><div class="tour-metrics">${step.metrics.map(metric=>`<div class="tour-metric"><strong>${metric.value}</strong><span>${metric.label}</span></div>`).join('')}</div><div class="tour-detail-note"><strong>Dato de uso:</strong> ${step.note}</div>`;
+  return `<div class="tour-detail-kicker">${step.kicker}</div><div class="tour-detail-title">${step.detailTitle}</div><div class="tour-detail-copy">${step.detailCopy}</div><div class="tour-metrics">${step.metrics.map(metric=>`<div class="tour-metric"><strong>${metric.value}</strong><span>${metric.label}</span></div>`).join('')}</div><div class="tour-detail-note"><strong>Dato de uso:</strong> ${step.note}</div><div class="tour-actions"><button class="tour-btn primary" onclick="${step.action}()">${step.actionLabel}</button><button class="tour-btn" onclick="navHome()">Volver al inicio</button></div>`;
 }
 
 function setTourStep(index){
@@ -1043,6 +1078,86 @@ function initTour(){
   if(document.getElementById('tour-steps') && document.getElementById('tour-detail')){
     setTourStep(activeTourStep);
   }
+}
+
+function setRoleUI(role){
+  selRole_val = role;
+  const order = ['AIC','AP','OSP','MP','CSP'];
+  document.querySelectorAll('.rbtn').forEach((btn, index) => {
+    btn.classList.toggle('sel', order[index] === role);
+  });
+}
+
+function applyDemoPreset(){
+  tenantProvider = DEMO_PRESET.provider;
+  const orgInput = document.getElementById('org-name');
+  const sectorInput = document.getElementById('org-sector');
+  if(orgInput) orgInput.value = DEMO_PRESET.org;
+  if(sectorInput) sectorInput.value = DEMO_PRESET.sector;
+  setRoleUI(DEMO_PRESET.role);
+  const tenantButtons = document.querySelectorAll('.tenant-btn');
+  tenantButtons.forEach(btn => {
+    const match = btn.textContent.includes(DEMO_PRESET.provider);
+    btn.classList.toggle('sel', match);
+  });
+  const tenantStatus = document.getElementById('tenant-status');
+  if(tenantStatus) tenantStatus.textContent = `${DEMO_PRESET.provider} · Modo demo`;
+}
+
+function ensureAssessmentStarted(){
+  applyDemoPreset();
+  if(document.getElementById('intro').style.display !== 'none'){
+    startA();
+  }
+}
+
+function spotlightElement(el){
+  if(!el) return;
+  el.classList.remove('spotlight');
+  void el.offsetWidth;
+  el.classList.add('spotlight');
+}
+
+function tourOpenTenant(){
+  navHome();
+  setTimeout(() => {
+    scrollToSection('tenant-connection');
+    spotlightElement(document.getElementById('tenant-connection'));
+  }, 120);
+}
+
+function tourShowExampleControl(){
+  ensureAssessmentStarted();
+  const sample = getQuestionById('AIS-10.1');
+  if(!sample) return;
+  const idx = DOMAINS.indexOf(sample.domain);
+  showDom(idx);
+  setTimeout(() => {
+    const el = document.getElementById('qAIS-10_1');
+    if(el){
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      spotlightElement(el);
+    }
+    openAgent(sample.id, sample.cid, translateControlTitle(sample.cid, sample.ct), sample.q);
+  }, 160);
+}
+
+function tourLoadPresetAssessment(){
+  ensureAssessmentStarted();
+  answers = { ...DEMO_PRESET.answers };
+  buildSB();
+  showResults();
+}
+
+function tourExecutiveView(){
+  tourLoadPresetAssessment();
+  setTimeout(() => {
+    const results = document.getElementById('results');
+    if(results){
+      results.scrollTo({top:0, behavior:'smooth'});
+      spotlightElement(results);
+    }
+  }, 120);
 }
 
 function navHome(){
