@@ -19,8 +19,14 @@
   --fn:"SF Pro Display","Segoe UI",system-ui,sans-serif;
   --mo:"SF Mono","Cascadia Code",Consolas,monospace;
 }
-body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100vh;overflow:hidden}
-#hdr{height:52px;background:var(--bg1);border-bottom:1px solid var(--bd);display:flex;align-items:center;padding:0 16px;gap:12px;position:fixed;top:0;width:100%;z-index:100}
+body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100vh;overflow:hidden;padding-left:96px}
+#hdr{height:52px;background:var(--bg1);border-bottom:1px solid var(--bd);display:flex;align-items:center;padding:0 16px;gap:12px;position:fixed;top:0;left:96px;width:calc(100% - 96px);z-index:100}
+.portal-nav{position:fixed;top:12px;left:12px;bottom:12px;width:72px;padding:14px 10px;border-radius:22px;border:1px solid var(--bd);background:rgba(8,16,31,.94);display:flex;flex-direction:column;align-items:center;gap:10px;z-index:220;box-shadow:0 24px 80px rgba(0,0,0,.35);backdrop-filter:blur(18px)}
+.portal-mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#1B4FD8,#00C4A8);display:grid;place-items:center;font:700 12px var(--mo);letter-spacing:.08em;color:#fff;margin-bottom:4px}
+.portal-link,.portal-back{width:100%;min-height:54px;border-radius:16px;border:1px solid transparent;background:rgba(255,255,255,.02);color:var(--t2);text-decoration:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;padding:8px 6px;font-size:10px;font-weight:700;line-height:1.2;transition:all .18s ease;cursor:pointer;font-family:var(--fn)}
+.portal-link:hover,.portal-back:hover,.portal-link.active{color:var(--t0);border-color:#2D6BF455;background:#2D6BF420}
+.portal-link strong,.portal-back strong{font:700 12px var(--mo);color:var(--cy)}
+.portal-spacer{flex:1}
 .csa-sq{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#1B4FD8,#00C4A8);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;font-family:var(--mo)}
 .csa-name{font-size:13px;font-weight:700}
 .csa-sub{font-size:9px;color:var(--t2);font-family:var(--mo)}
@@ -333,6 +339,13 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 #btn-exp{padding:8px 18px;background:var(--bl);color:#fff;border:none;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--fn)}
 #btn-rst{padding:8px 18px;background:transparent;color:var(--t1);border:1px solid var(--bd);border-radius:7px;font-size:11px;cursor:pointer;font-family:var(--fn)}
 @media (max-width:1100px){
+  body{padding-left:0;padding-top:92px}
+  #hdr{left:0;top:92px;width:100%}
+  #app{height:calc(100vh - 144px);margin-top:144px}
+  .portal-nav{top:12px;left:12px;right:12px;bottom:auto;width:auto;height:68px;flex-direction:row;justify-content:flex-start;overflow-x:auto;padding:10px}
+  .portal-mark{width:40px;height:40px;margin-bottom:0;flex-shrink:0}
+  .portal-link,.portal-back{width:92px;min-height:46px;flex-shrink:0}
+  .portal-spacer{display:none}
   .story-grid,.flow-grid,.evidence-summary,.evidence-grid,.insight-wrap,.rec-grid,.tenant-grid,.sgrid,.scope-grid,.exec-grid,.exec-list,.pitch-grid,.tour-grid,.tour-metrics{grid-template-columns:1fr}
   .hdr-nav{display:none}
 }
@@ -344,6 +357,15 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 </style>
 </head>
 <body>
+<nav class="portal-nav" aria-label="Navegación entre interfaces">
+  <div class="portal-mark">CSA</div>
+  <button class="portal-back" onclick="history.back()"><strong>&larr;</strong><span>Volver</span></button>
+  <a class="portal-link" href="index.html"><strong>01</strong><span>Hub</span></a>
+  <a class="portal-link active" href="csa_latam_aicm_agent_backend.html"><strong>02</strong><span>Demo</span></a>
+  <a class="portal-link" href="csa_latam_aicm_agent_openai.html"><strong>03</strong><span>OpenAI</span></a>
+  <a class="portal-link" href="csa_latam_aicm_agent.html"><strong>04</strong><span>Base</span></a>
+  <div class="portal-spacer"></div>
+</nav>
 <div id="hdr">
   <div style="display:flex;align-items:center;gap:8px">
     <div class="csa-sq">CSA</div>
