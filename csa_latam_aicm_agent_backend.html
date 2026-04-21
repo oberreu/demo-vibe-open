@@ -32,6 +32,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
 .portal-link:hover,.portal-back:hover,.portal-link.active{color:var(--t0);border-color:#2D6BF455;background:#2D6BF420}
 .portal-link strong,.portal-back strong{font:700 12px var(--mo);color:var(--cy);width:30px;text-align:center;flex-shrink:0}
 .portal-spacer{flex:1}
+.portal-link.portal-context strong{color:var(--bl)}
 .portal-link.portal-utility strong{color:var(--pu)}
 .csa-sq{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#1B4FD8,#00C4A8);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;font-family:var(--mo)}
 .csa-name{font-size:13px;font-weight:700}
@@ -378,6 +379,13 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
   <a class="portal-link active" href="csa_latam_aicm_agent_backend.html"><strong>◫</strong><span>Demo principal</span></a>
   <a class="portal-link" href="csa_latam_aicm_agent_openai.html"><strong>✦</strong><span>Variante OpenAI</span></a>
   <a class="portal-link" href="csa_latam_aicm_agent.html"><strong>□</strong><span>Versión base</span></a>
+  <div class="portal-section-label">Secciones</div>
+  <button class="portal-link portal-context" onclick="scrollToSection('intro')"><strong>01</strong><span>Inicio ejecutivo</span></button>
+  <button class="portal-link portal-context" onclick="scrollToSection('executive-scope')"><strong>02</strong><span>Alcance</span></button>
+  <button class="portal-link portal-context" onclick="scrollToSection('agent-story')"><strong>03</strong><span>Recorrido</span></button>
+  <button class="portal-link portal-context" onclick="scrollToSection('tenant-connection')"><strong>04</strong><span>Tenant cloud</span></button>
+  <button class="portal-link portal-context" onclick="scrollToSection('setup-assessment')"><strong>05</strong><span>Evaluación</span></button>
+  <button class="portal-link portal-context" onclick="navResults()"><strong>06</strong><span>Resultados</span></button>
   <div class="portal-spacer"></div>
   <div class="portal-section-label">Recursos</div>
   <a class="portal-link portal-utility" href="README.md"><strong>i</strong><span>README</span></a>
@@ -427,7 +435,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
           <div class="icard"><div class="inum">18</div><div class="ilabel">Dominios de seguridad</div></div>
           <div class="icard ai-card"><div class="inum">&#10022;</div><div class="ilabel">Evaluación basada en evidencia</div></div>
         </div>
-        <div class="scope-card">
+        <div id="executive-scope" class="scope-card">
           <div class="scope-head">
             <div>
               <div class="scope-title">Problema / Impacto / Público objetivo / Visión objetivo</div>
@@ -603,7 +611,7 @@ body{background:var(--bg0);color:var(--t0);font-family:var(--fn);min-height:100v
             </div>
           </div>
         </div>
-        <div class="oform">
+        <div id="setup-assessment" class="oform">
           <div class="sb-label" style="margin-bottom:12px">Tu organización</div>
           <label class="fl">Nombre de la organización</label>
           <input class="fi" id="org-name" placeholder="Ej: Banco Andina S.A."/>
